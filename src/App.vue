@@ -82,7 +82,9 @@
                         icon
                         :href="item.link" target="_blank"
                         >
-                    <v-icon :icon=item.icon :size="xs?20:25" class="social-bticon-icon"></v-icon></v-btn>
+                    <v-icon v-if="item.icon && item.icon.startsWith('mdi-')" :icon="item.icon" :size="xs?20:25" class="social-bticon-icon"></v-icon>
+                    <v-avatar v-else :image="item.icon" rounded="0" :size="xs?18:22"></v-avatar>
+                    </v-btn>
                     </v-col>
                     </v-row>
 

@@ -1,37 +1,37 @@
 const config = {
 	//网页元数据
 	metaData: {
-		title: 'Leleo的个人主页🎉',
-		description: '欢迎来到Leleo的奇妙世界！',
-		keywords: 'Leleo,leleo,个人主页,个人网站',
+		title: 'LanHao的个人主页🎉',
+		description: '欢迎来到LanHao的奇妙世界！',
+		keywords: 'LanHao,lanhao,个人主页,个人网站',
 		icon: '/favicon.ico'   //网页图标，支持外链
 	},
 
 	avatar: "/img/avatar.jpg", // 头像
-	welcometitle: "Hi, I'm Leleo", // 标题
+	welcometitle: "Hi, I'm LanHao", // 标题
 
 	// 颜色配置
 	color: {
-		themecolor: "#FFFFFF", // 主题颜色，推荐趋于亮白可带有轻微色调，例： #D1FFEC
-		welcometitlecolor: "#FFFFFF", // 标题颜色 例： #7BFFC9
+		themecolor: "#c2fff0", // 主题颜色，推荐趋于亮白可带有轻微色调，例： #D1FFEC
+		welcometitlecolor: "#c2fff0", // 标题颜色 例： #7BFFC9
 		turntablecolor1: "#FFFF00",  // 转盘渐变色一
 		turntablecolor2: "#00FFFF"   // 转盘渐变色二
 	},
 
-	brightness: 85, // 背景亮度 --%
+	brightness: 75, // 背景亮度 --%
 	blur: 5, // 毛玻璃模糊效果
 
 	// 我的标签
-	tags: ['乐观开朗', '温柔体贴', '随和亲切', '冷静沉着', '才思敏捷', '风趣幽默', '刚正不阿', '善解人意'],
+	tags: ["医学", "视频", "摄影", "动画", "独立游戏", "IP写作"],
 
 	// 默认背景壁纸
 	background: {
 		"pc": {   //pc端
 			"type": "pic",   //"pic":静态壁纸;"video":动态壁纸
 			"datainfo": {
-				"title": "海洋女孩",
-				"preview": "/img/wallpaper/static/海洋女孩/image-pre.webp",
-				"url": "/img/wallpaper/static/海洋女孩/image.png",     //当然，也可填写网络地址或壁纸api，如随机PC壁纸api："url":"https://t.mwm.moe/pc"
+				"title": "paper",
+				"preview": "/img/wallpaper/static/Paper_Texture_07.png",
+				"url": "/img/wallpaper/static/Paper_Texture_07.png",     //当然，也可填写网络地址或壁纸api，如随机PC壁纸api："url":""
 			},
 		},
 		"mobile": {   //移动端
@@ -47,26 +47,26 @@ const config = {
 
 	//极坐标图数据
 	polarChart: {
-		skills: ['Vue.js', 'React', 'JavaScript', 'Node', 'Java', 'Python', 'linux', 'Docker', 'MySQL', 'MongoDB', 'AWS'],
-		skillPoints: [85, 78, 88, 90, 80, 78, 85, 65, 82, 78, 70],
+		skills: ['医学', '视频', '摄影', '动画', '独立游戏', '写作'],
+		skillPoints: [60, 80, 50, 50, 60, 60],
 	},
 
 	//社交按钮
 	socialPlatformIcons: [
-		{ icon: "mdi-github", link: "https://www.github.com/leleo886" },
-		{ icon: "mdi-email", link: "mailto:leleo886@foxmail.com" },
-		{ icon: "mdi-qqchat", link: "https://im.qq.com/" },
+		{ icon: "mdi-github", link: "https://www.github.com/LanHao99" },
+		{ icon: "mdi-email", link: "lan_hao@sjtu.edu.cn" },
+		{ icon: "/img/icons/bilibili.eps", link: "https://space.bilibili.com/3494358330378685?spm_id_from=333.337.0.0" },
 		{ icon: "mdi-wechat", link: "https://wx.qq.com/" },
-		{ icon: "mdi-youtube", link: "https://www.youtube.com" },
-		{ icon: "mdi-facebook", link: "https://www.facebook.com" }
+		{ icon: "mdi-youtube", link: "https://www.youtube.com/@Lan_Hao" },
+		{ icon: "/img/icons/xiaohongshu.eps", link: "https://xhslink.com/m/5Vz5y6b1Ues" }
 	],
 
 	//打字机
 	typeWriterStrings: [
-		"如果你看到了这行字，说明我已经成功吸引到了你的注意力。",
-		"顶峰的少年，给了你所有细节，你却说我不是迪迦，给不了你想要的光。",
-		"心简单，世界就简单，幸福才会生长；心自由，生活就自由，到哪都有快乐。",
-		"生命太短，没有时间留给遗憾，若不是终点，请微笑一直向前。"
+		"我们想要给万事万物赋予意义，归根结底，是因为无法面对世界的虚无本质罢了。",
+		"我们坐在一艘帆船上。四周都是海洋，连接到遥远的地平线。",
+		"所有的魔法都是时间魔法。",
+		"知识由语言承载，语言的“概念”彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。"
 	],
 
 	//音乐播放配置，采用MetingJS Api(https://github.com/metowolf/MetingJS)
@@ -79,6 +79,7 @@ const config = {
 	//壁纸数据 -----可以将壁纸文件上传到图床获取网络直链。若想调用api，请前往脚本自行修改逻辑
 	wallpaper: {
 		pic: [
+			{ "title": "paper", "preview": "/img/wallpaper/static/Paper_Texture_07.png", "url": "/img/wallpaper/static/Paper_Texture_07.png" },
 			{ "title": "海洋女孩", "preview": "/img/wallpaper/static/海洋女孩/image-pre.webp", "url": "/img/wallpaper/static/海洋女孩/image.png" },
 			{ "title": "书房夜晚", "preview": "/img/wallpaper/static/书房夜晚/image-pre.webp", "url": "/img/wallpaper/static/书房夜晚/image.png" },
 			{ "title": "安逸舒适", "preview": "/img/wallpaper/static/安逸舒适/image-pre.webp", "url": "/img/wallpaper/static/安逸舒适/image.png" },
@@ -102,11 +103,6 @@ const config = {
 		],
 		video: [
 			{
-				"title": "尼尔：机械纪元 团队",
-				"preview": "/img/wallpaper/dynamic/尼尔：机械纪元 团队/Nier-Automata-Team-pre.webm",
-				"url": "/img/wallpaper/dynamic/尼尔：机械纪元 团队/Nier-Automata-Team.webm"
-			},
-			{
 				"title": "向往航天的女孩",
 				"preview": "/img/wallpaper/dynamic/向往航天的女孩/Toy-Aeroplane-pre.webm",
 				"url": "/img/wallpaper/dynamic/向往航天的女孩/Toy-Aeroplane.webm"
@@ -124,11 +120,6 @@ const config = {
 				"url": "/img/wallpaper/dynamic-mobile/幻觉镇-gaako_illust/Hallucination_town.mp4"
 			},
 			{
-				"title": "chuva",
-				"preview": "/img/wallpaper/dynamic-mobile/chuva/chuva-pre.mp4",
-				"url": "/img/wallpaper/dynamic-mobile/chuva/chuva.mp4"
-			},
-			{
 				"title": "Doodle-小猫女仆降临",
 				"preview": "/img/wallpaper/dynamic-mobile/Doodle-小猫女仆降临/d12-pre.mp4",
 				"url": "/img/wallpaper/dynamic-mobile/Doodle-小猫女仆降临/d12.mp4"
@@ -138,17 +129,17 @@ const config = {
 
 	//项目卡片 其中 字段"show"控制初始卡片的text是否展开
 	projectcards: [
-		{ go: "🚀 前往", img: "/img/sunshine.jpg", title: "Project 1", subtitle: "1,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://leleo.top", show: false },
-		{ go: "🗂️ 前往", img: "/img/sunshine.jpg", title: "Project 2", subtitle: "2,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://leleo.top", show: false },
-		{ go: "📝 前往", img: "/img/sunshine.jpg", title: "Project 3", subtitle: "3,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://leleo.top", show: false },
-		{ go: "👍 前往", img: "/img/sunshine.jpg", title: "Project 4", subtitle: "4,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://leleo.top", show: false },
-		{ go: "🗃 前往", img: "/img/sunshine.jpg", title: "Project 5", subtitle: "5,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://leleo.top", show: false },
-		{ go: "🎨 前往", img: "/img/sunshine.jpg", title: "Project 6", subtitle: "6,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://leleo.top", show: false },
-		{ go: "💍 前往", img: "/img/sunshine.jpg", title: "Project 7", subtitle: "7,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://leleo.top", show: false },
-		{ go: "🔍 前往", img: "/img/sunshine.jpg", title: "Project 8", subtitle: "8,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://leleo.top", show: false },
+		{ go: "🚀 前往", img: "/img/anime1.jpg", title: "太微知识库", subtitle: "概念网", text: "知识由语言承载，语言的“概念”彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。", url: "https://lanhao.cc/LanHaoTiddly", show: false },
+		{ go: "🗂️ 前往", img: "/img/anime2.jpg", title: "IP设计", subtitle: "位面游荡", text: "筑起一座乌托邦。", url: "https://lanhao.cc/IP", show: false },
+		{ go: "📽️ 前往", img: "/img/anime3.jpg", title: "视频创作", subtitle: "3,000 miles of wonder", text: "创作本身就是意义。", url: "https://lanhao.cc/Video", show: false },
+		{ go: "🎮 前往", img: "/img/anime4.jpg", title: "独立游戏", subtitle: "\"homo ludens\"", text: "给沉闷的世界带来一丝乐趣", url: "https://lanhao.cc/Games", show: false },
+		{ go: "🗃 前往", img: "/img/anime5.jpg", title: "绘画与动画", subtitle: "没AI画的好", text: "AI只能带来焦虑，握在手里的笔才踏实", url: "https://lanhao.cc/ArtCartoon", show: false },
+		{ go: "🎨 前往", img: "/img/anime1.jpg", title: "邀请函", subtitle: "加入我们！", text: "何时能得到自己想要的生活呢？", url: "https://lanhao.cc/Invitation", show: false },
+		{ go: "💍 前往", img: "/img/anime2.jpg", title: "网文", subtitle: "扑街小能手", text: "所有的魔法都是时间魔法。", url: "https://lanhao.cc/Novel", show: false },
+		{ go: "🔍 前往", img: "/img/anime3.jpg", title: "实用网址汇总", subtitle: "8,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://lanhao.cc/Links", show: false },
 	],
 
-	statement: ["备案号：XXICP备123456789号", "Copyright © 2025 Leleo"],
+	statement: ["备案号：沪ICP备2024056990号-1", "Copyright © 2026 Medigeek"],
 }
 
 export default config
