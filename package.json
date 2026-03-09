@@ -1,29 +1,27 @@
 {
-  "name": "lanhao99.github.io",
-  "version": "1.0.0",
-  "description": "这是澜浩个人博客的主页。",
-  "main": "index.js",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
+  "name": "vite-vuetify",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LanHao99/lanhao99.github.io.git"
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LanHao99/lanhao99.github.io/issues"
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "chart.js": "^4.4.7",
+    "less": "^4.2.0",
+    "typeit": "^8.8.7",
+    "vue": "^3.5.12",
+    "vue-chartjs": "^5.3.2",
+    "vuetify": "^3.7.4"
   },
-  "homepage": "https://github.com/LanHao99/lanhao99.github.io#readme",
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^6.2.4",
-    "svelte": "^5.53.7",
-    "vite": "^7.3.1",
-    "vite-plugin-static-copy": "^3.2.0"
+    "@vitejs/plugin-vue": "^5.1.4",
+    "vite": "^5.4.10"
   }
 }
