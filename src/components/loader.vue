@@ -1,55 +1,81 @@
 <template>
-<div class="spinner"></div>
-</template> 
+  <div class="loader"></div>
+</template>
 
 <style scoped>
-/* From Uiverse.io by Nawsome */ 
-.spinner:before {
-  transform: rotateX(60deg) rotateY(45deg) rotateZ(45deg);
-  animation: 750ms rotateBefore infinite linear reverse;
+.loader {
+  position: relative;
+  font-size: 16px;
+  width: 5.5em;
+  height: 5.5em;
 }
 
-.spinner:after {
-  transform: rotateX(240deg) rotateY(45deg) rotateZ(45deg);
-  animation: 750ms rotateAfter infinite linear;
-}
-
-.spinner:before,
-.spinner:after {
-  box-sizing: border-box;
+.loader:before {
   content: '';
-  display: block;
   position: absolute;
-  margin-top: -5em;
-  margin-left: -5em;
-  width: 10em;
-  height: 10em;
-  transform-style: preserve-3d;
-  transform-origin: 50%;
-  transform: rotateY(50%);
-  perspective-origin: 50% 50%;
-  perspective: 340px;
-  background-size: 10em 10em;
-  background-image: url(/img/loader.svg);
-}
-/* sitNSpin.less */
-@keyframes rotateBefore {
-  from {
-    transform: rotateX(60deg) rotateY(45deg) rotateZ(0deg);
-  }
-
-  to {
-    transform: rotateX(60deg) rotateY(45deg) rotateZ(-360deg);
-  }
+  transform: translate(-50%, -50%) rotate(45deg);
+  height: 100%;
+  width: 4px;
+  background: #fff;
+  left: 50%;
+  top: 50%;
 }
 
-@keyframes rotateAfter {
-  from {
-    transform: rotateX(240deg) rotateY(45deg) rotateZ(0deg);
+.loader:after {
+  content: '';
+  position: absolute;
+  left: 0.2em;
+  bottom: 0.18em;
+  width: 1em;
+  height: 1em;
+  background-color: orange;
+  border-radius: 15%;
+  animation: rollingRock 2.5s cubic-bezier(.79, 0, .47, .97) infinite;
+}
+
+@keyframes rollingRock {
+  0% {
+    transform: translate(0, -1em) rotate(-45deg);
   }
 
-  to {
-    transform: rotateX(240deg) rotateY(45deg) rotateZ(360deg);
+  5% {
+    transform: translate(0, -1em) rotate(-50deg);
+  }
+
+  20% {
+    transform: translate(1em, -2em) rotate(47deg);
+  }
+
+  25% {
+    transform: translate(1em, -2em) rotate(45deg);
+  }
+
+  30% {
+    transform: translate(1em, -2em) rotate(40deg);
+  }
+
+  45% {
+    transform: translate(2em, -3em) rotate(137deg);
+  }
+
+  50% {
+    transform: translate(2em, -3em) rotate(135deg);
+  }
+
+  55% {
+    transform: translate(2em, -3em) rotate(130deg);
+  }
+
+  70% {
+    transform: translate(3em, -4em) rotate(217deg);
+  }
+
+  75% {
+    transform: translate(3em, -4em) rotate(220deg);
+  }
+
+  100% {
+    transform: translate(0, -1em) rotate(-225deg);
   }
 }
 </style>

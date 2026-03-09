@@ -18,7 +18,7 @@ const config = {
 		turntablecolor2: "#00FFFF"   // 转盘渐变色二
 	},
 
-	brightness: 75, // 背景亮度 --%
+	brightness: 80, // 背景亮度 --%
 	blur: 5, // 毛玻璃模糊效果
 
 	// 我的标签
@@ -30,8 +30,8 @@ const config = {
 			"type": "pic",   //"pic":静态壁纸;"video":动态壁纸
 			"datainfo": {
 				"title": "paper",
-				"preview": "/img/wallpaper/static/Paper_Texture_07.png",
-				"url": "/img/wallpaper/static/Paper_Texture_07.png",     //当然，也可填写网络地址或壁纸api，如随机PC壁纸api："url":""
+				"preview": "/img/wallpaper/static/Paper_Texture_07.jpg",
+				"url": "/img/wallpaper/static/Paper_Texture_07.jpg",     //当然，也可填写网络地址或壁纸api，如随机PC壁纸api："url":""
 			},
 		},
 		"mobile": {   //移动端
@@ -54,11 +54,11 @@ const config = {
 	//社交按钮
 	socialPlatformIcons: [
 		{ icon: "mdi-github", link: "https://www.github.com/LanHao99" },
-		{ icon: "mdi-email", link: "lan_hao@sjtu.edu.cn" },
-		{ icon: "/img/icons/bilibili.eps", link: "https://space.bilibili.com/3494358330378685?spm_id_from=333.337.0.0" },
+		{ icon: "mdi-email", link: "mailto:lan_hao@sjtu.edu.cn" },
+		{ icon: "/img/icons/bilibili.svg", link: "https://space.bilibili.com/3494358330378685?spm_id_from=333.337.0.0" },
 		{ icon: "mdi-wechat", link: "https://wx.qq.com/" },
 		{ icon: "mdi-youtube", link: "https://www.youtube.com/@Lan_Hao" },
-		{ icon: "/img/icons/xiaohongshu.eps", link: "https://xhslink.com/m/5Vz5y6b1Ues" }
+		{ icon: "/img/icons/xiaohongshu.svg", link: "https://xhslink.com/m/5Vz5y6b1Ues" }
 	],
 
 	//打字机
