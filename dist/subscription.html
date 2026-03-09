@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Us - 澜浩的个人博客</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+    .header {
+      padding: 1rem 2rem;
+      background: rgba(15, 12, 41, 0.8);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00d9ff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #00d9ff;
+    }
+    .content {
+      padding: 4rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #00d9ff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 3rem;
+    }
+    .social-section {
+      margin: 3rem 0;
+    }
+    .social-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 255, 136, 0.2));
+      border: 1px solid rgba(0, 217, 255, 0.5);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+    .social-btn:hover {
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.4), rgba(0, 255, 136, 0.4));
+      transform: translateY(-3px);
+    }
+    .contact-form {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+    }
+    .contact-form h2 {
+      margin-bottom: 1.5rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .submit-btn {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #00d9ff, #00ff88);
+      border: none;
+      border-radius: 30px;
+      color: #0f0c29;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">澜浩的个人博客</div>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="video.html">视频与动画</a>
+      <a href="ip.html">IP创作</a>
+      <a href="game.html">独立游戏</a>
+      <a href="research.html">研究与科普</a>
+      <a href="subscription.html">Join Us</a>
+    </nav>
+  </header>
+  <main class="content">
+    <h1>Join Us!</h1>
+    <p class="subtitle">加入我们，一起创造精彩内容</p>
+    
+    <div class="social-section">
+      <h2>关注我们</h2>
+      <div class="social-buttons">
+        <a href="https://bilibili.com" target="_blank" class="social-btn">B站</a>
+        <a href="https://xiaohongshu.com" target="_blank" class="social-btn">小红书</a>
+        <a href="#" class="social-btn">微信公众号</a>
+        <a href="https://lanhao.cc/LanHaoTiddly/" target="_blank" class="social-btn">TiddlyWiki</a>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h2>联系我们</h2>
+      <form>
+        <input type="text" placeholder="你的名字">
+        <input type="email" placeholder="你的邮箱">
+        <textarea rows="5" placeholder="留言内容"></textarea>
+        <button type="submit" class="submit-btn">发送消息</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
