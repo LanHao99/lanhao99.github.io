@@ -7,11 +7,13 @@ export default defineConfig({
     svelte(),
     viteStaticCopy({
       targets: [
-        { src: '*.html', dest: '.' }
+        // Keep non-entry static pages and CNAME in dist without overwriting built index.html.
+        { src: '{video,ip,game,research,subscription}.html', dest: '.' },
+        { src: 'CNAME', dest: '.' }
       ]
     })
   ],
-  base: './',
+  base: '/',
   build: {
     outDir: 'dist',
     emptyOutDir: true
