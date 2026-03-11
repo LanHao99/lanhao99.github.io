@@ -34,6 +34,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Copy static subdirectories
+        run: |
+          cp -r Novel dist/Novel
+          cp -r Games dist/Games
+          cp -r ArtCartoon dist/ArtCartoon
+          cp -r Invitation dist/Invitation
+          cp -r IP dist/IP
+          cp -r Video dist/Video
+          cp -r Links dist/Links
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

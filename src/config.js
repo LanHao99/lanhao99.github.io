@@ -129,7 +129,7 @@ const config = {
 
 	//项目卡片 其中 字段"show"控制初始卡片的text是否展开
 	projectcards: [
-		{ go: "🚀 前往", img: "/img/anime1.jpg", title: "太微知识库", subtitle: "概念网", text: "知识由语言承载，语言的"概念"彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。", url: "https://lanhao.cc/LanHaoTiddly/", show: false },
+		{ go: "🚀 前往", img: "/img/anime1.jpg", title: "太微知识库", subtitle: "概念网", text: "知识由语言承载，语言的\"概念\"彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。", url: "https://lanhao.cc/LanHaoTiddly/", show: false },
 		{ go: "🗂️ 前往", img: "/img/anime2.jpg", title: "IP设计", subtitle: "位面游荡", text: "筑起一座乌托邦。", url: "/IP/", show: false },
 		{ go: "📽️ 前往", img: "/img/anime3.jpg", title: "视频创作", subtitle: "3,000 miles of wonder", text: "创作本身就是意义。", url: "/Video/", show: false },
 		{ go: "🎮 前往", img: "/img/anime4.jpg", title: "独立游戏", subtitle: "\"homo ludens\"", text: "给沉闷的世界带来一丝乐趣", url: "/Games/", show: false },
