@@ -34,21 +34,23 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Copy static subdirectories
+      - name: Copy static subdirectories and custom domain
         run: |
-          cp -r Novel dist/Novel
-          cp -r Games dist/Games
-          cp -r ArtCartoon dist/ArtCartoon
-          cp -r Invitation dist/Invitation
-          cp -r IP dist/IP
-          cp -r Video dist/Video
-          cp -r Links dist/Links
+          set -e
+          for dir in Novel Games ArtCartoon Invitation IP Video Links LanHaoTiddly; do
+            if [ -d "$dir" ]; then
+              cp -r "$dir" "dist/$dir"
+            fi
+          done
+          if [ -f CNAME ]; then
+            cp CNAME dist/CNAME
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
