@@ -136,7 +136,7 @@ const config = {
 		{ go: "🗃 前往", img: "/img/anime5.jpg", title: "绘画与动画", subtitle: "没AI画的好", text: "AI只能带来焦虑，握在手里的笔才踏实", url: "https://lanhao.cc/ArtCartoon", show: false },
 		{ go: "🎨 前往", img: "/img/anime1.jpg", title: "邀请函", subtitle: "加入我们！", text: "何时能得到自己想要的生活呢？", url: "https://lanhao.cc/Invitation", show: false },
 		{ go: "💍 前往", img: "/img/anime2.jpg", title: "网文", subtitle: "扑街小能手", text: "所有的魔法都是时间魔法。", url: "https://lanhao.cc/Novel", show: false },
-		{ go: "🔍 前往", img: "/img/anime3.jpg", title: "实用网址汇总", subtitle: "8,000 miles of wonder", text: "If you see this line, I've managed to get your attention.", url: "https://lanhao.cc/Links", show: false },
+		{ go: "🔍 前往", img: "/img/anime3.jpg", title: "课表", subtitle: "坐牢大师", text: "", url: "https://lanhao.cc/Links", show: false },
 	],
 
 	statement: ["备案号：沪ICP备2024056990号-1", "Copyright © 2026 Medigeek"],
