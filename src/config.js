@@ -129,14 +129,14 @@ const config = {
 
 	//项目卡片 其中 字段"show"控制初始卡片的text是否展开
 	projectcards: [
-		{ go: "🚀 前往", img: "/img/anime1.jpg", title: "太微知识库", subtitle: "概念网", text: "知识由语言承载，语言的“概念”彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。", url: "https://lanhao.cc/LanHaoTiddly", show: false },
-		{ go: "🗂️ 前往", img: "/img/anime2.jpg", title: "IP设计", subtitle: "位面游荡", text: "筑起一座乌托邦。", url: "https://lanhao.cc/IP", show: false },
-		{ go: "📽️ 前往", img: "/img/anime3.jpg", title: "视频创作", subtitle: "3,000 miles of wonder", text: "创作本身就是意义。", url: "https://lanhao.cc/Video", show: false },
-		{ go: "🎮 前往", img: "/img/anime4.jpg", title: "独立游戏", subtitle: "\"homo ludens\"", text: "给沉闷的世界带来一丝乐趣", url: "https://lanhao.cc/Games", show: false },
-		{ go: "🗃 前往", img: "/img/anime5.jpg", title: "绘画与动画", subtitle: "没AI画的好", text: "AI只能带来焦虑，握在手里的笔才踏实", url: "https://lanhao.cc/ArtCartoon", show: false },
-		{ go: "🎨 前往", img: "/img/anime1.jpg", title: "邀请函", subtitle: "加入我们！", text: "何时能得到自己想要的生活呢？", url: "https://lanhao.cc/Invitation", show: false },
-		{ go: "💍 前往", img: "/img/anime2.jpg", title: "网文", subtitle: "扑街小能手", text: "所有的魔法都是时间魔法。", url: "https://lanhao.cc/Novel", show: false },
-		{ go: "🔍 前往", img: "/img/anime3.jpg", title: "课表", subtitle: "坐牢大师", text: "", url: "https://lanhao.cc/Links", show: false },
+		{ go: "🚀 前往", img: "/img/anime1.jpg", title: "太微知识库", subtitle: "概念网", text: "知识由语言承载，语言的"概念"彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。", url: "https://lanhao.cc/LanHaoTiddly/", show: false },
+		{ go: "🗂️ 前往", img: "/img/anime2.jpg", title: "IP设计", subtitle: "位面游荡", text: "筑起一座乌托邦。", url: "/IP/", show: false },
+		{ go: "📽️ 前往", img: "/img/anime3.jpg", title: "视频创作", subtitle: "3,000 miles of wonder", text: "创作本身就是意义。", url: "/Video/", show: false },
+		{ go: "🎮 前往", img: "/img/anime4.jpg", title: "独立游戏", subtitle: "\"homo ludens\"", text: "给沉闷的世界带来一丝乐趣", url: "/Games/", show: false },
+		{ go: "🗃 前往", img: "/img/anime5.jpg", title: "绘画与动画", subtitle: "没AI画的好", text: "AI只能带来焦虑，握在手里的笔才踏实", url: "/ArtCartoon/", show: false },
+		{ go: "🎨 前往", img: "/img/anime1.jpg", title: "邀请函", subtitle: "加入我们！", text: "何时能得到自己想要的生活呢？", url: "/Invitation/", show: false },
+		{ go: "💍 前往", img: "/img/anime2.jpg", title: "网文", subtitle: "扑街小能手", text: "所有的魔法都是时间魔法。", url: "/Novel/", show: false },
+		{ go: "🔍 前往", img: "/img/anime3.jpg", title: "课表", subtitle: "坐牢大师", text: "", url: "/Links/", show: false },
 	],
 
 	statement: ["备案号：沪ICP备2024056990号-1", "Copyright © 2026 Medigeek"],

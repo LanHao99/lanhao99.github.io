@@ -1,62 +1,421 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Novel - Temporary Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="LanHao Novel：在风格化书架中探索连载、短篇与世界观设定。" />
+  <title>LanHao Novel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Noto+Serif+SC:wght@500;700&display=swap"
+    rel="stylesheet" />
   <style>
     :root {
-      color-scheme: light;
+      --bg: #f7f4ee;
+      --ink: #1e1f24;
+      --muted: #5a5f70;
+      --surface: rgba(255, 255, 255, 0.75);
+      --line: rgba(34, 38, 49, 0.14);
+      --brand: #c85a2c;
+      --brand-deep: #8f2f20;
+      --glow: #ffd7b4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f4f8ff 0%, #eefaf4 100%);
-      color: #1f2a37;
+      color: var(--ink);
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255, 209, 166, 0.55), transparent 34%),
+        radial-gradient(circle at 88% 15%, rgba(147, 178, 255, 0.35), transparent 40%),
+        linear-gradient(135deg, #fcf8ef 0%, #f5efe3 55%, #efe8db 100%);
+      overflow-x: hidden;
     }
 
-    main {
-      width: min(720px, 92vw);
-      background: #ffffffcc;
-      border: 1px solid #dbe7ff;
-      border-radius: 14px;
-      padding: 28px;
-      box-shadow: 0 8px 30px rgba(12, 40, 80, 0.08);
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image:
+        repeating-linear-gradient(120deg,
+          rgba(0, 0, 0, 0.06) 0,
+          rgba(0, 0, 0, 0.06) 1px,
+          transparent 1px,
+          transparent 4px);
+      mix-blend-mode: multiply;
+      z-index: 1;
     }
 
-    h1 {
-      margin-top: 0;
+    .shell {
+      position: relative;
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 48px;
     }
 
-    code {
-      background: #eef3ff;
-      padding: 2px 8px;
-      border-radius: 6px;
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 34px;
+      animation: reveal 0.65s ease both;
+      position: relative;
+      z-index: 10;
     }
 
-    a {
-      color: #0b57d0;
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #2a2d35;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 16px;
+      color: #3f4452;
       text-decoration: none;
+      font-size: 0.9rem;
+      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.62);
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(34, 38, 49, 0.34);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 26px;
+      align-items: stretch;
+      position: relative;
+      z-index: 5;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .timeline {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 14px 30px rgba(59, 38, 20, 0.08);
+      animation: reveal 0.75s ease both;
+    }
+
+    .hero-copy {
+      padding: 36px;
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      font-family: "Noto Serif SC", serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.15;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-copy p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 55ch;
+    }
+
+    .actions {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(130deg, var(--brand), var(--brand-deep));
+      box-shadow: 0 10px 18px rgba(143, 47, 32, 0.26);
+    }
+
+    .btn-secondary {
+      display: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-panel {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      animation-delay: 0.12s;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      right: -90px;
+      top: -100px;
+      background: radial-gradient(circle at center, var(--glow), transparent 70%);
+    }
+
+    .hero-panel h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #4a4f5f;
+    }
+
+    .stats {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      border-radius: 14px;
+      border: 1px solid rgba(34, 38, 49, 0.18);
+      padding: 12px;
+      background: rgba(252, 252, 252, 0.8);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #2c313d;
+    }
+
+    .grid {
+      margin-top: 20px;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .shelf,
+    .timeline {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 14px 30px rgba(59, 38, 20, 0.08);
+      animation: reveal 0.75s ease both;
+      padding: 24px;
+      animation-delay: 0.2s;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 1.06rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #4d5261;
+    }
+
+    .cards {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .card {
+      border-radius: 14px;
+      border: 1px solid rgba(34, 38, 49, 0.16);
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.82);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(200, 90, 44, 0.45);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.02rem;
+    }
+
+    .card p {
+      margin: 8px 0 0;
+      color: #5c6171;
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .timeline ul {
+      list-style: none;
+      margin: 14px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline li {
+      padding-left: 14px;
+      border-left: 2px solid rgba(200, 90, 44, 0.45);
+    }
+
+    .timeline time {
+      display: inline-block;
+      color: #7a4255;
+      font-weight: 700;
+      font-size: 0.83rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .timeline p {
+      margin: 0;
+      color: #575c6b;
+      line-height: 1.55;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .shell {
+        padding-top: 20px;
+      }
+
+      .hero-copy {
+        padding: 26px;
+      }
+
+      .slide-content {
+        padding: 24px;
+        max-width: 100%;
+      }
+
+      .slide-content h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main>
-    <h1>Temporary Page</h1>
-    <p>This is a placeholder for <code>/Novel</code>.</p>
-    <p>You can replace this file later with the actual project content.</p>
-    <p><a href="/">Back to Home</a></p>
-  </main>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="shell">
+    <header class="topbar">
+      <strong class="brand">LanHao Novel</strong>
+      <a class="pill" href="/">返回主页</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <article class="hero-copy">
+          <h1>把每一段灵感，写成一个能被反复进入的世界。</h1>
+          <p>
+            这里是 Novel 子站首屏。你可以继续在这个框架上增加章节目录、角色关系图、阅读模式和更新日志。
+            页面采用纯静态 HTML + CSS，部署到子路径时也能稳定运行。
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="./shelf.html">浏览书架</a>
+          </div>
+        </article>
+
+        <aside class="hero-panel" aria-label="项目速览">
+          <h2>Project Snapshot</h2>
+          <div class="stats">
+            <div class="stat"><strong>03</strong>世界观草案</div>
+            <div class="stat"><strong>12</strong>章节可扩展位</div>
+            <div class="stat"><strong>100%</strong>静态可部署</div>
+            <div class="stat"><strong>MIT</strong>模板来源友好</div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid" id="books">
+        <article class="shelf">
+          <h2 class="section-title">Featured Arcs</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>雾港回声</h3>
+              <p>近未来城市悬疑。每章末尾保留线索索引，适合做互动阅读实验。</p>
+            </article>
+            <article class="card">
+              <h3>赤砂天穹</h3>
+              <p>沙海远征题材。可扩展地理设定、阵营关系、关键遗物图鉴。</p>
+            </article>
+            <article class="card">
+              <h3>十七号月台</h3>
+              <p>都市奇幻短篇集。适合按"时间线 + 角色视角"双索引展示。</p>
+            </article>
+          </div>
+        </article>
+
+        <article class="timeline">
+          <h2 class="section-title">Update Timeline</h2>
+          <ul>
+            <li>
+              <time>2026.01 · 起稿</time>
+              <p>完成子站结构重建，替换占位页并确定书架式信息架构。</p>
+            </li>
+            <li>
+              <time>2026.02 · 扩展</time>
+              <p>建议新增章节页并接入本地 Markdown 到静态目录映射。</p>
+            </li>
+            <li>
+              <time>2026.03 · 打磨</time>
+              <p>可加入阅读进度记忆、目录筛选、字体切换与夜间模式开关。</p>
+            </li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </div>
 </body>
 
 </html>
