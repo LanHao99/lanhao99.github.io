@@ -18,7 +18,7 @@ const config = {
 		turntablecolor2: "#00FFFF"   // 转盘渐变色二
 	},
 
-	brightness: 80, // 背景亮度 --%
+	brightness: 90, // 背景亮度 --%
 	blur: 5, // 毛玻璃模糊效果
 
 	// 我的标签
@@ -136,7 +136,7 @@ const config = {
 		{ go: "🗃 前往", img: "/img/anime5.jpg", title: "绘画与动画", subtitle: "没AI画的好", text: "AI只能带来焦虑，握在手里的笔才踏实", url: "/ArtCartoon/", show: false },
 		{ go: "🎨 前往", img: "/img/anime1.jpg", title: "邀请函", subtitle: "加入我们！", text: "何时能得到自己想要的生活呢？", url: "/Invitation/", show: false },
 		{ go: "💍 前往", img: "/img/anime2.jpg", title: "网文", subtitle: "扑街小能手", text: "所有的魔法都是时间魔法。", url: "/Novel/", show: false },
-		{ go: "🔍 前往", img: "/img/anime3.jpg", title: "课表", subtitle: "坐牢大师", text: "", url: "/Links/", show: false },
+		{ go: "🔍 前往", img: "/img/anime3.jpg", title: "链接中转站", subtitle: "小网站链接都在这里", text: "", url: "/Links/", show: false },
 	],
 
 	statement: ["备案号：沪ICP备2024056990号-1", "Copyright © 2026 Medigeek"],
