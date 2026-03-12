@@ -18,8 +18,8 @@ const config = {
 		turntablecolor2: "#00FFFF"   // 转盘渐变色二
 	},
 
-	brightness: 90, // 背景亮度 --%
-	blur: 5, // 毛玻璃模糊效果
+	brightness: 75, // 背景亮度 --%
+	blur: 15, // 毛玻璃模糊效果
 
 	// 我的标签
 	tags: ["医学", "视频", "摄影", "动画", "独立游戏", "IP写作"],
@@ -27,11 +27,11 @@ const config = {
 	// 默认背景壁纸
 	background: {
 		"pc": {   //pc端
-			"type": "pic",   //"pic":静态壁纸;"video":动态壁纸
+			"type": "video",   //"pic":静态壁纸;"video":动态壁纸
 			"datainfo": {
-				"title": "paper",
-				"preview": "/img/wallpaper/static/Paper_Texture_07.jpg",
-				"url": "/img/wallpaper/static/Paper_Texture_07.jpg",     //当然，也可填写网络地址或壁纸api，如随机PC壁纸api："url":""
+				"title": "向往航天的女孩",
+				"preview": "/img/wallpaper/dynamic/向往航天的女孩/Toy-Aeroplane-pre.webm",
+				"url": "/img/wallpaper/dynamic/向往航天的女孩/Toy-Aeroplane.webm"
 			},
 		},
 		"mobile": {   //移动端
