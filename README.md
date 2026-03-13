@@ -1,148 +1,369 @@
-# leleo-home-page 个人主页
+# 🌸 Mizuki 
+<img align='right' src='logo.png' width='200px' alt="Mizuki logo">
 
-## 目录
-- [项目简介](#项目简介)
-- [功能特性](#功能特性)  
-- [演示地址](#演示地址)
-- [技术栈](#技术栈)
-- [安装与运行](#安装与运行)
-  - [本地运行](#本地运行)
-  - [Vercel在线部署](#vercel在线部署)
-  - [CloudFlare Pages 在线部署](#cloudflare-pages-在线部署)
-- [修改配置](#修改配置)
+A modern, feature-rich static blog template built with [Astro](https://astro.build), featuring advanced functionality and beautiful design.
+
+[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
+[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
+[![Astro](https://img.shields.io/badge/Astro-5.15.3-orange)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)](https://www.typescriptlang.org/)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
+
+[**🖥️ Live Demo**](https://mizuki.mysqil.com/) | [**📝 Documentation**](https://docs.mizuki.mysqil.com/)
+
+🌏 **README Languages:**
+[**English**](./README.md) / [**中文**](./README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+
+Get started quickly with our comprehensive documentation. Whether you're customizing your theme, configuring features, or deploying to production, the documentation covers everything you need to launch your blog successfully.
+
+[📚 Read Full Documentation](https://docs.mizuki.mysqil.com/) →
+
+![Mizuki Preview](./README.webp)
+
+<table>
+  <tr>
+    <td><img alt="" src="docs/image/1.webp"></td>
+    <td><img alt="" src="docs/image/2.webp"></td>
+    <td><img alt="" src="docs/image/3.webp"></td>
+  <tr>
+  <tr>
+    <td><img alt="" src="docs/image/4.webp"></td>
+    <td><img alt="" src="docs/image/5.webp"></td>
+    <td><img alt="" src="docs/image/6.webp"></td>
+  <tr>
+</table>
+
+## 🚀 NEW: Automatic Resolution Adaptation
+
+> **🎯 Automatic Resolution Algorithm** - Intelligently adapts content layout based on device screen resolution, providing the best viewing experience for all devices
+
+🌏 README Language
+[**English**](./README.md) /
+[**中文**](./README.zh.md) /
+[**日本語**](./README.ja.md) /
+[**中文繁体**](./README.tw.md) /
 
 
-## 项目简介
+### 🔧 Component Configuration System Restructuring
+- **Unified Configuration Architecture:** Brand new modular component configuration system, supporting dynamic component management and order configuration
+- **Configuration-Driven Component Loading:** Restructured SideBar component, implementing fully configuration-based component loading mechanism
+- **Unified Control Switches:** Removed independent enable switches for music player and announcement components, unified control through sidebarLayoutConfig
+- **Responsive Layout Adaptation:** Components support responsive layouts, automatically adjusting display based on device type
 
-这是一个简单的个人主页项目，用于展示个人信息、技能、项目等。主页设计简洁、响应式，适合在不同设备上浏览。支持自定义配置。
+### 📐 Layout System Optimization
+- **Dynamic Sidebar Position Adjustment:** Support for left/right sidebar switching, with automatic layout adaptation
+- **Intelligent Article Directory Positioning:** When sidebar is on the right, article navigation automatically moves to the left, providing a better reading experience
+- **Grid Layout Improvements:** Optimized CSS Grid layout, resolving container width anomaly issues
 
-<img src="./img/leleo-home-page/1737532219807.png" width="600" alt="桌面端预览" style="display: block; margin: 10px auto;border-radius:8px;">
-<img src="./img/leleo-home-page/1737533474493.png" width="170" alt="移动端预览" style="display: block; margin: 10px auto;border-radius:8px;">
-<img src="./img/leleo-home-page/1737532290584.png" width="600" alt="功能预览1" style="display: block; margin: 10px auto;border-radius:8px;">
-<img src="./img/leleo-home-page/1737532316302.png" width="600" alt="功能预览2" style="display: block; margin: 10px auto;border-radius:8px;">
+### 🎛️ Configuration File Format Standardization
+- **Standardized Configuration Format:** Created unified component configuration file format specifications
+- **Type Safety:** Comprehensive TypeScript type definitions ensuring configuration type safety
+- **Extensibility:** Support for custom component types and configuration options
 
-## 功能特性
+### 🧹 Code Optimization
+- **Test File Cleanup:** Removed unused test configurations and dependencies, reducing project size
+- **Code Structure Optimization:** Improved component architecture, enhancing code maintainability
+- **Performance Improvement:** Optimized component loading logic, improving page rendering performance
 
-- **响应式设计**：适配桌面、平板和手机等不同设备
-- **个人信息展示**：包括头像、个性标签、简介、技能等
-- **项目展示**：展示项目，包括项目描述、技术栈和链接  
-- **预览配置**：支持主题、背景壁纸预览（包括动、静态/PC、移动端壁纸设置）以及音乐播放配置
-- **在线部署配置**：支持vercel一键部署及使用vercel环境变量进行在线自定义配置
+---
 
-## 演示地址
+## ✨ Features
 
-[在线演示](https://leleo.top)
+### 🎨 Design & Interface
+- [x] Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
+- [x] Smooth animations and page transitions using [Swup](https://swup.js.org/)
+- [x] Light/dark theme switching with system preference detection
+- [x] Customizable theme colors and dynamic banner carousel
+- [x] Fullscreen background images with carousel, opacity, and blur effects
+- [x] Fully responsive design for all devices
+- [x] Beautiful typography with JetBrains Mono font
 
-## 技术栈
+### 🔍 Content & Search
+- [x] Advanced search functionality based on [Pagefind](https://pagefind.app/)
+- [x] [Enhanced Markdown features](#-markdown-extensions) with syntax highlighting
+- [x] Interactive table of contents with auto-scrolling
+- [x] RSS feed generation
+- [x] Reading time estimation
+- [x] Article categorization and tagging system
 
-- **前端**：Vue
-- **UI框架**：Vuetify  
-- **构建工具**：Vite
-- **版本控制**：Git
-- **部署平台**：Vercel
 
-## 安装与运行
 
-### 本地运行
+### 📱 Special Pages
+- [x] **Anime Tracking Page** - Track anime watching progress and ratings
+- [x] **Friends Page** - Beautiful cards showcasing friend websites
+- [x] **Diary Page** - Share life moments, similar to social media
+- [x] **Archive Page** - Organized timeline view of articles
+- [x] **About Page** - Customizable personal introduction
 
-1. 克隆仓库：
+### 🛠 Technical Features
+- [x] **Enhanced code blocks** based on [Expressive Code](https://expressive-code.com/)
+- [x] **Math formula support** with KaTeX rendering
+- [x] **Image optimization** with PhotoSwipe gallery integration
+- [x] **SEO optimization** including sitemaps and meta tags
+- [x] **Performance optimization** with lazy loading and caching
+- [x] **Comment system** with Twikoo integration
 
-```bash
-git clone https://github.com/leleo886/leleo-home-page.git
-```
+## 🚀 Quick Start
 
-2. 进入项目目录：
+### 📦 Installation
 
-```bash
-cd leleo-home-page
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/matsuzaka-yuki/mizuki.git
+   cd mizuki
+   ```
 
-3. 安装依赖：
-
-```bash
-npm install
-```
-
-4. 启动开发服务器：
-
-```bash
-npm run dev
-```
-
-### Vercel在线部署
-
-> 无需服务器，点击链接一键在线部署到 [Vercel](https://vercel.com/new/clone?s=https://github.com/leleo886/leleo-home-page.git)（首先需要有github和vercel账号）
-
-![Vercel部署步骤1](./img/leleo-home-page/1737785497852.png)
-
-> ---登录vercel账号，并选择github关联账号，为项目取个名字，然后点击"Create"按钮开始部署
-
-![Vercel部署完成](./img/leleo-home-page/1737538980894.png)
-
-> ---部署完成后，点击回到控制面板
-
-![Vercel控制面板](./img/leleo-home-page/1737539171658.png)
-
-注意：Vercel提供的`.vercel.app`域名在中国大陆地区可能无法访问，所以建议绑定自定义域名。（若没有自己的域名，这里提供简单的[免费二级域名服务](https://sds.leleo.top)及本项目如何进行域名绑定的[说明](./img/domainToVercel.md)）
-
-### CloudFlare Pages 在线部署
-
-> 无需服务器，对站长友好(需要有CloudFlare以及Github账号)
-
-1. Fork本项目到自己的账号下
+2. **Install dependencies:**
+   ```bash
+   # Install pnpm if not already installed
+   npm install -g pnpm
    
-2. 登录CloudFlare并点击左侧栏目中"计算(workers)"底下的"Workers 和 Pages"
+   # Install project dependencies
+   pnpm install
+   ```
 
-![Workers页](./img/leleo-home-page/IMG_20250813_122124.jpg)
+3. **Configure your blog:**
+   - Edit `src/config.ts` to customize blog settings
+   - Update site information, theme colors, banner images, and social links
+   - Configure feature page functionality
 
-3. 点击右上角"创建"，选择"Pages"，点击"导入现有 Git 存储库"右侧的"开始使用"
+4. **Start the development server:**
+   ```bash
+   pnpm dev
+   ```
+   Your blog will be available at `http://localhost:4321`
 
-![创建页](./img/leleo-home-page/IMG_20250813_122156.jpg)
+### 📝 Content Management
 
-4. 点击"连接 Github"，并登录你的 Github 账号
+- **Create new posts:** `pnpm new-post <filename>`
+- **Edit posts:** Modify files in `src/content/posts/`
+- **Customize special pages:** Edit files in `src/content/spec/`
+- **Add images:** Place images in `src/assets/` or `public/`
 
-5. 选择项目存储库(如果你没有更名那应该是"leleo-home-page")并开始设置，在接下来的页面中框架预设选择`Vue`(如果不选择，你的网站会访问为空白)，点击保存并部署
+### 🚀 Deployment
 
-![配置页](./img/leleo-home-page/IMG_20250813_122251.jpg)
+Deploy your blog to any static hosting platform:
 
-此时，项目已经部署完成，可以直接点击上方链接预览
+- **Vercel:** Connect your GitHub repository to Vercel
+- **Netlify:** Deploy directly from GitHub
+- **GitHub Pages:** Use the included GitHub Actions workflow
+- **Cloudflare Pages:** Connect your repository
 
-如果需要绑定域名，可以点击"添加自定义域"、"设置自定义域"并填入目标域，点击继续
+- **Environment Variable Configuration (Optional):** Refer to `.env.example` for configuration
 
-> 你的域名托管在CloudFlare，直接点击"激活域"就可以完成
+Before deployment, update the `siteURL` in `src/config.ts`.
+**Not recommended** to commit the `.env` file to Git. The `.env` file should only be used for local debugging or building. For cloud platform deployment, it's recommended to configure via the platform's `environment variables` settings.
 
-> 你的域名没有托管在CloudFlare，根据指引添加CNAME记录即可
+## 📝 Post Frontmatter Format
 
-## 修改配置
+```yaml
+---
+title: My First Blog Post
+published: 2023-09-09
+description: This is the first post of my new blog.
+image: ./cover.jpg
+tags: [tag1, tag2]
+category: Frontend
+draft: false
+pinned: false
+comment: true
+lang: en      # Only set when article language differs from site language in config.ts
+---
+```
 
-### 方法1. 修改配置文件
+### Frontmatter Field Descriptions
 
-自定义数据文件为项目src目录下面的 config.js，这里有[配置说明](./img/config.md)，然后就是代码的拉取、修改上传。如果部署方式为CloudFlare Page，直接在Github修改后Commit即可自动部署
+- **title**: Article title (required)
+- **published**: Publication date (required)
+- **description**: Article description for SEO and previews
+- **image**: Cover image path (relative to article file)
+- **tags**: Array of tags for categorization
+- **category**: Article category
+- **draft**: Set to `true` to hide article in production
+- **pinned**: Set to `true` to pin article to top
+- **comment**: Set to `true` to enable article comment area (requires global comment function enabled)
+- **lang**: Article language (only set when different from site default)
 
-**若使用此方法请勿配置环境变量**
+### Pinned Articles Feature
 
-### 方法2. 在线修改环境变量
+The `pinned` field allows you to pin important articles to the top of your blog list. Pinned articles will always appear before regular articles regardless of their publication date.
 
-**注意**：在vercel中此方法优先级高于方法1，CloudFlare中方法1优先级更高
+**Usage:**
+```yaml
+pinned: true  # Pin this article to the top
+pinned: false # Regular article (default)
+```
 
-#### vercel部署
+**Sorting Rules:**
+1. Pinned articles appear first, sorted by publication date (newest first)
+2. Regular articles follow, sorted by publication date (newest first)
 
-> (1). 首先还是打开vercel中本项目主面板，然后依次点击`Settings`、`Environments`、`Production`
-![Vercel控制面板](./img/leleo-home-page/1737624788108.png)
+### Article-Level Comment Control
 
-> (2). 然后下翻点击`Add Environment Variable`按钮，要求填入`Key`值为`VITE_CONFIG`,`Value`值如[环境变量值](./img/env.md)所示，全部复制粘贴即可（有点多），根据个人情况自定义修改，配置说明同方法1。
-![Vercel控制面板](./img/leleo-home-page/1737625015472.png)
+The `comment` field allows you to individually control the enabling and disabling of the comment area for each article.
 
-> (3). 回到项目主面板，依次点击`Project`、`Build Logs`，进入新页面后再找到`Redeploy`。最后等待重新部署完成即可。
-![Vercel控制面板](./img/leleo-home-page/1737626184576.png)
-![Vercel控制面板](./img/leleo-home-page/1737626397809.png)
+**Usage:**
+```yaml
+comment: true  # Enable comments (default)
+comment: false # Disable comments
+```
 
-#### CloudFlare部署
+**Note:**
+This feature requires the comment system to be enabled in `src/config.ts` first.
 
-> (1). 到你的Pages项目，点击"设置"，找到"变量和机密"点击右侧"添加"
-![设置页](./img/leleo-home-page/IMG_20250813_125718.jpg)
+## 🧩 Markdown Extensions
 
-> (2). 要求填入"变量名称"为`VITE_CONFIG`,"值"如[环境变量值](./img/env.md)所示，全部复制粘贴即可（有点多），根据个人情况自定义修改，配置说明同方法1
+Mizuki supports enhanced features beyond standard GitHub Flavored Markdown:
 
-> (3). 点击"部署"，找到左侧带绿条的那个点击右侧三个点"重试部署" 等待部署完成即可
-![重试部署](./img/leleo-home-page/IMG_20250813_131021.jpg)
+### 📝 Enhanced Writing
+- **Callouts:** Create beautiful annotation boxes using `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`, etc.
+- **Math Formulas:** Write LaTeX math formulas using `$inline$` and `$$block$$` syntax
+- **Code Highlighting:** Advanced syntax highlighting with line numbers and copy buttons
+- **GitHub Cards:** Embed repository cards using `::github{repo="user/repo"}`
+
+### 🎨 Visual Elements
+- **Image Gallery:** Automatic PhotoSwipe integration for image viewing
+- **Collapsible Sections:** Create expandable content blocks
+- **Custom Components:** Enhance content with special directives
+
+### 📊 Content Organization
+- **Table of Contents:** Automatically generated from headings with smooth scrolling
+- **Reading Time:** Automatically calculated and displayed
+- **Article Metadata:** Rich frontmatter support with categories and tags
+
+## ⚡ Commands
+
+All commands are run from the project root:
+
+| Command                    | Action                                   |
+|:---------------------------|:-----------------------------------------|
+| `pnpm install`             | Install dependencies                     |
+| `pnpm dev`                 | Start local dev server at `localhost:4321` |
+| `pnpm build`               | Build production site to `./dist/`       |
+| `pnpm preview`             | Preview build locally before deployment  |
+| `pnpm check`               | Run Astro error checking                 |
+| `pnpm format`              | Format code with Prettier                   |
+| `pnpm lint`                | Check and fix code issues                |
+| `pnpm new-post <filename>` | Create a new blog post                   |
+| `pnpm astro ...`           | Run Astro CLI commands                   |
+
+## 🎯 Configuration Guide
+
+### 🔧 Basic Configuration
+
+Edit `src/config.ts` to customize your blog:
+
+```typescript
+export const siteConfig: SiteConfig = {
+  title: "Your Blog Name",
+  subtitle: "Your Blog Description",
+  lang: "en", // or "zh-CN", "ja", etc.
+  themeColor: {
+    hue: 210, // 0-360, theme hue
+    fixed: false, // Hide theme color picker
+  },
+  banner: {
+    enable: true,
+    src: ["assets/banner/1.webp"], // Banner images
+    carousel: {
+      enable: true,
+      interval: 0.8, // seconds
+    },
+  },
+};
+```
+
+### 📱 Feature Page Configuration
+
+- **Anime Page:** Edit anime list in `src/pages/anime.astro`
+- **Friends Page:** Edit friend data in `src/content/spec/friends.md`
+- **Diary Page:** Edit moments in `src/pages/diary.astro`
+- **About Page:** Edit content in `src/content/spec/about.md`
+
+### 📦 Code-Content Separation (Optional)
+
+Mizuki supports separating code and content into two independent repositories, suitable for team collaboration and large projects.
+
+**Quick Selection**:
+
+| Use Case | Configuration | For Whom |
+|---------|---------|---------|
+| 🆕 **Local Mode** (default) | No configuration, use directly | Beginners, personal blogs |
+| 🔧 **Separation Mode** | Set `ENABLE_CONTENT_SYNC=true` | Team collaboration, private content |
+
+**One-Click Enable/Disable**:
+
+```bash
+# Method 1: Local Mode (recommended for beginners)
+# No need to create .env file, run directly
+pnpm dev
+
+# Method 2: Content Separation Mode
+# 1. Copy configuration file
+cp .env.example .env
+
+# 2. Edit .env to enable content separation
+ENABLE_CONTENT_SYNC=true
+CONTENT_REPO_URL=https://github.com/your-username/Mizuki-Content.git
+
+# 3. Sync content
+pnpm run sync-content
+```
+
+**Features**:
+- ✅ Supports public and private repositories 🔐
+- ✅ One-click enable/disable without code modification
+- ✅ Auto-sync, pulls latest content automatically before development
+
+📖 **Detailed Configuration**: [Content Separation Guide](docs/CONTENT_SEPARATION.md)
+🔄 **Migration Tutorial**: [Migrate from Single Repo to Separation Mode](docs/MIGRATION_GUIDE.md)
+📚 **More Documentation**: [Documentation Index](docs/README.md)
+
+## ✏️ Contributing
+
+Contributions are welcome! Feel free to submit issues and pull requests.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+### Original Project License
+
+This project is based on [Fuwari](https://github.com/saicaca/fuwari), which is licensed under the MIT License. The original copyright notice and permission notice are included in the LICENSE.MIT file in accordance with the MIT License requirements.
+
+## 🙏 Acknowledgements
+
+- Based on the original [Fuwari](https://github.com/saicaca/fuwari) template
+- Inspired by [Yukina](https://github.com/WhitePaper233/yukina) - a beautiful and elegant blog template
+- Some designs are inspired by [Firefly](https://github.com/CuteLeaf/Firefly) & [Twilight](https://github.com/spr-aachen/Twilight) templates
+- Uses [Pio](https://github.com/Dreamer-Paul/Pio) to implement the adorable Live2D mascot plugin
+- Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
+- Icons from [Iconify](https://iconify.design/)
+
+### 🌸 Special Thanks
+
+- **[Fuwari](https://github.com/saicaca/fuwari)** by saicaca - The original template that this project is based on. Thank you for creating such a beautiful and functional template.
+- **[Yukina](https://github.com/WhitePaper233/yukina)** - Thanks for providing design inspiration and creativity that helped shape this project. Yukina is an elegant blog template that demonstrates excellent design principles and user experience.
+- **[Firefly](https://github.com/CuteLeaf/Firefly)** - Thanks for providing excellent layout design ideas. The dual sidebar layout, article dual-column grid layout, and some widget designs and implementations have enriched Mizuki's interface.
+- **[Twilight](https://github.com/spr-aachen/Twilight)** - Thanks for providing inspiration and technical support. Twilight's dynamic wallpaper modes switching system, responsive design and transition effects have greatly enhanced the user experience of Mizuki.
+
+## 🍀 Contributors
+
+Thanks to all contributors for their contributions to this project. If you have any questions or suggestions, please submit an [Issue](https://github.com/matsuzaka-yuki/Mizuki/issues) or [Pull Request](https://github.com/matsuzaka-yuki/Mizuki/pulls).
+
+<a href="https://github.com/matsuzaka-yuki/Mizuki/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=matsuzaka-yuki/Mizuki" />
+</a>
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=matsuzaka-yuki/Mizuki&type=Date)](https://star-history.com/#matsuzaka-yuki/Mizuki&Date)
+---
+
+⭐ If you find this project helpful, please consider giving it a star!
