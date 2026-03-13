@@ -166,7 +166,7 @@ export const siteConfig: SiteConfig = {
 				"我们想要给万事万物赋予意义，归根结底，是因为无法面对世界的虚无本质罢了。",
 				"我们坐在一艘帆船上。四周都是海洋，连接到遥远的地平线。",
 				"所有的魔法都是时间魔法。",
-				"知识由语言承载，语言的“概念”彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。"
+				"知识由语言承载，语言的“概念”彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。",
 			],
 			typewriter: {
 				enable: true, // 启用副标题打字机效果
@@ -407,11 +407,23 @@ export const profileConfig: ProfileConfig = {
 		speed: 80, // 打字速度（毫秒）
 	},
 	links: [
-		{ name: "GitHub", icon: "mdi:github", url: "https://www.github.com/LanHao99" },
+		{
+			name: "GitHub",
+			icon: "mdi:github",
+			url: "https://www.github.com/LanHao99",
+		},
 		{ name: "Email", icon: "mdi:email", url: "mailto:lan_hao@sjtu.edu.cn" },
-		{ name: "Bilibili", icon: "fa7-brands:bilibili", url: "https://space.bilibili.com/3494358330378685" },
+		{
+			name: "Bilibili",
+			icon: "fa7-brands:bilibili",
+			url: "https://space.bilibili.com/3494358330378685",
+		},
 		{ name: "WeChat", icon: "mdi:wechat", url: "https://wx.qq.com/" },
-		{ name: "YouTube", icon: "mdi:youtube", url: "https://www.youtube.com/@Lan_Hao" }
+		{
+			name: "YouTube",
+			icon: "mdi:youtube",
+			url: "https://www.youtube.com/@Lan_Hao",
+		},
 	],
 };
 

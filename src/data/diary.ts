@@ -74,9 +74,7 @@ export const getDiaryWithImages = () => {
 export const getDiaryByTag = (tag: string) => {
 	return diaryData
 		.filter((item) => item.tags?.includes(tag))
-		.sort(
-			(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-		);
+		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 
 // 获取所有标签
@@ -84,7 +82,9 @@ export const getAllTags = () => {
 	const tags = new Set<string>();
 	diaryData.forEach((item) => {
 		if (item.tags) {
-			item.tags.forEach((tag) => tags.add(tag));
+			item.tags.forEach((tag) => {
+				tags.add(tag);
+			});
 		}
 	});
 	return Array.from(tags).sort();
