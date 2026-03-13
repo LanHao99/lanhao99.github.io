@@ -1684,7 +1684,7 @@ const visitsText = "訪問";
     } else {
         fetchPageViews();
     }
-})();</script> <div class="mt-4 border-(--line-divider) border-dashed border-b mb-5"></div> </div> <!-- always show cover as long as it has one -->  <div data-pagefind-body class="prose dark:prose-invert prose-base max-w-none! custom-md mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="complete-guide-to-markdown-with-mermaid-diagrams">Complete Guide to Markdown with Mermaid Diagrams<a class="anchor" href="#complete-guide-to-markdown-with-mermaid-diagrams"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>This article demonstrates how to create various complex diagrams using Mermaid in Markdown documents, including flowcharts, sequence diagrams, Gantt charts, class diagrams, and state diagrams.</p><section><h2 id="flowchart-example">Flowchart Example<a class="anchor" href="#flowchart-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Flowcharts are excellent for representing processes or algorithm steps.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-2v6co8"><div class="mermaid" data-mermaid-code="graph TD
+})();</script> <div class="mt-4 border-(--line-divider) border-dashed border-b mb-5"></div> </div> <!-- always show cover as long as it has one -->  <div data-pagefind-body class="prose dark:prose-invert prose-base max-w-none! custom-md mb-6 markdown-content onload-animation"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section><h1 id="complete-guide-to-markdown-with-mermaid-diagrams">Complete Guide to Markdown with Mermaid Diagrams<a class="anchor" href="#complete-guide-to-markdown-with-mermaid-diagrams"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h1><p>This article demonstrates how to create various complex diagrams using Mermaid in Markdown documents, including flowcharts, sequence diagrams, Gantt charts, class diagrams, and state diagrams.</p><section><h2 id="flowchart-example">Flowchart Example<a class="anchor" href="#flowchart-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Flowcharts are excellent for representing processes or algorithm steps.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-qnxeug"><div class="mermaid" data-mermaid-code="graph TD
     A[Start] --> B{Condition Check}
     B -->|Yes| C[Process Step 1]
     B -->|No| D[Process Step 2]
@@ -1753,17 +1753,10 @@ const visitsText = "訪問";
 			const startTime = Date.now();
 
 			function check() {
-				if (
-					window.mermaid &&
-					typeof window.mermaid.initialize === "function"
-				) {
+				if (window.mermaid && typeof window.mermaid.initialize === "function") {
 					resolve(window.mermaid);
 				} else if (Date.now() - startTime > timeout) {
-					reject(
-						new Error(
-							"Mermaid library failed to load within timeout",
-						),
-					);
+					reject(new Error("Mermaid library failed to load within timeout"));
 				} else {
 					setTimeout(check, 100);
 				}
@@ -2051,8 +2044,7 @@ const visitsText = "訪問";
 
 					while (attempts < maxAttempts) {
 						try {
-							const code =
-								element.getAttribute("data-mermaid-code");
+							const code = element.getAttribute("data-mermaid-code");
 
 							if (!code) {
 								break;
@@ -2069,10 +2061,7 @@ const visitsText = "訪問";
 							);
 
 							const parser = new DOMParser();
-							const doc = parser.parseFromString(
-								svg,
-								"image/svg+xml",
-							);
+							const doc = parser.parseFromString(svg, "image/svg+xml");
 							const svgElement = doc.documentElement;
 
 							element.innerHTML = "";
@@ -2091,8 +2080,7 @@ const visitsText = "訪問";
 
 								// 强制应用样式
 								if (isDark) {
-									svgElement.style.filter =
-										"brightness(0.9) contrast(1.1)";
+									svgElement.style.filter = "brightness(0.9) contrast(1.1)";
 								} else {
 									svgElement.style.filter = "none";
 								}
@@ -2141,10 +2129,7 @@ const visitsText = "訪問";
 			// 如果渲染失败，尝试重新渲染
 			if (retryCount < MAX_RETRIES) {
 				retryCount++;
-				setTimeout(
-					() => renderMermaidDiagrams(),
-					RETRY_DELAY * retryCount,
-				);
+				setTimeout(() => renderMermaidDiagrams(), RETRY_DELAY * retryCount);
 			}
 		} finally {
 			isRendering = false;
@@ -2177,8 +2162,7 @@ const visitsText = "訪問";
 				console.error("Failed to load Mermaid library:", error);
 				// 尝试备用 CDN
 				const fallbackScript = document.createElement("script");
-				fallbackScript.src =
-					"https://unpkg.com/mermaid@11/dist/mermaid.min.js";
+				fallbackScript.src = "https://unpkg.com/mermaid@11/dist/mermaid.min.js";
 
 				fallbackScript.onload = () => {
 					console.log("Mermaid library loaded from fallback CDN");
@@ -2228,7 +2212,7 @@ const visitsText = "訪問";
 		initialize();
 	}
 })();
-</script></div></section><section><h2 id="sequence-diagram-example">Sequence Diagram Example<a class="anchor" href="#sequence-diagram-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Sequence diagrams show interactions between objects over time.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-uqv9u1"><div class="mermaid" data-mermaid-code="sequenceDiagram
+</script></div></section><section><h2 id="sequence-diagram-example">Sequence Diagram Example<a class="anchor" href="#sequence-diagram-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Sequence diagrams show interactions between objects over time.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-p3nbk3"><div class="mermaid" data-mermaid-code="sequenceDiagram
     participant User
     participant WebApp
     participant Server
@@ -2309,17 +2293,10 @@ const visitsText = "訪問";
 			const startTime = Date.now();
 
 			function check() {
-				if (
-					window.mermaid &&
-					typeof window.mermaid.initialize === "function"
-				) {
+				if (window.mermaid && typeof window.mermaid.initialize === "function") {
 					resolve(window.mermaid);
 				} else if (Date.now() - startTime > timeout) {
-					reject(
-						new Error(
-							"Mermaid library failed to load within timeout",
-						),
-					);
+					reject(new Error("Mermaid library failed to load within timeout"));
 				} else {
 					setTimeout(check, 100);
 				}
@@ -2607,8 +2584,7 @@ const visitsText = "訪問";
 
 					while (attempts < maxAttempts) {
 						try {
-							const code =
-								element.getAttribute("data-mermaid-code");
+							const code = element.getAttribute("data-mermaid-code");
 
 							if (!code) {
 								break;
@@ -2625,10 +2601,7 @@ const visitsText = "訪問";
 							);
 
 							const parser = new DOMParser();
-							const doc = parser.parseFromString(
-								svg,
-								"image/svg+xml",
-							);
+							const doc = parser.parseFromString(svg, "image/svg+xml");
 							const svgElement = doc.documentElement;
 
 							element.innerHTML = "";
@@ -2647,8 +2620,7 @@ const visitsText = "訪問";
 
 								// 强制应用样式
 								if (isDark) {
-									svgElement.style.filter =
-										"brightness(0.9) contrast(1.1)";
+									svgElement.style.filter = "brightness(0.9) contrast(1.1)";
 								} else {
 									svgElement.style.filter = "none";
 								}
@@ -2697,10 +2669,7 @@ const visitsText = "訪問";
 			// 如果渲染失败，尝试重新渲染
 			if (retryCount < MAX_RETRIES) {
 				retryCount++;
-				setTimeout(
-					() => renderMermaidDiagrams(),
-					RETRY_DELAY * retryCount,
-				);
+				setTimeout(() => renderMermaidDiagrams(), RETRY_DELAY * retryCount);
 			}
 		} finally {
 			isRendering = false;
@@ -2733,8 +2702,7 @@ const visitsText = "訪問";
 				console.error("Failed to load Mermaid library:", error);
 				// 尝试备用 CDN
 				const fallbackScript = document.createElement("script");
-				fallbackScript.src =
-					"https://unpkg.com/mermaid@11/dist/mermaid.min.js";
+				fallbackScript.src = "https://unpkg.com/mermaid@11/dist/mermaid.min.js";
 
 				fallbackScript.onload = () => {
 					console.log("Mermaid library loaded from fallback CDN");
@@ -2784,7 +2752,7 @@ const visitsText = "訪問";
 		initialize();
 	}
 })();
-</script></div></section><section><h2 id="gantt-chart-example">Gantt Chart Example<a class="anchor" href="#gantt-chart-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Gantt charts are perfect for displaying project schedules and timelines.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-5tymko"><div class="mermaid" data-mermaid-code="gantt
+</script></div></section><section><h2 id="gantt-chart-example">Gantt Chart Example<a class="anchor" href="#gantt-chart-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Gantt charts are perfect for displaying project schedules and timelines.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-tnds2j"><div class="mermaid" data-mermaid-code="gantt
     title Website Development Project Timeline
     dateFormat  YYYY-MM-DD
     axisFormat  %m/%d
@@ -2865,17 +2833,10 @@ const visitsText = "訪問";
 			const startTime = Date.now();
 
 			function check() {
-				if (
-					window.mermaid &&
-					typeof window.mermaid.initialize === "function"
-				) {
+				if (window.mermaid && typeof window.mermaid.initialize === "function") {
 					resolve(window.mermaid);
 				} else if (Date.now() - startTime > timeout) {
-					reject(
-						new Error(
-							"Mermaid library failed to load within timeout",
-						),
-					);
+					reject(new Error("Mermaid library failed to load within timeout"));
 				} else {
 					setTimeout(check, 100);
 				}
@@ -3163,8 +3124,7 @@ const visitsText = "訪問";
 
 					while (attempts < maxAttempts) {
 						try {
-							const code =
-								element.getAttribute("data-mermaid-code");
+							const code = element.getAttribute("data-mermaid-code");
 
 							if (!code) {
 								break;
@@ -3181,10 +3141,7 @@ const visitsText = "訪問";
 							);
 
 							const parser = new DOMParser();
-							const doc = parser.parseFromString(
-								svg,
-								"image/svg+xml",
-							);
+							const doc = parser.parseFromString(svg, "image/svg+xml");
 							const svgElement = doc.documentElement;
 
 							element.innerHTML = "";
@@ -3203,8 +3160,7 @@ const visitsText = "訪問";
 
 								// 强制应用样式
 								if (isDark) {
-									svgElement.style.filter =
-										"brightness(0.9) contrast(1.1)";
+									svgElement.style.filter = "brightness(0.9) contrast(1.1)";
 								} else {
 									svgElement.style.filter = "none";
 								}
@@ -3253,10 +3209,7 @@ const visitsText = "訪問";
 			// 如果渲染失败，尝试重新渲染
 			if (retryCount < MAX_RETRIES) {
 				retryCount++;
-				setTimeout(
-					() => renderMermaidDiagrams(),
-					RETRY_DELAY * retryCount,
-				);
+				setTimeout(() => renderMermaidDiagrams(), RETRY_DELAY * retryCount);
 			}
 		} finally {
 			isRendering = false;
@@ -3289,8 +3242,7 @@ const visitsText = "訪問";
 				console.error("Failed to load Mermaid library:", error);
 				// 尝试备用 CDN
 				const fallbackScript = document.createElement("script");
-				fallbackScript.src =
-					"https://unpkg.com/mermaid@11/dist/mermaid.min.js";
+				fallbackScript.src = "https://unpkg.com/mermaid@11/dist/mermaid.min.js";
 
 				fallbackScript.onload = () => {
 					console.log("Mermaid library loaded from fallback CDN");
@@ -3340,7 +3292,7 @@ const visitsText = "訪問";
 		initialize();
 	}
 })();
-</script></div></section><section><h2 id="class-diagram-example">Class Diagram Example<a class="anchor" href="#class-diagram-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Class diagrams show the static structure of a system, including classes, attributes, methods, and their relationships.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-v5kzdd"><div class="mermaid" data-mermaid-code="classDiagram
+</script></div></section><section><h2 id="class-diagram-example">Class Diagram Example<a class="anchor" href="#class-diagram-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Class diagrams show the static structure of a system, including classes, attributes, methods, and their relationships.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-9xqg88"><div class="mermaid" data-mermaid-code="classDiagram
     class User {
         +String username
         +String password
@@ -3453,17 +3405,10 @@ const visitsText = "訪問";
 			const startTime = Date.now();
 
 			function check() {
-				if (
-					window.mermaid &&
-					typeof window.mermaid.initialize === "function"
-				) {
+				if (window.mermaid && typeof window.mermaid.initialize === "function") {
 					resolve(window.mermaid);
 				} else if (Date.now() - startTime > timeout) {
-					reject(
-						new Error(
-							"Mermaid library failed to load within timeout",
-						),
-					);
+					reject(new Error("Mermaid library failed to load within timeout"));
 				} else {
 					setTimeout(check, 100);
 				}
@@ -3751,8 +3696,7 @@ const visitsText = "訪問";
 
 					while (attempts < maxAttempts) {
 						try {
-							const code =
-								element.getAttribute("data-mermaid-code");
+							const code = element.getAttribute("data-mermaid-code");
 
 							if (!code) {
 								break;
@@ -3769,10 +3713,7 @@ const visitsText = "訪問";
 							);
 
 							const parser = new DOMParser();
-							const doc = parser.parseFromString(
-								svg,
-								"image/svg+xml",
-							);
+							const doc = parser.parseFromString(svg, "image/svg+xml");
 							const svgElement = doc.documentElement;
 
 							element.innerHTML = "";
@@ -3791,8 +3732,7 @@ const visitsText = "訪問";
 
 								// 强制应用样式
 								if (isDark) {
-									svgElement.style.filter =
-										"brightness(0.9) contrast(1.1)";
+									svgElement.style.filter = "brightness(0.9) contrast(1.1)";
 								} else {
 									svgElement.style.filter = "none";
 								}
@@ -3841,10 +3781,7 @@ const visitsText = "訪問";
 			// 如果渲染失败，尝试重新渲染
 			if (retryCount < MAX_RETRIES) {
 				retryCount++;
-				setTimeout(
-					() => renderMermaidDiagrams(),
-					RETRY_DELAY * retryCount,
-				);
+				setTimeout(() => renderMermaidDiagrams(), RETRY_DELAY * retryCount);
 			}
 		} finally {
 			isRendering = false;
@@ -3877,8 +3814,7 @@ const visitsText = "訪問";
 				console.error("Failed to load Mermaid library:", error);
 				// 尝试备用 CDN
 				const fallbackScript = document.createElement("script");
-				fallbackScript.src =
-					"https://unpkg.com/mermaid@11/dist/mermaid.min.js";
+				fallbackScript.src = "https://unpkg.com/mermaid@11/dist/mermaid.min.js";
 
 				fallbackScript.onload = () => {
 					console.log("Mermaid library loaded from fallback CDN");
@@ -3928,7 +3864,7 @@ const visitsText = "訪問";
 		initialize();
 	}
 })();
-</script></div></section><section><h2 id="state-diagram-example">State Diagram Example<a class="anchor" href="#state-diagram-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>State diagrams show the sequence of states an object goes through during its life cycle.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-wbm1oi"><div class="mermaid" data-mermaid-code="stateDiagram-v2
+</script></div></section><section><h2 id="state-diagram-example">State Diagram Example<a class="anchor" href="#state-diagram-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>State diagrams show the sequence of states an object goes through during its life cycle.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-tqheir"><div class="mermaid" data-mermaid-code="stateDiagram-v2
     [*] --> Draft
     
     Draft --> UnderReview : submit
@@ -4001,17 +3937,10 @@ const visitsText = "訪問";
 			const startTime = Date.now();
 
 			function check() {
-				if (
-					window.mermaid &&
-					typeof window.mermaid.initialize === "function"
-				) {
+				if (window.mermaid && typeof window.mermaid.initialize === "function") {
 					resolve(window.mermaid);
 				} else if (Date.now() - startTime > timeout) {
-					reject(
-						new Error(
-							"Mermaid library failed to load within timeout",
-						),
-					);
+					reject(new Error("Mermaid library failed to load within timeout"));
 				} else {
 					setTimeout(check, 100);
 				}
@@ -4299,8 +4228,7 @@ const visitsText = "訪問";
 
 					while (attempts < maxAttempts) {
 						try {
-							const code =
-								element.getAttribute("data-mermaid-code");
+							const code = element.getAttribute("data-mermaid-code");
 
 							if (!code) {
 								break;
@@ -4317,10 +4245,7 @@ const visitsText = "訪問";
 							);
 
 							const parser = new DOMParser();
-							const doc = parser.parseFromString(
-								svg,
-								"image/svg+xml",
-							);
+							const doc = parser.parseFromString(svg, "image/svg+xml");
 							const svgElement = doc.documentElement;
 
 							element.innerHTML = "";
@@ -4339,8 +4264,7 @@ const visitsText = "訪問";
 
 								// 强制应用样式
 								if (isDark) {
-									svgElement.style.filter =
-										"brightness(0.9) contrast(1.1)";
+									svgElement.style.filter = "brightness(0.9) contrast(1.1)";
 								} else {
 									svgElement.style.filter = "none";
 								}
@@ -4389,10 +4313,7 @@ const visitsText = "訪問";
 			// 如果渲染失败，尝试重新渲染
 			if (retryCount < MAX_RETRIES) {
 				retryCount++;
-				setTimeout(
-					() => renderMermaidDiagrams(),
-					RETRY_DELAY * retryCount,
-				);
+				setTimeout(() => renderMermaidDiagrams(), RETRY_DELAY * retryCount);
 			}
 		} finally {
 			isRendering = false;
@@ -4425,8 +4346,7 @@ const visitsText = "訪問";
 				console.error("Failed to load Mermaid library:", error);
 				// 尝试备用 CDN
 				const fallbackScript = document.createElement("script");
-				fallbackScript.src =
-					"https://unpkg.com/mermaid@11/dist/mermaid.min.js";
+				fallbackScript.src = "https://unpkg.com/mermaid@11/dist/mermaid.min.js";
 
 				fallbackScript.onload = () => {
 					console.log("Mermaid library loaded from fallback CDN");
@@ -4476,7 +4396,7 @@ const visitsText = "訪問";
 		initialize();
 	}
 })();
-</script></div></section><section><h2 id="pie-chart-example">Pie Chart Example<a class="anchor" href="#pie-chart-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Pie charts are ideal for displaying proportions and percentage data.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-qfny41"><div class="mermaid" data-mermaid-code="pie title Website Traffic Sources Analysis
+</script></div></section><section><h2 id="pie-chart-example">Pie Chart Example<a class="anchor" href="#pie-chart-example"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>Pie charts are ideal for displaying proportions and percentage data.</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-wcuupo"><div class="mermaid" data-mermaid-code="pie title Website Traffic Sources Analysis
     &#x22;Search Engines&#x22; : 45.6
     &#x22;Direct Access&#x22; : 30.1
     &#x22;Social Media&#x22; : 15.3
@@ -4523,17 +4443,10 @@ const visitsText = "訪問";
 			const startTime = Date.now();
 
 			function check() {
-				if (
-					window.mermaid &&
-					typeof window.mermaid.initialize === "function"
-				) {
+				if (window.mermaid && typeof window.mermaid.initialize === "function") {
 					resolve(window.mermaid);
 				} else if (Date.now() - startTime > timeout) {
-					reject(
-						new Error(
-							"Mermaid library failed to load within timeout",
-						),
-					);
+					reject(new Error("Mermaid library failed to load within timeout"));
 				} else {
 					setTimeout(check, 100);
 				}
@@ -4821,8 +4734,7 @@ const visitsText = "訪問";
 
 					while (attempts < maxAttempts) {
 						try {
-							const code =
-								element.getAttribute("data-mermaid-code");
+							const code = element.getAttribute("data-mermaid-code");
 
 							if (!code) {
 								break;
@@ -4839,10 +4751,7 @@ const visitsText = "訪問";
 							);
 
 							const parser = new DOMParser();
-							const doc = parser.parseFromString(
-								svg,
-								"image/svg+xml",
-							);
+							const doc = parser.parseFromString(svg, "image/svg+xml");
 							const svgElement = doc.documentElement;
 
 							element.innerHTML = "";
@@ -4861,8 +4770,7 @@ const visitsText = "訪問";
 
 								// 强制应用样式
 								if (isDark) {
-									svgElement.style.filter =
-										"brightness(0.9) contrast(1.1)";
+									svgElement.style.filter = "brightness(0.9) contrast(1.1)";
 								} else {
 									svgElement.style.filter = "none";
 								}
@@ -4911,10 +4819,7 @@ const visitsText = "訪問";
 			// 如果渲染失败，尝试重新渲染
 			if (retryCount < MAX_RETRIES) {
 				retryCount++;
-				setTimeout(
-					() => renderMermaidDiagrams(),
-					RETRY_DELAY * retryCount,
-				);
+				setTimeout(() => renderMermaidDiagrams(), RETRY_DELAY * retryCount);
 			}
 		} finally {
 			isRendering = false;
@@ -4947,8 +4852,7 @@ const visitsText = "訪問";
 				console.error("Failed to load Mermaid library:", error);
 				// 尝试备用 CDN
 				const fallbackScript = document.createElement("script");
-				fallbackScript.src =
-					"https://unpkg.com/mermaid@11/dist/mermaid.min.js";
+				fallbackScript.src = "https://unpkg.com/mermaid@11/dist/mermaid.min.js";
 
 				fallbackScript.onload = () => {
 					console.log("Mermaid library loaded from fallback CDN");
