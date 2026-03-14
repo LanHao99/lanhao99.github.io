@@ -5,7 +5,11 @@ export function rehypeImageWidth() {
 
 	return (tree) => {
 		visit(tree, "element", (node, index, parent) => {
-			if (node.tagName === "img" && node.properties && node.properties.alt) {
+			if (
+				node.tagName === "img" &&
+				node.properties &&
+				node.properties.alt
+			) {
 				const alt = node.properties.alt;
 				const match = alt.match(regex);
 
@@ -22,8 +26,7 @@ export function rehypeImageWidth() {
 							type: "element",
 							tagName: "figcaption",
 							properties: {
-								style:
-									"text-align: center; margin-top: 0.5em; font-size: 0.9em; color: #666;",
+								style: "text-align: center; margin-top: 0.5em; font-size: 0.9em; color: #666;",
 							},
 							children: [
 								{
@@ -52,3 +55,4 @@ export function rehypeImageWidth() {
 		});
 	};
 }
+
