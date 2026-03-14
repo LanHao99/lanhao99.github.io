@@ -1649,22 +1649,22 @@ const yearSuffix = " ";
 })();</script>  </div> <!-- 粘性组件区域 -->  </div> <!-- 响应式样式和JavaScript -->  <script type="module" src="/_astro/RightSideBar.astro_astro_type_script_index_0_lang.CCwps1rX.js"></script> </div> </div> <main id="swup-container" class="transition-swup-fade overflow-hidden w-full col-span-1 row-start-1 row-end-2 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 transition-main" data-astro-cid-haiuh7kc> <div id="content-wrapper" class="onload-animation transition-leaving" data-astro-cid-haiuh7kc> <!-- the overflow-hidden here prevent long text break the layout--> <!-- make id different from windows.swup global property -->   <script type="module" src="/_astro/about.astro_astro_type_script_index_0_lang.dvY850Ym.js"></script> <div class="flex w-full rounded-(--radius-large) overflow-hidden relative min-h-32"> <div class="card-base z-10 px-9 py-6 relative w-full"> <!-- 页面标题 --> <div class="flex flex-col items-start justify-center mb-8"> <h1 class="text-4xl font-bold text-90 mb-2 relative
                           before:w-1 before:h-8 before:rounded-md before:bg-(--primary)
                           before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4"> このブログについて </h1> </div> <!-- 从MD文件读取的内容 --> <div data-pagefind-body class="prose dark:prose-invert prose-base max-w-none! custom-md mt-2"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <p>This website is built with the <strong>Astro</strong> framework using the <a href="https://github.com/matsuzaka-yuki/mizuki">Mizuki</a> theme.</p>
-<a id="GC8t72yk-card" class="card-github fetch-waiting no-styling" href="https://github.com/matsuzaka-yuki/Mizuki" target="_blank" repo="matsuzaka-yuki/Mizuki"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GC8t72yk-avatar" class="gc-avatar"></div><div class="gc-user">matsuzaka-yuki</div></div><div class="gc-divider">/</div><div class="gc-repo">Mizuki</div></div><div class="github-logo"></div></div><div id="GC8t72yk-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GC8t72yk-stars" class="gc-stars">00K</div><div id="GC8t72yk-forks" class="gc-forks">0K</div><div id="GC8t72yk-license" class="gc-license">0K</div><span id="GC8t72yk-language" class="gc-language">Waiting...</span></div><script id="GC8t72yk-script" type="text/javascript" defer>
+<a id="GCyw9atb-card" class="card-github fetch-waiting no-styling" href="https://github.com/matsuzaka-yuki/Mizuki" target="_blank" repo="matsuzaka-yuki/Mizuki"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GCyw9atb-avatar" class="gc-avatar"></div><div class="gc-user">matsuzaka-yuki</div></div><div class="gc-divider">/</div><div class="gc-repo">Mizuki</div></div><div class="github-logo"></div></div><div id="GCyw9atb-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GCyw9atb-stars" class="gc-stars">00K</div><div id="GCyw9atb-forks" class="gc-forks">0K</div><div id="GCyw9atb-license" class="gc-license">0K</div><span id="GCyw9atb-language" class="gc-language">Waiting...</span></div><script id="GCyw9atb-script" type="text/javascript" defer>
       fetch('https://api.github.com/repos/matsuzaka-yuki/Mizuki', { referrerPolicy: "no-referrer" }).then(response => response.json()).then(data => {
-        document.getElementById('GC8t72yk-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
-        document.getElementById('GC8t72yk-language').innerText = data.language;
-        document.getElementById('GC8t72yk-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
-        document.getElementById('GC8t72yk-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
-        const avatarEl = document.getElementById('GC8t72yk-avatar');
+        document.getElementById('GCyw9atb-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
+        document.getElementById('GCyw9atb-language').innerText = data.language;
+        document.getElementById('GCyw9atb-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
+        document.getElementById('GCyw9atb-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
+        const avatarEl = document.getElementById('GCyw9atb-avatar');
         avatarEl.style.backgroundImage = 'url(' + data.owner.avatar_url + ')';
         avatarEl.style.backgroundColor = 'transparent';
-        document.getElementById('GC8t72yk-license').innerText = data.license?.spdx_id || "no-license";
-        document.getElementById('GC8t72yk-card').classList.remove("fetch-waiting");
-        console.log("[GITHUB-CARD] Loaded card for matsuzaka-yuki/Mizuki | GC8t72yk.")
+        document.getElementById('GCyw9atb-license').innerText = data.license?.spdx_id || "no-license";
+        document.getElementById('GCyw9atb-card').classList.remove("fetch-waiting");
+        console.log("[GITHUB-CARD] Loaded card for matsuzaka-yuki/Mizuki | GCyw9atb.")
       }).catch(err => {
-        const c = document.getElementById('GC8t72yk-card');
+        const c = document.getElementById('GCyw9atb-card');
         c?.classList.add("fetch-error");
-        console.warn("[GITHUB-CARD] (Error) Loading card for matsuzaka-yuki/Mizuki | GC8t72yk.")
+        console.warn("[GITHUB-CARD] (Error) Loading card for matsuzaka-yuki/Mizuki | GCyw9atb.")
       })
     </script></a>
 <section><h2 id="-theme-features">🌟 Theme Features<a class="anchor" href="#-theme-features"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><section><h3 id="-design--user-experience">🎨 Design &#x26; User Experience<a class="anchor" href="#-design--user-experience"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><ul>
