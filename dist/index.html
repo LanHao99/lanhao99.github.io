@@ -87,24 +87,29 @@ const pageScaling = {"enable":true,"targetWidth":2000};
 			);
 
 			// 自动缩放逻辑 (Moved from MainGridLayout to here for earlier execution)
-			(function() {
+			(function () {
 				if (pageScaling && pageScaling.enable) {
 					function adjustPageScale() {
 						const isTouch =
 							(window.matchMedia &&
-								(window.matchMedia("(pointer:coarse)").matches ||
-									window.matchMedia("(hover: none)").matches)) ||
-							("ontouchstart" in window);
+								(window.matchMedia("(pointer:coarse)")
+									.matches ||
+									window.matchMedia("(hover: none)")
+										.matches)) ||
+							"ontouchstart" in window;
 						const isPortrait =
 							window.matchMedia &&
-							window.matchMedia("(orientation: portrait)").matches;
-						const isTabletLike = isTouch || window.innerWidth <= 1280;
+							window.matchMedia("(orientation: portrait)")
+								.matches;
+						const isTabletLike =
+							isTouch || window.innerWidth <= 1280;
 						if (isTabletLike || isPortrait) {
 							document.documentElement.style.fontSize = "";
 							return;
 						}
 						const targetWidth = pageScaling.targetWidth || 2000;
-						const currentWidth = document.documentElement.clientWidth;
+						const currentWidth =
+							document.documentElement.clientWidth;
 						let scale = currentWidth / targetWidth;
 						if (scale > 1) scale = 1;
 						if (scale < 0.85) scale = 0.85;
@@ -113,13 +118,19 @@ const pageScaling = {"enable":true,"targetWidth":2000};
 
 					// 立即执行一次
 					adjustPageScale();
-					
+
 					// 监听窗口大小变化
-					window.addEventListener('resize', adjustPageScale);
-					
+					window.addEventListener("resize", adjustPageScale);
+
 					// Swup 页面切换后也需要检查
-					document.addEventListener('swup:page:view', adjustPageScale);
-					window.addEventListener('orientationchange', adjustPageScale);
+					document.addEventListener(
+						"swup:page:view",
+						adjustPageScale,
+					);
+					window.addEventListener(
+						"orientationchange",
+						adjustPageScale,
+					);
 				}
 			})();
 		})();</script><!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why --><!-- Pio 看板娘样式 - 仅在启用时加载 --><link rel="stylesheet" href="/pio/static/pio.css"><link rel="alternate" type="application/rss+xml" title="LanHao" href="https://mizuki.mysqil.com/rss.xml"><link rel="stylesheet" href="/_astro/Layout.BLtwrKYq.css">
