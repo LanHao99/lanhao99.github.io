@@ -19,20 +19,20 @@ import { LinkPreset } from "./types/config";
 // 移除i18n导入以避免循环依赖
 
 // 定义站点语言
-const SITE_LANG = "ja"; // 语言代码，例如：'en', 'zh_CN', 'ja' 等。
+const SITE_LANG = "zh_CN"; // 语言代码，例如：'en', 'zh_CN', 'ja' 等。
 const SITE_TIMEZONE = 8; //设置你的网站时区 from -12 to 12 default in UTC+8
 export const siteConfig: SiteConfig = {
 	title: "LanHao的个人主页🎉",
 	subtitle: "欢迎来到LanHao的奇妙世界！",
-	siteURL: "https://mizuki.mysqil.com/", // 请替换为你的站点URL，以斜杠结尾
-	siteStartDate: "2025-01-01", // 站点开始运行日期，用于站点统计组件计算运行天数
+	siteURL: "https://site.lanhao.cc/", // 请替换为你的站点URL，以斜杠结尾
+	siteStartDate: "2026-03-14", // 站点开始运行日期，用于站点统计组件计算运行天数
 
 	timeZone: SITE_TIMEZONE,
 
 	lang: SITE_LANG,
 
 	themeColor: {
-		hue: 60, // 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
+		hue: 200, // 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
 		fixed: false, // 对访问者隐藏主题色选择器
 	},
 
@@ -57,7 +57,7 @@ export const siteConfig: SiteConfig = {
 		// 顶栏标题图标路径，默认使用 public/assets/home/home.png
 		icon: "assets/home/home.png",
 		// 网站Logo图片路径
-		logo: "assets/home/default-logo.png",
+		logo: "assets/home/logo.png",
 	},
 
 	// 页面自动缩放配置
@@ -67,13 +67,13 @@ export const siteConfig: SiteConfig = {
 	},
 
 	bangumi: {
-		userId: "your-bangumi-id", // 在此处设置你的Bangumi用户ID，可以设置为 "sai" 测试
-		fetchOnDev: false, // 是否在开发环境下获取 Bangumi 数据（默认 false），获取前先执行 pnpm build 构建 json 文件
+		userId: "1179567 ", // 在此处设置你的Bangumi用户ID，可以设置为 "sai" 测试
+		fetchOnDev: true, // 是否在开发环境下获取 Bangumi 数据（默认 false），获取前先执行 pnpm build 构建 json 文件
 	},
 
 	bilibili: {
-		vmid: "your-bilibili-vmid", // 在此处设置你的Bilibili用户ID (uid)，例如 "1129280784"
-		fetchOnDev: false, // 是否在开发环境下获取 Bilibili 数据（默认 false）
+		vmid: "3494358330378685", // 在此处设置你的Bilibili用户ID (uid)，例如 "1129280784"
+		fetchOnDev: true, // 是否在开发环境下获取 Bilibili 数据（默认 false）
 		coverMirror: "", // 封面图片镜像源（可选，如果需要使用镜像源，例如 "https://images.weserv.nl/?url="）
 		useWebp: true, // 是否使用WebP格式（默认 true）
 
@@ -166,7 +166,7 @@ export const siteConfig: SiteConfig = {
 				"我们想要给万事万物赋予意义，归根结底，是因为无法面对世界的虚无本质罢了。",
 				"我们坐在一艘帆船上。四周都是海洋，连接到遥远的地平线。",
 				"所有的魔法都是时间魔法。",
-				"知识由语言承载，语言的“概念”彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。",
+				"知识由语言承载，语言的“概念”彼此依赖，构成一个网。就像加减乘除的数据可以计算世界，几个基础的概念也可以织成一张完整的网。"
 			],
 			typewriter: {
 				enable: true, // 启用副标题打字机效果
@@ -351,48 +351,6 @@ export const navBarConfig: NavBarConfig = {
 					url: "/timeline/",
 					icon: "material-symbols:timeline",
 				},
-				{
-					name: "ArtCartoon",
-					url: "/ArtCartoon/",
-					icon: "material-symbols:brush",
-					external: false,
-				},
-				{
-					name: "Games",
-					url: "/Games/",
-					icon: "material-symbols:stadia-controller",
-					external: false,
-				},
-				{
-					name: "Invitation",
-					url: "/Invitation/",
-					icon: "material-symbols:mail",
-					external: false,
-				},
-				{
-					name: "IP",
-					url: "/IP/",
-					icon: "material-symbols:lightbulb",
-					external: false,
-				},
-				{
-					name: "Legacy Links",
-					url: "/Links/",
-					icon: "material-symbols:link",
-					external: false,
-				},
-				{
-					name: "Novel Shelf",
-					url: "/Novel/",
-					icon: "material-symbols:menu-book",
-					external: false,
-				},
-				{
-					name: "Video",
-					url: "/Video/",
-					icon: "material-symbols:movie",
-					external: false,
-				},
 			],
 		},
 	],
@@ -407,23 +365,11 @@ export const profileConfig: ProfileConfig = {
 		speed: 80, // 打字速度（毫秒）
 	},
 	links: [
-		{
-			name: "GitHub",
-			icon: "mdi:github",
-			url: "https://www.github.com/LanHao99",
-		},
+		{ name: "GitHub", icon: "mdi:github", url: "https://www.github.com/LanHao99" },
 		{ name: "Email", icon: "mdi:email", url: "mailto:lan_hao@sjtu.edu.cn" },
-		{
-			name: "Bilibili",
-			icon: "fa7-brands:bilibili",
-			url: "https://space.bilibili.com/3494358330378685",
-		},
+		{ name: "Bilibili", icon: "fa7-brands:bilibili", url: "https://space.bilibili.com/3494358330378685" },
 		{ name: "WeChat", icon: "mdi:wechat", url: "https://wx.qq.com/" },
-		{
-			name: "YouTube",
-			icon: "mdi:youtube",
-			url: "https://www.youtube.com/@Lan_Hao",
-		},
+		{ name: "YouTube", icon: "mdi:youtube", url: "https://www.youtube.com/@Lan_Hao" }
 	],
 };
 
@@ -496,7 +442,7 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	mode: "meting", // 音乐播放器模式，可选 "local" 或 "meting"
 	meting_api:
 		"https://meting.mysqil.com/api?server=:server&type=:type&id=:id&auth=:auth&r=:r", // Meting API 地址
-	id: "2028178887", // 歌单ID
+	id: "12311235579", // 歌单ID
 	server: "netease", // 音乐源服务器。有的meting的api源支持更多平台,一般来说,netease=网易云音乐, tencent=QQ音乐, kugou=酷狗音乐, xiami=虾米音乐, baidu=百度音乐
 	type: "playlist", // 播单类型
 };
@@ -621,7 +567,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 };
 
 export const sakuraConfig: SakuraConfig = {
-	enable: false, // 默认关闭樱花特效
+	enable: true, // 默认关闭樱花特效
 	sakuraNum: 21, // 樱花数量
 	limitTimes: -1, // 樱花越界限制次数，-1为无限循环
 	size: {
@@ -649,7 +595,7 @@ export const sakuraConfig: SakuraConfig = {
 
 // Pio 看板娘配置
 export const pioConfig: import("./types/config").PioConfig = {
-	enable: true, // 启用看板娘
+	enable: false, // 启用看板娘
 	models: ["/pio/models/pio/model.json"], // 默认模型路径
 	position: "left", // 模型位置
 	width: 280, // 默认宽度
@@ -667,7 +613,7 @@ export const pioConfig: import("./types/config").PioConfig = {
 		home: "Click here to go back to homepage!", // 首页提示
 		skin: ["Want to see my new outfit?", "The new outfit looks great~"], // 换装提示
 		close: "QWQ See you next time~", // 关闭提示
-		link: "https://github.com/matsuzaka-yuki/Mizuki", // 关于链接
+		link: "https://site.lanhao.cc", // 关于链接
 	},
 };
 
