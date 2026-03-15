@@ -1,114 +1,94 @@
-<div align = "center">
+# Adastra
 
-# Twilight
+一个以「个人博客」为核心的极简站点。
 
-A CMS integrated static blog template built with Astro framework.
+Adastra 源自拉丁语 *ad astra*（向着群星），在这个项目里，它代表一种写作方式:
 
-[**🖥️ Live Demo**](https://twilight.spr-aachen.com)
-[**📝 Documentation**](https://docs.twilight.spr-aachen.com/en)
+- 内容优先，视觉克制
+- 结构清晰，阅读轻量
+- 保持细节，但不过度装饰
 
-[![Bilibili](https://img.shields.io/badge/Bilibili-Intro-blue?logo=Bilibili)](https://space.bilibili.com/359461611/lists/6641229)&nbsp;
-[![YouTube](https://img.shields.io/badge/YouTube-Intro-red?logo=YouTube)](https://youtube.com/playlist?list=PLzjq8Hx1SRV7yqZQiACcCJmKPeg5D8JKe&si=Bcz2o0PF8MFvx8ec)
+## 特性
 
-<table style="width: 100%; table-layout: fixed;">
-   <tr>
-      <td colspan="5"><img alt="Desktop" src="docs/image/Desktop.jpg" style="max-width: 100%;"></td>
-   </tr>
-   <tr>
-      <td><img alt="Mobile_4" src="docs/image/Mobile_4.jpg" style="max-width: 100%;"></td>
-      <td><img alt="Mobile_2" src="docs/image/Mobile_2.jpg" style="max-width: 100%;"></td>
-      <td><img alt="Mobile_1" src="docs/image/Mobile_1.jpg" style="max-width: 100%;"></td>
-      <td><img alt="Mobile_3" src="docs/image/Mobile_3.jpg" style="max-width: 100%;"></td>
-      <td><img alt="Mobile_5" src="docs/image/Mobile_5.jpg" style="max-width: 100%;"></td>
-   </tr>
-</table>
+- 极简博客体验：主页、归档、分类内容页简洁直达
+- Markdown 内容驱动：专注写作，减少模板心智负担
+- Astro + Svelte 组合：静态内容性能与交互能力兼顾
+- 全文检索：集成 Pagefind
+- RSS / Atom：便于订阅
+- 适配多端：桌面与移动端一致体验
 
-</div>
+## 技术栈
 
----
+- Astro 5
+- Svelte 5
+- TypeScript
+- Stylus / CSS
+- Biome
+- Pagefind
 
-<div align = "center">
+## 快速开始
 
-English | [**中文**](docs/README_ZH.md)
+### 1. 安装依赖
 
-</div>
+```bash
+pnpm install
+```
 
+### 2. 启动开发环境
 
-## ✨ Features
+```bash
+pnpm dev
+```
 
-### Content
-- **CMS Functionality**: Easy content management with Decap CMS integration
-- **Data Visualization**: Visualized personal data like projects, skills etc.
-- **Automatic Navigation**: Automatic generation of post navigation
+### 3. 构建生产版本
 
-### Components
-- **Analytics Support**: Umami analytics integration for visitor insights
-- **Comment System**: Twikoo-powered comment functionality
-- **Music Player**: Background music support with playlist management
-- **PIO Widget**: Interactive live2d character support
+```bash
+pnpm build
+```
 
-### VFX
-- **Smooth Transition Animations**: Polished page component transition animations
-- **Customizable Theme Colors**: Realtime customizable color schemes
-- **Dynamic Wallpaper System**: Carousel support with multiple display modes
-- **Immersive Particle Effects**: Highly customizable animated particles
+### 4. 本地预览
 
-### Compability
-- **Modern & Responsive Design**: Fully optimized for desktop and mobile devices
-- **Multilingual Capability**: Built-in translation functionality for global accessibility
+```bash
+pnpm preview
+```
 
+## 常用命令
 
-## 💻 Configuration
+```bash
+pnpm dev         # 本地开发
+pnpm build       # 生产构建（含 Pagefind）
+pnpm preview     # 预览构建结果
+pnpm check       # Astro 检查
+pnpm type-check  # TypeScript 检查
+pnpm lint        # Biome 检查并写入修复
+pnpm format      # Biome 格式化
+pnpm new-post    # 新建文章
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Spr-Aachen/Twilight.git
-   # Navigate to the project directory
-   cd Twilight
-   ```
+## 目录概览
 
-2. **Install dependencies:**
-   ```bash
-   # Install pnpm if not already installed
-   npm install -g pnpm
-   # Install project dependencies
-   pnpm install
-   ```
+```text
+src/
+  components/    # 组件
+  content/       # 站点内容（文章、页面等）
+  layouts/       # 页面布局
+  pages/         # 路由页面
+  styles/        # 全局样式
+public/          # 静态资源
+scripts/         # 构建与工具脚本
+```
 
-3. **Configure your blog:**
-   - [Customize blog settings](https://docs.twilight.spr-aachen.com/en/config/core) inside `twilight.config.yaml`
-   - [Support CMS functionality](https://docs.twilight.spr-aachen.com/en/config/cms) inside `.env`
-   - [Support Umami analytics](https://docs.twilight.spr-aachen.com/en/config/analytics) inside `.env`
-   - [Manage site content](https://docs.twilight.spr-aachen.com/en/config/content) inside `src/content`
+## 定位
 
-4. **Start the development server:**
-   ```bash
-   pnpm dev
-   ```
+这不是一个「功能越多越好」的博客模板。
+它更适合:
 
+- 个人长期写作
+- 偏文档化的知识沉淀
+- 喜欢克制设计语言的内容站点
 
-## 🚀 Deployment
+## License
 
-Deploy your blog to any static hosting platform
-
-
-## ⚡ Commands
-
-| Command                     | Action                        |
-|:----------------------------|:------------------------------|
-| ~~`pnpm lint`~~             | ~~Check and fix code issues~~ |
-| ~~`pnpm format`~~           | ~~Format code with Biome~~    |
-| `pnpm check`                | Run Astro error checking      |
-| `pnpm dev`                  | Start local dev server        |
-| `pnpm build`                | Build site to `./dist/`       |
-| `pnpm preview`              | Preview build locally         |
-| `pnpm astro ...`            | Run Astro CLI commands        |
-| `pnpm new-post <filename>`  | Create a new blog post        |
+[MIT](LICENSE)
 
 
-## 🙏 Acknowledgements
-
-- Prototype   - [Fuwari](https://github.com/saicaca/fuwari)
-- Inspiration - [Yukina](https://github.com/WhitePaper233/yukina) & [Mizuki](https://github.com/matsuzaka-yuki/Mizuki)
-- CMS         - [astro-decap-cms-oauth](https://github.com/dorukgezici/astro-decap-cms-oauth)
-- Translation - [translate](https://gitee.com/mail_osc/translate)

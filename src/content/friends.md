@@ -1,18 +1,18 @@
 ---
 
-## How to Apply
+## 如何申请友链
 
-Please send your website information to: xxx@xxx.com
+请将你的网站信息发送到：xxx@xxx.com
 
-Email Subject:
+邮件标题：
 ```
-Request to Add Friend
+申请添加友链
 ```
 
-Email Content (Template):
+邮件内容模板：
 ```
-Site Name: [Your Site Name]
-Site Desc: [Your Site Description]
-Site Link: [Your Site Link]
-Avatar Link: [Your Avatar Link]
+Site Name: [你的网站名称]
+Site Desc: [你的网站描述]
+Site Link: [你的网站链接]
+Avatar Link: [你的网站头像链接]
 ```
