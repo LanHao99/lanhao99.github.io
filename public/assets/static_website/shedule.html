@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的医学院课表 (带数据看板)</title>
+    <!-- 引入 Tailwind CSS 进行极简现代的样式设计 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 React 和 ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- 引入 Babel 用于浏览器内编译 JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f3f4f6;
+            overscroll-behavior-y: none;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .drag-active {
+            user-select: none;
+            cursor: grabbing !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useMemo, useEffect, useRef } = React;
+
+        // ====== 完整版课表原始数据 ======
+        const INITIAL_SCHEDULE_DATA = [
+            // --- 3月份 ---
+            { date: '2026-03-02', start: '08:00', end: '11:10', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-02', start: '13:30', end: '15:50', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-03', start: '08:00', end: '10:20', title: '生殖系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-03', start: '13:30', end: '16:40', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-04', start: '08:00', end: '12:00', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-04', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-03-05', start: '08:00', end: '11:10', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-05', start: '13:30', end: '15:50', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-06', start: '08:00', end: '11:10', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-06', start: '13:30', end: '18:20', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
+            { date: '2026-03-09', start: '08:00', end: '11:10', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-09', start: '13:30', end: '16:40', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-10', start: '09:40', end: '12:00', title: '生殖系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-03-10', start: '13:30', end: '16:40', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-11', start: '08:50', end: '12:00', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-11', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-03-12', start: '08:00', end: '09:30', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-12', start: '09:40', end: '10:20', title: '内分泌系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-03-12', start: '10:30', end: '11:10', title: '呼吸系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-03-12', start: '11:20', end: '12:00', title: '泌尿系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-03-12', start: '13:30', end: '15:50', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-13', start: '08:00', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-13', start: '13:30', end: '18:20', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
+            { date: '2026-03-16', start: '09:40', end: '11:10', title: '泌尿系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-03-16', start: '13:30', end: '15:50', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-17', start: '08:00', end: '09:30', title: '生殖系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-17', start: '13:30', end: '15:50', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-18', start: '08:00', end: '10:20', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-18', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-03-19', start: '08:00', end: '10:20', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-19', start: '13:30', end: '17:30', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-20', start: '08:00', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-20', start: '13:30', end: '17:30', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
+            { date: '2026-03-23', start: '08:00', end: '10:20', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-23', start: '13:30', end: '16:40', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-24', start: '08:00', end: '10:20', title: '生殖系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-24', start: '13:30', end: '16:40', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-25', start: '08:00', end: '10:20', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-25', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-03-26', start: '08:50', end: '10:20', title: '内分泌系统', room: '新华临床-病区示教室' },
+            { date: '2026-03-26', start: '13:30', end: '15:00', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-26', start: '15:10', end: '17:30', title: '呼吸系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-03-27', start: '08:00', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-27', start: '13:30', end: '17:30', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
+            { date: '2026-03-30', start: '08:00', end: '09:30', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-30', start: '09:40', end: '11:10', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-30', start: '13:30', end: '15:50', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-31', start: '08:00', end: '08:40', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-03-31', start: '09:40', end: '11:10', title: '生殖系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-03-31', start: '11:20', end: '12:00', title: '内分泌系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-03-31', start: '13:30', end: '15:00', title: '生殖系统', room: '08号楼-05层-507教室' },
+            // --- 4月份 ---
+            { date: '2026-04-01', start: '08:00', end: '10:20', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-01', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-04-02', start: '09:40', end: '11:10', title: '内分泌系统', room: '08号楼-05层-507教室' },
+            { date: '2026-04-02', start: '13:30', end: '15:50', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-03', start: '08:00', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-03', start: '13:30', end: '17:30', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
+            { date: '2026-04-07', start: '09:40', end: '12:00', title: '生殖系统', room: '08号楼-05层-507教室' },
+            { date: '2026-04-07', start: '13:30', end: '15:00', title: '血液系统', room: '08号楼-05层-507教室' },
+            { date: '2026-04-08', start: '08:50', end: '10:20', title: '泌尿系统', room: '08号楼-05层-507教室' },
+            { date: '2026-04-08', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-04-09', start: '09:40', end: '12:00', title: '内分泌系统', room: '08号楼-05层-507教室' },
+            { date: '2026-04-09', start: '13:30', end: '16:40', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-10', start: '08:00', end: '10:20', title: '血液系统', room: '07号楼-01层-109实验室' },
+            { date: '2026-04-10', start: '13:30', end: '17:30', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
+            { date: '2026-04-13', start: '08:50', end: '11:10', title: '循证科学', room: '08号楼-03层-319教室' },
+            { date: '2026-04-13', start: '13:30', end: '15:50', title: '血液系统', room: '新华临床-病区示教室' },
+            { date: '2026-04-14', start: '09:40', end: '10:20', title: '生殖系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-14', start: '13:30', end: '15:50', title: '血液系统', room: '08号楼-05层-507教室' },
+            { date: '2026-04-15', start: '09:40', end: '12:00', title: '泌尿系统', room: '08号楼-05层-507教室' },
+            { date: '2026-04-15', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-04-16', start: '09:40', end: '10:20', title: '内分泌系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-16', start: '13:30', end: '14:10', title: '呼吸系统', room: '网课超星课堂' },
+            { date: '2026-04-16', start: '14:20', end: '16:40', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-17', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-04-20', start: '08:50', end: '11:10', title: '循证科学', room: '公卫学院-线上教室01' },
+            { date: '2026-04-21', start: '08:00', end: '11:10', title: '口腔科学', room: '08号楼-03层-319教室' },
+            { date: '2026-04-21', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-04-22', start: '08:50', end: '09:30', title: '泌尿系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-22', start: '09:40', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-22', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-04-23', start: '13:30', end: '14:10', title: '呼吸系统', room: '08号楼-03层-319教室' },
+            { date: '2026-04-23', start: '14:20', end: '15:00', title: '呼吸系统', room: '网课超星课堂' },
+            { date: '2026-04-24', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-04-27', start: '08:00', end: '11:10', title: '循证科学', room: '08号楼-05层-506教室' },
+            { date: '2026-04-27', start: '13:30', end: '17:30', title: '呼吸系统', room: '新华临床-病区示教室' },
+            { date: '2026-04-28', start: '08:00', end: '12:00', title: '口腔科学', room: '08号楼-03层-319教室' },
+            { date: '2026-04-28', start: '13:30', end: '17:30', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-04-29', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
+            { date: '2026-04-29', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-04-30', start: '13:30', end: '15:00', title: '呼吸系统', room: '08号楼-05层-507教室' },
+            // --- 5月份 ---
+            { date: '2026-05-06', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
+            { date: '2026-05-07', start: '13:30', end: '15:50', title: '呼吸系统', room: '08号楼-05层-507教室' },
+            { date: '2026-05-08', start: '08:00', end: '10:20', title: '循证临床实践', room: '08号楼-03层-319教室' },
+            { date: '2026-05-08', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-05-09', start: '08:00', end: '09:30', title: '口腔科学', room: '08号楼-03层-319教室' },
+            { date: '2026-05-09', start: '09:40', end: '11:10', title: '口腔科学', room: '08号楼-05层-507教室' },
+            { date: '2026-05-09', start: '13:30', end: '17:30', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-05-11', start: '08:50', end: '12:00', title: '循证科学', room: '08号楼-05层-506教室' },
+            { date: '2026-05-12', start: '08:00', end: '11:10', title: '口腔科学', room: '08号楼-03层-319教室' },
+            { date: '2026-05-12', start: '13:30', end: '17:30', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-05-13', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
+            { date: '2026-05-13', start: '13:30', end: '16:40', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-05-14', start: '13:30', end: '14:10', title: '呼吸系统', room: '网课超星课堂' },
+            { date: '2026-05-15', start: '08:00', end: '11:10', title: '循证临床实践', room: '08号楼-03层-319教室' },
+            { date: '2026-05-15', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-05-18', start: '08:50', end: '12:00', title: '循证科学', room: '08号楼-05层-506教室' },
+            { date: '2026-05-19', start: '08:00', end: '11:10', title: '口腔科学', room: '08号楼-03层-319教室' },
+            { date: '2026-05-19', start: '13:30', end: '15:00', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-05-19', start: '15:10', end: '16:40', title: '外科学总论', room: '08号楼-05层-507教室' },
+            { date: '2026-05-20', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
+            { date: '2026-05-20', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-406实验室' },
+            { date: '2026-05-22', start: '08:00', end: '11:10', title: '循证临床实践', room: '08号楼-03层-319教室' },
+            { date: '2026-05-22', start: '13:30', end: '15:50', title: '外科学总论', room: '08号楼-05层-507教室' },
+            { date: '2026-05-25', start: '08:00', end: '12:00', title: '循证科学', room: '公卫学院-线上教室01' },
+            { date: '2026-05-26', start: '13:30', end: '14:10', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-05-26', start: '14:20', end: '15:50', title: '外科学总论', room: '08号楼-05层-507教室' },
+            { date: '2026-05-27', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
+            { date: '2026-05-27', start: '13:30', end: '15:50', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-05-29', start: '08:00', end: '11:10', title: '循证临床实践', room: '08号楼-03层-319教室' },
+            { date: '2026-05-29', start: '13:30', end: '15:50', title: '外科学总论', room: '08号楼-05层-507教室' },
+            // --- 6月份 ---
+            { date: '2026-06-01', start: '08:50', end: '12:00', title: '循证科学', room: '公卫学院-线上教室01' },
+            { date: '2026-06-02', start: '13:30', end: '15:50', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-06-03', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
+            { date: '2026-06-03', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '网上教室' },
+            { date: '2026-06-04', start: '13:30', end: '17:30', title: '外科学总论', room: '新华临床-外科楼-519' },
+            { date: '2026-06-05', start: '08:00', end: '10:20', title: '循证临床实践', room: '08号楼-03层-319教室' },
+            { date: '2026-06-05', start: '13:30', end: '16:40', title: '外科学总论', room: '新华临床-外总病区5' },
+            { date: '2026-06-09', start: '08:50', end: '12:00', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
+            { date: '2026-06-09', start: '13:30', end: '18:20', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
+            { date: '2026-06-10', start: '08:00', end: '09:30', title: '全科医学', room: '08号楼-03层-319教室' },
+            { date: '2026-06-10', start: '13:30', end: '16:40', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-06-12', start: '15:10', end: '17:30', title: '外科学总论', room: '瑞金临床-外总临床病区1' },
+            { date: '2026-06-17', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-06-18', start: '13:30', end: '15:50', title: '外科学总论', room: '08号楼-03层-319教室' },
+            { date: '2026-06-22', start: '08:50', end: '12:00', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
+            { date: '2026-06-23', start: '13:30', end: '16:40', title: '外科学总论', room: '新华临床-外总病区5' },
+            { date: '2026-06-24', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
+            { date: '2026-06-25', start: '08:50', end: '12:00', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
+            { date: '2026-06-25', start: '13:30', end: '18:20', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
+        ];
+
+        // 颜色生成器 (含进度条颜色 bar)
+        const getCourseColors = (title) => {
+            const colors = {
+                '泌尿系统': { bg: 'bg-blue-100', text: 'text-blue-800', border: 'border-blue-200', bar: 'bg-blue-500' },
+                '血液系统': { bg: 'bg-red-100', text: 'text-red-800', border: 'border-red-200', bar: 'bg-red-500' },
+                '生殖系统': { bg: 'bg-pink-100', text: 'text-pink-800', border: 'border-pink-200', bar: 'bg-pink-500' },
+                '内分泌系统': { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-200', bar: 'bg-purple-500' },
+                '呼吸系统': { bg: 'bg-green-100', text: 'text-green-800', border: 'border-green-200', bar: 'bg-green-500' },
+                '儿童心肺复苏与生命支持': { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-200', bar: 'bg-orange-500' },
+                '功能学实验（A类）': { bg: 'bg-teal-100', text: 'text-teal-800', border: 'border-teal-200', bar: 'bg-teal-500' },
+                '外科学总论': { bg: 'bg-indigo-100', text: 'text-indigo-800', border: 'border-indigo-200', bar: 'bg-indigo-500' },
+                '全科医学': { bg: 'bg-yellow-100', text: 'text-yellow-800', border: 'border-yellow-200', bar: 'bg-yellow-500' },
+                '循证科学': { bg: 'bg-cyan-100', text: 'text-cyan-800', border: 'border-cyan-200', bar: 'bg-cyan-500' },
+                '循证临床实践': { bg: 'bg-sky-100', text: 'text-sky-800', border: 'border-sky-200', bar: 'bg-sky-500' },
+                '口腔科学': { bg: 'bg-lime-100', text: 'text-lime-800', border: 'border-lime-200', bar: 'bg-lime-500' },
+                '外科手术学': { bg: 'bg-rose-100', text: 'text-rose-800', border: 'border-rose-200', bar: 'bg-rose-500' },
+            };
+            return colors[title] || { bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-gray-200', bar: 'bg-gray-500' };
+        };
+
+        // UI图标组件
+        const IconChevronLeft = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>;
+        const IconChevronRight = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>;
+        const IconCalendar = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>;
+        const IconList = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" /></svg>;
+        const IconDashboard = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>;
+        const IconClose = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>;
+        const IconEdit = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>;
+        const IconReset = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>;
+
+        const App = () => {
+            const [currentDate, setCurrentDate] = useState(new Date('2026-03-02T00:00:00'));
+            const [viewMode, setViewMode] = useState('week'); // 'week', 'month', 'dashboard'
+            const [selectedCourse, setSelectedCourse] = useState(null);
+
+            // 编辑和拖拽状态
+            const [isEditing, setIsEditing] = useState(false);
+            const [dragInfo, setDragInfo] = useState(null);
+            const gridRef = useRef(null);
+
+            // 读取或初始化最新缓存
+            const [courses, setCourses] = useState(() => {
+                const saved = localStorage.getItem('medical_schedule_v5');
+                if (saved) {
+                    try { return JSON.parse(saved); } catch (e) { }
+                }
+                return INITIAL_SCHEDULE_DATA.map((c, i) => ({ ...c, id: `course_${Date.now()}_${i}` }));
+            });
+
+            // 自动保存
+            useEffect(() => {
+                localStorage.setItem('medical_schedule_v5', JSON.stringify(courses));
+            }, [courses]);
+
+            // 恢复原厂数据
+            const handleReset = () => {
+                if (window.confirm("确定要放弃所有修改，恢复到最新版原始课表吗？")) {
+                    const freshData = INITIAL_SCHEDULE_DATA.map((c, i) => ({ ...c, id: `course_${Date.now()}_${i}` }));
+                    setCourses(freshData);
+                    setIsEditing(false);
+                }
+            };
+
+            const changeDate = (amount) => {
+                const newDate = new Date(currentDate);
+                if (viewMode === 'month') {
+                    newDate.setMonth(newDate.getMonth() + amount);
+                } else {
+                    newDate.setDate(newDate.getDate() + (amount * 7));
+                }
+                setCurrentDate(newDate);
+            };
+
+            const goToToday = () => {
+                setCurrentDate(new Date());
+                setViewMode('week');
+            };
+
+            const getYearMonthLabel = () => `${currentDate.getFullYear()}年 ${currentDate.getMonth() + 1}月`;
+            const formatYMD = (d) => {
+                const y = d.getFullYear();
+                const m = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${y}-${m}-${day}`;
+            };
+
+            // 月视图（去除周六周日，仅展示周一到周五的工作日）
+            const monthDays = useMemo(() => {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                const lastDay = new Date(year, month + 1, 0).getDate();
+                const days = [];
+
+                // 寻找该月的第一个工作日
+                let firstWorkday = null;
+                for (let i = 1; i <= lastDay; i++) {
+                    const d = new Date(year, month, i);
+                    if (d.getDay() >= 1 && d.getDay() <= 5) {
+                        firstWorkday = d;
+                        break;
+                    }
+                }
+
+                // 填充空白
+                if (firstWorkday) {
+                    const blanks = firstWorkday.getDay() - 1;
+                    for (let i = 0; i < blanks; i++) days.push(null);
+                }
+
+                for (let i = 1; i <= lastDay; i++) {
+                    const d = new Date(year, month, i);
+                    if (d.getDay() >= 1 && d.getDay() <= 5) { // 剔除周末
+                        days.push(d);
+                    }
+                }
+                return days;
+            }, [currentDate]);
+
+            // 周视图（仅取本周的周一至周五）
+            const weekDays = useMemo(() => {
+                const dayOfWeek = currentDate.getDay() === 0 ? 6 : currentDate.getDay() - 1;
+                const monday = new Date(currentDate);
+                monday.setDate(currentDate.getDate() - dayOfWeek);
+                const days = [];
+                for (let i = 0; i < 5; i++) { // 只循环5天
+                    const d = new Date(monday);
+                    d.setDate(monday.getDate() + i);
+                    days.push(d);
+                }
+                return days;
+            }, [currentDate]);
+
+            const timeToMinutes = (timeStr) => {
+                const [h, m] = timeStr.split(':').map(Number);
+                return h * 60 + m;
+            };
+
+            const minutesToTime = (min) => {
+                const h = Math.floor(min / 60);
+                const m = min % 60;
+                return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+            };
+
+            const formatMinutesToHours = (m) => `${Math.floor(m / 60)}小时${m % 60 > 0 ? ` ${m % 60}分` : ''}`;
+
+            const START_HOUR = 7.5;
+            const END_HOUR = 19;
+            const PIXELS_PER_MINUTE = 1.2;
+
+            // ================= 拖拽逻辑 =================
+            useEffect(() => {
+                if (!dragInfo) return;
+
+                const handlePointerMove = (e) => {
+                    const deltaY = e.clientY - dragInfo.startY;
+                    const deltaMin = Math.round((deltaY / PIXELS_PER_MINUTE) / 10) * 10;
+
+                    setCourses(prev => prev.map(c => {
+                        if (c.id !== dragInfo.id) return c;
+                        const newCourse = { ...c };
+
+                        if (dragInfo.type === 'resize') {
+                            const newEndMin = Math.max(dragInfo.initialStart + 10, dragInfo.initialEnd + deltaMin);
+                            newCourse.end = minutesToTime(newEndMin);
+                        } else if (dragInfo.type === 'move') {
+                            const newStartMin = Math.max(START_HOUR * 60, dragInfo.initialStart + deltaMin);
+                            const duration = dragInfo.initialEnd - dragInfo.initialStart;
+                            newCourse.start = minutesToTime(newStartMin);
+                            newCourse.end = minutesToTime(newStartMin + duration);
+
+                            if (gridRef.current) {
+                                const gridRect = gridRef.current.getBoundingClientRect();
+                                const relativeX = e.clientX - gridRect.left - 64;
+                                if (relativeX > 0 && relativeX < gridRect.width - 64) {
+                                    const colWidth = (gridRect.width - 64) / 5; // 周末剔除后，网格总分为5列
+                                    const colIndex = Math.floor(relativeX / colWidth);
+                                    if (colIndex >= 0 && colIndex <= 4) {
+                                        newCourse.date = formatYMD(weekDays[colIndex]);
+                                    }
+                                }
+                            }
+                        }
+                        return newCourse;
+                    }));
+                };
+
+                const handlePointerUp = () => {
+                    setDragInfo(null);
+                    document.body.classList.remove('drag-active');
+                };
+
+                window.addEventListener('pointermove', handlePointerMove);
+                window.addEventListener('pointerup', handlePointerUp);
+                document.body.classList.add('drag-active');
+
+                return () => {
+                    window.removeEventListener('pointermove', handlePointerMove);
+                    window.removeEventListener('pointerup', handlePointerUp);
+                    document.body.classList.remove('drag-active');
+                };
+            }, [dragInfo, weekDays]);
+
+            // ================= 数据看板渲染逻辑 =================
+            const renderDashboard = () => {
+                const now = new Date();
+                const stats = {};
+                let totalMins = 0;
+                let passedMinsOverall = 0;
+
+                courses.forEach(c => {
+                    if (!stats[c.title]) {
+                        stats[c.title] = { totalCount: 0, passedCount: 0, totalMins: 0, passedMins: 0, totalPeriods: 0, passedPeriods: 0 };
+                    }
+
+                    const duration = timeToMinutes(c.end) - timeToMinutes(c.start);
+                    const periods = Math.round((duration + 10) / 50);
+
+                    stats[c.title].totalCount++;
+                    stats[c.title].totalMins += duration;
+                    stats[c.title].totalPeriods += periods;
+                    totalMins += duration;
+
+                    const courseEndDate = new Date(`${c.date}T${c.end}:00`);
+                    if (courseEndDate < now) {
+                        stats[c.title].passedCount++;
+                        stats[c.title].passedMins += duration;
+                        stats[c.title].passedPeriods += periods;
+                        passedMinsOverall += duration;
+                    }
+                });
+
+                const sortedStats = Object.entries(stats).sort((a, b) => {
+                    const remainPeriodsA = a[1].totalPeriods - a[1].passedPeriods;
+                    const remainPeriodsB = b[1].totalPeriods - b[1].passedPeriods;
+                    return remainPeriodsB - remainPeriodsA;
+                });
+
+                const overallProgress = totalMins === 0 ? 0 : Math.round((passedMinsOverall / totalMins) * 100);
+
+                return (
+                    <div className="p-4 sm:p-6 flex-1 overflow-y-auto bg-gray-50/50">
+                        <div className="mb-6 p-6 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-800">全学期进度总览</h2>
+                                <p className="text-sm text-gray-500 mt-1">
+                                    当前对比基准：<span className="font-semibold text-gray-700">{now.toLocaleString('zh-CN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                                </p>
+                            </div>
+                            <div className="text-right flex items-center gap-4">
+                                <div className="text-right">
+                                    <div className="text-3xl font-black text-blue-600">{overallProgress}%</div>
+                                    <div className="text-xs text-gray-400 font-medium">已完成比例</div>
+                                </div>
+                                <div className="relative w-14 h-14">
+                                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                        <path className="text-gray-100" strokeWidth="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path className="text-blue-500" strokeWidth="4" strokeDasharray={`${overallProgress}, 100`} stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {sortedStats.map(([title, s]) => {
+                                const remainCount = s.totalCount - s.passedCount;
+                                const remainPeriods = s.totalPeriods - s.passedPeriods;
+                                const remainMins = s.totalMins - s.passedMins;
+                                const progress = s.totalCount === 0 ? 0 : Math.round((s.passedCount / s.totalCount) * 100);
+                                const colors = getCourseColors(title);
+
+                                return (
+                                    <div key={title} className={`bg-white rounded-2xl border ${colors.border} shadow-sm overflow-hidden hover:shadow-md transition-shadow`}>
+                                        <div className={`px-4 py-3 ${colors.bg} border-b ${colors.border} flex justify-between items-center`}>
+                                            <span className={`font-bold text-base ${colors.text}`}>{title}</span>
+                                            <span className={`text-xs px-2 py-0.5 bg-white/60 rounded font-bold ${colors.text}`}>完成 {progress}%</span>
+                                        </div>
+                                        <div className="p-5">
+                                            <div className="flex justify-between items-end mb-5">
+                                                <div>
+                                                    <div className="text-xs text-gray-500 font-medium mb-1">剩余课次 / 总次</div>
+                                                    <div className="text-2xl font-black text-gray-800">
+                                                        {remainCount} <span className="text-sm font-medium text-gray-400">/ {s.totalCount} 次</span>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right">
+                                                    <div className="text-xs text-gray-500 font-medium mb-1">剩余时间分析</div>
+                                                    <div className="text-lg font-bold text-gray-700">
+                                                        <span className="text-blue-600">{remainPeriods}</span> 节
+                                                    </div>
+                                                    <div className="text-xs text-gray-400 font-medium mt-0.5">
+                                                        (共 {formatMinutesToHours(remainMins)})
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="w-full bg-gray-100 rounded-full h-2">
+                                                <div className={`${colors.bar} h-2 rounded-full transition-all duration-1000`} style={{ width: `${progress}%` }}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                );
+            };
+
+            const currentWeekKey = formatYMD(weekDays[0]);
+
+            return (
+                <div className="h-screen flex flex-col bg-gray-100 pt-6 pb-8 px-4 sm:px-8 overflow-hidden">
+                    {/* Header 面板 */}
+                    <div className="w-full max-w-7xl mx-auto glass-panel rounded-2xl shadow-sm border border-gray-100 p-4 mb-4 flex flex-col sm:flex-row justify-between items-center gap-4 flex-shrink-0 z-40 relative">
+                        <div className="flex items-center gap-4">
+                            <h1 className="text-2xl font-bold text-gray-800">医学院课表</h1>
+                            {isEditing ? (
+                                <span className="px-3 py-1 bg-red-50 text-red-600 rounded-full text-sm font-medium animate-pulse border border-red-200">编辑模式进行中...</span>
+                            ) : (
+                                <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium hidden sm:block">23级临床八年制</span>
+                            )}
+                        </div>
+
+                        <div className="flex items-center gap-3 flex-wrap justify-end">
+                            {/* 编辑控制 */}
+                            {viewMode !== 'dashboard' && (
+                                <div className="flex gap-2">
+                                    {isEditing && (
+                                        <button onClick={handleReset} className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 transition-colors">
+                                            <IconReset /> 恢复默认
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={() => {
+                                            setIsEditing(!isEditing);
+                                            if (viewMode === 'month' && !isEditing) setViewMode('week');
+                                        }}
+                                        className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold transition-all shadow-sm ${isEditing ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
+                                            }`}
+                                    >
+                                        {isEditing ? '保存修改并退出' : <><IconEdit /> 编辑课表</>}
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* 日期导航 */}
+                            {viewMode !== 'dashboard' && (
+                                <div className="flex items-center gap-2 ml-2">
+                                    <div className="flex items-center bg-gray-50 rounded-lg p-1 border border-gray-200">
+                                        <button onClick={() => changeDate(-1)} className="p-1.5 hover:bg-white rounded-md transition-colors"><IconChevronLeft /></button>
+                                        <span className="w-28 text-center text-sm font-semibold text-gray-700">{getYearMonthLabel()}</span>
+                                        <button onClick={() => changeDate(1)} className="p-1.5 hover:bg-white rounded-md transition-colors"><IconChevronRight /></button>
+                                    </div>
+                                    <button onClick={goToToday} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-md text-sm font-bold hover:bg-blue-100 transition-colors shadow-sm whitespace-nowrap">
+                                        回本周
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* 视图切换 */}
+                            <div className="flex bg-gray-200/60 rounded-lg p-1">
+                                <button
+                                    onClick={() => setViewMode('week')}
+                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${viewMode === 'week' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                                >
+                                    <IconList /> 周视图
+                                </button>
+                                <button
+                                    disabled={isEditing}
+                                    onClick={() => setViewMode('month')}
+                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${isEditing ? 'opacity-40 cursor-not-allowed' : ''} ${viewMode === 'month' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                                >
+                                    <IconCalendar /> 月视图
+                                </button>
+                                <button
+                                    disabled={isEditing}
+                                    onClick={() => setViewMode('dashboard')}
+                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${isEditing ? 'opacity-40 cursor-not-allowed' : ''} ${viewMode === 'dashboard' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                                >
+                                    <IconDashboard /> 数据看板
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 主内容区 */}
+                    <div className="w-full max-w-7xl mx-auto flex-1 glass-panel rounded-2xl shadow-sm border border-gray-100 overflow-hidden bg-white flex flex-col relative z-10">
+
+                        {viewMode === 'dashboard' && renderDashboard()}
+
+                        {viewMode === 'month' && (
+                            <div className="p-4 sm:p-6 overflow-y-auto">
+                                <div className="grid grid-cols-5 gap-px bg-gray-200 border border-gray-200 rounded-xl overflow-hidden">
+                                    {['周一', '周二', '周三', '周四', '周五'].map(day => (
+                                        <div key={day} className="bg-gray-50 py-3 text-center text-sm font-semibold text-gray-500">
+                                            {day}
+                                        </div>
+                                    ))}
+
+                                    {monthDays.map((date, idx) => {
+                                        if (!date) return <div key={`empty-${idx}`} className="bg-white min-h-[120px]"></div>;
+                                        const dateStr = formatYMD(date);
+                                        const dayClasses = courses.filter(c => c.date === dateStr);
+                                        const isToday = formatYMD(new Date()) === dateStr;
+
+                                        return (
+                                            <div key={dateStr} className={`bg-white min-h-[120px] p-2 border-t border-gray-100 transition-colors hover:bg-gray-50 ${isToday ? 'bg-blue-50/30' : ''}`}>
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <span className={`text-sm font-medium w-7 h-7 flex items-center justify-center rounded-full ${isToday ? 'bg-blue-600 text-white' : 'text-gray-700'}`}>
+                                                        {date.getDate()}
+                                                    </span>
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                    {dayClasses.map((cls) => {
+                                                        const colors = getCourseColors(cls.title);
+                                                        return (
+                                                            <div key={cls.id} onClick={() => setSelectedCourse(cls)}
+                                                                className={`p-1.5 rounded-md cursor-pointer border transition-transform hover:scale-[1.02] flex flex-col gap-0.5 ${colors.bg} ${colors.text} ${colors.border}`}
+                                                                title={`${cls.start}-${cls.end} ${cls.title}`}>
+                                                                <span className="font-semibold text-xs truncate leading-tight">{cls.title}</span>
+                                                                <span className="opacity-80 text-[10px]">{cls.start} - {cls.end}</span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {viewMode === 'week' && (
+                            <div className="flex flex-col flex-1 overflow-hidden relative">
+                                <div className="flex border-b border-gray-200 bg-gray-50 z-30 sticky top-0 flex-col">
+                                    <div className="flex w-full">
+                                        <div className="w-16 flex-shrink-0 border-r border-gray-200 flex items-center justify-center text-xs text-gray-400">时间</div>
+                                        {weekDays.map(date => {
+                                            const dateStr = formatYMD(date);
+                                            const isToday = formatYMD(new Date()) === dateStr;
+                                            const dayName = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][date.getDay()];
+
+                                            return (
+                                                <div key={dateStr} className="flex-1 py-3 text-center border-r border-gray-100 last:border-r-0">
+                                                    <div className={`text-sm font-bold mb-0.5 ${isToday ? 'text-blue-600' : 'text-gray-700'}`}>{dayName}</div>
+                                                    <div className={`text-xs font-medium ${isToday ? 'text-blue-500' : 'text-gray-400'}`}>
+                                                        {date.getMonth() + 1}/{date.getDate()}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                <div className="flex-1 overflow-y-auto relative no-scrollbar bg-white">
+                                    <div ref={gridRef} className="flex relative" style={{ height: `${(END_HOUR - START_HOUR) * 60 * PIXELS_PER_MINUTE}px` }}>
+                                        <div className="w-16 flex-shrink-0 border-r border-gray-200 relative bg-white z-20">
+                                            {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
+                                                <div key={i} className="absolute w-full text-right pr-2 text-xs text-gray-400 -mt-2" style={{ top: `${i * 60 * PIXELS_PER_MINUTE}px` }}>
+                                                    {Math.floor(START_HOUR + i)}:00
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {weekDays.map((date) => {
+                                            const dateStr = formatYMD(date);
+                                            const dayClasses = courses.filter(c => c.date === dateStr);
+
+                                            return (
+                                                <div key={dateStr} className="flex-1 relative border-r border-gray-100 last:border-r-0">
+                                                    {Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => (
+                                                        <div key={i} className="absolute w-full border-t border-gray-100 pointer-events-none" style={{ top: `${i * 60 * PIXELS_PER_MINUTE}px` }}></div>
+                                                    ))}
+
+                                                    {formatYMD(new Date()) === dateStr && (
+                                                        <div className="absolute inset-0 bg-blue-50/20 pointer-events-none"></div>
+                                                    )}
+
+                                                    {dayClasses.map((cls) => {
+                                                        const startMin = timeToMinutes(cls.start) - (START_HOUR * 60);
+                                                        const duration = timeToMinutes(cls.end) - timeToMinutes(cls.start);
+                                                        const topPos = startMin * PIXELS_PER_MINUTE;
+                                                        const heightPos = duration * PIXELS_PER_MINUTE;
+                                                        const colors = getCourseColors(cls.title);
+                                                        const isDraggingThis = dragInfo?.id === cls.id;
+
+                                                        return (
+                                                            <div key={cls.id}
+                                                                onPointerDown={(e) => {
+                                                                    if (!isEditing) return;
+                                                                    e.stopPropagation();
+                                                                    setDragInfo({ id: cls.id, type: 'move', startY: e.clientY, startX: e.clientX, initialStart: timeToMinutes(cls.start), initialEnd: timeToMinutes(cls.end) });
+                                                                }}
+                                                                onClick={() => { if (!isEditing && !dragInfo) setSelectedCourse(cls); }}
+                                                                className={`absolute left-1 right-1 rounded-lg border shadow-sm transition-all overflow-hidden flex flex-col
+                                                                    ${isEditing ? 'cursor-move ring-1 ring-black/5 hover:ring-blue-400 hover:shadow-md' : 'cursor-pointer hover:shadow-md hover:-translate-y-0.5'}
+                                                                    ${isDraggingThis ? 'z-50 shadow-2xl opacity-90 scale-105 transition-none ring-2 ring-blue-500' : 'z-10'}
+                                                                    ${colors.bg} ${colors.border} ${colors.text}`}
+                                                                style={{ top: `${topPos}px`, height: `${heightPos}px` }}>
+
+                                                                <div className="p-2 flex-1 pointer-events-none flex flex-col justify-start">
+                                                                    <div className="text-sm font-bold leading-tight mb-1 truncate">{cls.title}</div>
+                                                                    <div className="text-[11px] font-semibold opacity-80 mb-0.5">{cls.start} - {cls.end}</div>
+                                                                    {heightPos > 60 && <div className="text-[10px] opacity-75 leading-tight truncate">{cls.room}</div>}
+                                                                </div>
+
+                                                                {isEditing && (
+                                                                    <div onPointerDown={(e) => {
+                                                                        e.stopPropagation();
+                                                                        setDragInfo({ id: cls.id, type: 'resize', startY: e.clientY, startX: e.clientX, initialStart: timeToMinutes(cls.start), initialEnd: timeToMinutes(cls.end) });
+                                                                    }}
+                                                                        className="h-3 w-full cursor-ns-resize flex items-center justify-center bg-black/5 hover:bg-black/15 transition-colors" title="拖动改变时长">
+                                                                        <div className="w-8 h-1 rounded-full bg-black/20"></div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* 详情弹窗 */}
+                    {selectedCourse && (
+                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity" onClick={() => setSelectedCourse(null)}>
+                            <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden transform transition-all flex flex-col max-h-[90vh]" onClick={e => e.stopPropagation()}>
+                                <div className={`p-6 border-b ${getCourseColors(selectedCourse.title).bg} flex-shrink-0`}>
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className={`px-2.5 py-1 rounded-md text-xs font-bold border ${getCourseColors(selectedCourse.title).border} ${getCourseColors(selectedCourse.title).text} bg-white/50`}>
+                                            课程详情
+                                        </div>
+                                        <button onClick={() => setSelectedCourse(null)} className="text-gray-500 hover:text-gray-800"><IconClose /></button>
+                                    </div>
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-1">{selectedCourse.title}</h2>
+                                    <p className="text-gray-700 font-medium">{selectedCourse.date}</p>
+                                </div>
+
+                                <div className="p-6 space-y-6 flex-1 overflow-y-auto">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">上课时间</p>
+                                            <p className="text-gray-800 font-medium text-lg">{selectedCourse.start} <span className="text-gray-400 mx-1">-</span> {selectedCourse.end}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">上课地点</p>
+                                            <p className="text-gray-800 font-medium text-base leading-tight mt-1">{selectedCourse.room}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
