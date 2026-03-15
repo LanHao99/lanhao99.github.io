@@ -329,7 +329,7 @@ particle:
     # 启用粒子特效
     enable: true
     # 粒子数量
-    particleNum: 12
+    particleNum: 24
     # 粒子越界限制次数，-1为无限循环
     limitTimes: -1
     # 粒子尺寸配置
@@ -380,7 +380,7 @@ musicPlayer:
         # 类型 ("playlist" 歌单 | "song" 单曲)
         type: "playlist"
         # 资源 ID
-        id: "2161912966"
+        id: "3096796008"
     # local 模式专属配置
     local:
         # 播放列表
