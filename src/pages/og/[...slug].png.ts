@@ -102,10 +102,22 @@ export async function GET({
     // Try to fetch fonts from Google Fonts (woff2) at runtime.
     const { regular: fontRegular, bold: fontBold } = await fetchNotoSansSCFonts();
 
-    // Avatar + icon: still read from disk (small assets)
-    let avatarPath = `./public${profileConfig.avatar}`;
-    const avatarBuffer = fs.readFileSync(avatarPath);
-    const avatarBase64 = `data:image/png;base64,${avatarBuffer.toString("base64")}`;
+    // Avatar: support local /public path or remote URL.
+    const avatar = profileConfig.avatar ?? "/assets/images/avatar.jpg";
+    let avatarBase64 = "";
+    if (/^https?:\/\//i.test(avatar)) {
+        const avatarResp = await fetch(avatar);
+        if (!avatarResp.ok) {
+            throw new Error(`Failed to fetch avatar: ${avatarResp.status}`);
+        }
+        const avatarBuffer = Buffer.from(await avatarResp.arrayBuffer());
+        const avatarContentType = avatarResp.headers.get("content-type") || "image/png";
+        avatarBase64 = `data:${avatarContentType};base64,${avatarBuffer.toString("base64")}`;
+    } else {
+        const avatarPath = `./public${avatar}`;
+        const avatarBuffer = fs.readFileSync(avatarPath);
+        avatarBase64 = `data:image/png;base64,${avatarBuffer.toString("base64")}`;
+    }
 
     let iconPath = `./public${defaultFavicons[0].src}`;
     if (siteConfig.favicon.length > 0) {
