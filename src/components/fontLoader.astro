@@ -1,60 +1,76 @@
 ---
 import { siteConfig } from "@/config";
 
-
 // Get all fonts from config
 const fontConfig = siteConfig.font || {};
-const fonts = Object.entries(fontConfig).map(([id, font]) => (
-    {id, ...font}
-));
+const fonts = Object.entries(fontConfig).map(([id, font]) => ({ id, ...font }));
 
 // Generate font-family strings
 const selectedFontFamilies = fonts
-  .filter(font => font && font.family)
-  .map(font => `"${font.family}"`);
+    .filter((font) => font && font.family)
+    .map((font) => `"${font.family}"`);
 
-const fallbacks = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif";
+const fallbacks =
+    "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif";
 const customFontFamily = selectedFontFamilies.join(", ");
-const finalFontFamily = customFontFamily ? `${customFontFamily}, ${fallbacks}` : fallbacks;
+const finalFontFamily = customFontFamily
+    ? `${customFontFamily}, ${fallbacks}`
+    : fallbacks;
 ---
 
-<!-- Font Loading -->
-{
-  fonts.map((font) => {
-    const isCss = font.src.endsWith('.css') || font.src.includes('fonts.googleapis.com') || font.src.includes('unpkg.com');
-    if (isCss) {
-        // If it's a Google Font, we can append &display=swap if it's not already there
-        let fontSrc = font.src;
-        if (fontSrc.includes('fonts.googleapis.com') && !fontSrc.includes('display=')) {
-            fontSrc += (fontSrc.includes('?') ? '&' : '?') + 'display=swap';
-        }
-        return (
-            <>
-                <link rel="preload" href={fontSrc} as="style" />
-                <link rel="stylesheet" href={fontSrc} />
-            </>
-        );
-    } else if (font.src) {
-        // Assume it's a font file (ttf, woff, woff2, etc.)
-        return (
-            <>
-                <link rel="preload" href={font.src} as="font" crossorigin="anonymous" />
-                <style set:html={`
+<!-- Font Loading -->{
+    fonts.map((font) => {
+        const isCss =
+            font.src.endsWith(".css") ||
+            font.src.includes("fonts.googleapis.com") ||
+            font.src.includes("unpkg.com");
+        if (isCss) {
+            // If it's a Google Font, we can append &display=swap if it's not already there
+            let fontSrc = font.src;
+            if (
+                fontSrc.includes("fonts.googleapis.com") &&
+                !fontSrc.includes("display=")
+            ) {
+                fontSrc += (fontSrc.includes("?") ? "&" : "?") + "display=swap";
+            }
+            return (
+                <>
+                    <link rel="preload" href={fontSrc} as="style" />
+                    <link rel="stylesheet" href={fontSrc} />
+                </>
+            );
+        } else if (font.src) {
+            // Assume it's a font file (ttf, woff, woff2, etc.)
+            return (
+                <>
+                    <link
+                        rel="preload"
+                        href={font.src}
+                        as="font"
+                        crossorigin="anonymous"
+                    />
+                    <style
+                        set:html={`
                     @font-face {
                         font-family: "${font.family}";
                         src: url("${font.src}");
+                        font-weight: ${font.weight || 400};
+                        font-style: ${font.style || "normal"};
                         font-display: swap;
                     }
-                `} />
-            </>
-        );
-    }
-    return null;
-  })
+                `}
+                    />
+                </>
+            );
+        }
+        return null;
+    })
 }
 
 <!-- Apply Global Font Family -->
-<style is:global set:html={`
+<style
+    is:global
+    set:html={`
     :root {
         --font-family-fallback: ${fallbacks};
         --global-font-family: ${finalFontFamily};
@@ -66,10 +82,15 @@ const finalFontFamily = customFontFamily ? `${customFontFamily}, ${fallbacks}` :
     }
 
     /* Generate specific classes for each font*/
-    ${fonts.map(font => `
+    ${fonts
+        .map(
+            (font) => `
         .font-${font.id},
         .font-${font.id} * {
             font-family: "${font.family}", var(--font-family-fallback) !important;
         }
-    `).join('\n')}
-`} />
+    `,
+        )
+        .join("\n")}
+`}
+></style>

@@ -81,6 +81,10 @@ export type SiteConfig = {
             src: string;
             // 字体名 (font-family)
             family: string;
+            // 字重
+            weight?: number | string;
+            // 字体样式
+            style?: "normal" | "italic";
         };
     };
     // 主题色配置
