@@ -1,21 +1,19 @@
 {
-    "title": "Twilight Blog Template",
-    "description": "A CMS integrated blog theme built with Astro framework.",
-    "image": "./Twilight_Cover.jpg",
-    "category": "website",
-    "techStack": [
-        "Astro",
-        "Svelte",
-        "Tailwind CSS"
-    ],
-    "status": "in-progress",
-    "liveDemo": "https://twilight.spr-aachen.com",
-    "sourceCode": "https://github.com/Spr-Aachen/Twilight",
-    "startDate": "2025-10-01",
-    "endDate": "",
-    "featured": true,
-    "tags": [
-        "Personal Project",
-        "Open Source Project"
-    ]
+  "sourceCode": "https://github.com/Spr-Aachen/Twilight",
+  "endDate": "",
+  "featured": true,
+  "liveDemo": "https://twilight.spr-aachen.com",
+  "startDate": "2026-03-01T00:00:00.000+08:00",
+  "techStack": [
+    "static"
+  ],
+  "status": "completed",
+  "title": "课表",
+  "tags": [
+    "Personal Project",
+    "Open Source Project"
+  ],
+  "image": "https://img.lanhao.cc/file/AgACAgUAAxkDAAMaabZsZDSAYYDqOsWtCpvzfzGkIykAAqcPaxv3Z7BVcZWrfa_RuXEBAAMCAAN3AAM6BA.jpg",
+  "description": "一个静态课表",
+  "category": "website"
 }
