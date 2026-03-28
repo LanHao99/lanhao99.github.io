@@ -1,14 +1,14 @@
 ---
 title: 模板指南 - 快速开始
 published: 2001-10-02
-description: "如何使用这个博客模板。"
-cover: "https://img.lanhao.cc/file/AgACAgUAAxkDAAMYabZPCrylXWbzIznfEAdAOF0MYzUAAmgPaxv3Z7BV4aSDV7c4YlABAAMCAAN3AAM6BA.jpg"
+description: 如何使用这个博客模板。
+cover: https://img.lanhao.cc/file/AgACAgUAAxkDAAMYabZPCrylXWbzIznfEAdAOF0MYzUAAmgPaxv3Z7BV4aSDV7c4YlABAAMCAAN3AAM6BA.jpg
 coverInContent: false
-pinned: true
+pinned: false
 tags: []
 category:
-    - 指南:
-        - 快速开始
+  - 指南:
+      - 快速开始
 draft: false
 ---
 
