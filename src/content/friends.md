@@ -11,8 +11,8 @@
 
 邮件内容模板：
 ```
-Site Name: [你的网站名称]
-Site Desc: [你的网站描述]
-Site Link: [你的网站链接]
-Avatar Link: [你的网站头像链接]
+Site Name: lanhao.site
+Site Desc: Blog of LanHao
+Site Link: https://site.lanhao.cc/
+Avatar Link: https://img.lanhao.cc/file/AgACAgUAAxkDAAMIabYspSOWQMwSyhadQAwEEAABY0O0AAIjD2sb92ewVdFz-0Xsk40tAQADAgADeAADOgQ.jpg
 ```
