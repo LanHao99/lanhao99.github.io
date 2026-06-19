@@ -46,7 +46,7 @@ Coco: Meow. [ID:MEOW]
 
 所有 `.dialogue` 文件都会自动添加到 **项目设置 > 本地化** 中的模板生成列表中，以便它们被包含在通用翻译导出中。
 
-![将对话文件添加到模板生成列表](media/translations.png)
+![将对话文件添加到模板生成列表](/media/dialogue_manager/translations.png)
 
 > [!NOTE]
 > 如果对话行中存在静态行 ID，该键将用作该行的 POT 上下文，而对话内容本身将作为实际的 POT 键。_

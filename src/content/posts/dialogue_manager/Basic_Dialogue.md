@@ -20,11 +20,11 @@ draft: false
 
 在编辑器中导航到"Dialogue"选项卡。
 
-![Dialogue 选项卡](media/dialogue-tab.jpg)
+![Dialogue 选项卡](/media/dialogue_manager/dialogue-tab.jpg)
 
 通过点击"new dialogue file"按钮或"open dialogue"按钮来打开对话。
 
-![新建和打开按钮](media/new-open-buttons.jpg)
+![新建和打开按钮](/media/dialogue_manager/new-open-buttons.jpg)
 
 最基础的对话就是一个字符串：
 
