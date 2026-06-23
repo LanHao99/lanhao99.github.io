@@ -2,7 +2,7 @@
 title: "API 参考"
 published: 2026-06-18
 pinned: false
-description: "Dialogue Manager GDScript / C# API 参考"
+description: "Dialogue Manager GDScript API 参考"
 cover: ""
 coverInContent: false
 tags:
