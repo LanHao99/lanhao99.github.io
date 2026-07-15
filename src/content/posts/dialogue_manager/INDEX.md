@@ -23,30 +23,30 @@ draft: false
 
 ## 入门
 
-| 文档 | 说明 |
-|------|------|
-| [在游戏中使用对话](https://site.lanhao.cc/posts/dialogue_manager/Using_Dialogue) | 如何使用对话（核心流程） |
-| [基础对话](https://site.lanhao.cc/posts/dialogue_manager/Basic_Dialogue) | 对话脚本语法基础 |
-| [对话气泡](https://site.lanhao.cc/posts/dialogue_manager/Dialogue_Balloons) | 对话气泡（Balloon）系统 |
+| 文档                                                                       | 说明              |
+| ------------------------------------------------------------------------ | --------------- |
+| [在游戏中使用对话](https://site.lanhao.cc/posts/dialogue_manager/Using_Dialogue/) | 如何使用对话（核心流程）    |
+| [基础对话](https://site.lanhao.cc/posts/dialogue_manager/Basic_Dialogue/)     | 对话脚本语法基础        |
+| [对话气泡](https://site.lanhao.cc/posts/dialogue_manager/Dialogue_Balloons/)  | 对话气泡（Balloon）系统 |
 
 ## 语法 & 功能
 
-| 文档 | 说明 |
-|------|------|
-| [条件与变更](https://site.lanhao.cc/posts/dialogue_manager/Conditions_Mutations) | 条件判断 & 修改器 |
-| [状态管理](https://site.lanhao.cc/posts/dialogue_manager/State) | 状态管理（变量、全局状态） |
-| [翻译](https://site.lanhao.cc/posts/dialogue_manager/Translations) | 翻译 & 多语言支持 |
+| 文档                                                                          | 说明            |
+| --------------------------------------------------------------------------- | ------------- |
+| [条件与变更](https://site.lanhao.cc/posts/dialogue_manager/Conditions_Mutations/) | 条件判断 & 修改器    |
+| [状态管理](https://site.lanhao.cc/posts/dialogue_manager/State/)                 | 状态管理（变量、全局状态） |
+| [翻译](https://site.lanhao.cc/posts/dialogue_manager/Translations/)            | 翻译 & 多语言支持    |
 
 ## 编程接口
 
-| 文档 | 说明 |
-|------|------|
-| [API](https://site.lanhao.cc/posts/dialogue_manager/API) | GDScript API 参考 |
-| [节点](https://site.lanhao.cc/posts/dialogue_manager/Nodes) | 对话管理器节点说明 |
+| 文档                                                        | 说明              |
+| --------------------------------------------------------- | --------------- |
+| [API](https://site.lanhao.cc/posts/dialogue_manager/API/)  | GDScript API 参考 |
+| [节点](https://site.lanhao.cc/posts/dialogue_manager/Nodes/) | 对话管理器节点说明       |
 
 ## 配置 & 常见问题
 
-| 文档 | 说明 |
-|------|------|
-| [设置](https://site.lanhao.cc/posts/dialogue_manager/Settings) | 设置选项 |
-| [常见问题](https://site.lanhao.cc/posts/dialogue_manager/FAQ) | 常见问题 |
+| 文档                                                           | 说明   |
+| ------------------------------------------------------------ | ---- |
+| [设置](https://site.lanhao.cc/posts/dialogue_manager/Settings/) | 设置选项 |
+| [常见问题](https://site.lanhao.cc/posts/dialogue_manager/FAQ/)    | 常见问题 |

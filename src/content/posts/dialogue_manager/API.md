@@ -103,4 +103,4 @@ draft: false
 
 ## 节点
 
-参见 [Nodes](./Nodes.md)
+ 参见 [Nodes](https://site.lanhao.cc/posts/dialogue_manager/Nodes/)

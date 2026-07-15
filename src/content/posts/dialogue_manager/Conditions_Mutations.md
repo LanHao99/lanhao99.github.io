@@ -18,7 +18,7 @@ draft: false
 
 # 条件与变更
 
-要使用条件和变更，你需要了解对话管理器如何使用 [State](./State.md)。
+要使用条件和变更，你需要了解对话管理器如何使用 [State](https://site.lanhao.cc/posts/dialogue_manager/State/)。
 
 ## 条件
 
@@ -182,7 +182,7 @@ if some_node_reference?.name == "SomeNode"
 
 如果你想将状态引用从 `SomeGlobal.some_property` 这样的形式缩短为只是 `some_property`，有两种方法可以做到这一点。
 
-1. 如果你在所有对话中使用相同的状态，可以在 [Settings](./Settings.md) 中设置全局状态快捷方式。
+1. 如果你在所有对话中使用相同的状态，可以在 [Settings](https://site.lanhao.cc/posts/dialogue_manager/Settings/) 中设置全局状态快捷方式。
 2. 或者，如果你想每个对话文件有不同的快捷方式，可以在对话文件顶部添加一个 `using SomeGlobal` 子句（用于你正在使用的任何自动加载）。
 
 ## 特殊变量/变更

@@ -73,7 +73,7 @@ Dialogue Manager 的设置位于项目设置的常规标签页底部。
 
 - **Dialogue Processor Path**（高级）
   
-  指向扩展 [`DMDialogueProcessor`](./Processing.md) 的类的路径。用于预处理原始行和后处理编译后的行。
+   指向扩展 `DMDialogueProcessor` 的类的路径。用于预处理原始行和后处理编译后的行。
 
 - **Custom Test Scene Path**（高级）
 
