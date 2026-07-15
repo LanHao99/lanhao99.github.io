@@ -18,7 +18,7 @@ draft: false
 
 # 在游戏中使用对话
 
-在游戏中显示对话最简单的方式是调用 [`DialogueManager.show_dialogue_balloon(resource, cue)`](https://site.lanhao.cc/posts/dialogue_manager/API/#func-show_dialogue_balloonresource-dialogueresource-cue-string--0-extra_game_states-array-----node)，传入一个对话资源和一个起始提示（cue）。默认情况下会显示示例气泡，但你可以在[设置](https://site.lanhao.cc/posts/dialogue_manager/Settings/)中配置为显示你的自定义气泡。
+在游戏中显示对话最简单的方式是调用 [`DialogueManager.show_dialogue_balloon(resource, cue)`](https://site.lanhao.cc/posts/dialogue_manager/api/#func-show_dialogue_balloonresource-dialogueresource-cue-string--0-extra_game_states-array-----node)，传入一个对话资源和一个起始提示（cue）。默认情况下会显示示例气泡，但你可以在[设置](https://site.lanhao.cc/posts/dialogue_manager/settings/)中配置为显示你的自定义气泡。
 
 对话的渲染和输入控制需要你根据自己的游戏需求来实现和定制。不过，[我的 Itch.io 页面](https://nathanhoad.itch.io)上有一些示例项目可以帮助你入门。
 
@@ -67,7 +67,7 @@ dialogue_line = await resource.get_next_dialogue_line(dialogue_line.next_id)
 
 每个选项还包含一个 `next_id` 属性，可用于沿该分支继续对话。
 
-有关 `DialogueLine` 的更多信息，请参阅 [API 文档](https://site.lanhao.cc/posts/dialogue_manager/API/)。
+有关 `DialogueLine` 的更多信息，请参阅 [API 文档](https://site.lanhao.cc/posts/dialogue_manager/api/)。
 
 ## DialogueLabel 节点
 

@@ -230,12 +230,12 @@ Nathan: That was some banter!
 
 ## 状态
 
- 参见 [State](https://site.lanhao.cc/posts/dialogue_manager/State/)。
+ 参见 [State](https://site.lanhao.cc/posts/dialogue_manager/state/)。
 
 ## 条件和变更
 
- 参见 [Conditions & Mutations](https://site.lanhao.cc/posts/dialogue_manager/Conditions_Mutations/)。
+ 参见 [Conditions & Mutations](https://site.lanhao.cc/posts/dialogue_manager/conditions_mutations/)。
 
 ## 翻译
 
- 参见 [Translations](https://site.lanhao.cc/posts/dialogue_manager/Translations/)。
+ 参见 [Translations](https://site.lanhao.cc/posts/dialogue_manager/translations/)。

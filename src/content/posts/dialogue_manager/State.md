@@ -45,7 +45,7 @@ if player.health > 10
 
 一旦你连接了一些状态，就可以开始在分支和对话中使用条件，以及运行变更来影响状态。
 
-参见[条件与变更](https://site.lanhao.cc/posts/dialogue_manager/Conditions_Mutations/)。
+参见[条件与变更](https://site.lanhao.cc/posts/dialogue_manager/conditions_mutations/)。
 
 ## 对话中的变量
 
@@ -94,7 +94,7 @@ Nathan: What would you like to know?
     => END
 ```
 
-2. **在开始对话时传递额外的游戏状态**（详见[额外游戏状态](https://site.lanhao.cc/posts/dialogue_manager/Conditions_Mutations/#extra-game-states)）。来自额外游戏状态的变量可以直接引用，无需 `locals.` 前缀。
+2. **在开始对话时传递额外的游戏状态**（详见[额外游戏状态](https://site.lanhao.cc/posts/dialogue_manager/conditions_mutations/#extra-game-states)）。来自额外游戏状态的变量可以直接引用，无需 `locals.` 前缀。
 
 ### 表达式跳转
 
