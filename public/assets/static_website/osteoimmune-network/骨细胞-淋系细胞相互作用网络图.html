@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="骨细胞与淋系细胞相互作用的交互式证据网络">
+  <title>骨细胞—淋系细胞相互作用网络</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071018;
+      --panel: rgba(13, 27, 38, .86);
+      --panel-solid: #0d1b26;
+      --panel-2: #102330;
+      --line: rgba(157, 185, 204, .16);
+      --line-strong: rgba(157, 185, 204, .28);
+      --text: #e8f2f7;
+      --muted: #91a8b8;
+      --soft: #bdd0db;
+      --accent: #52d3c2;
+      --accent-2: #7ed7ff;
+      --lym: #5ca7ff;
+      --bone: #f4a340;
+      --heme: #4dd7b4;
+      --up: #ff6b6b;
+      --down: #58a6ff;
+      --other: #b38cff;
+      --shadow: 0 22px 70px rgba(0, 0, 0, .34);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 52% 42%, rgba(40, 132, 142, .13), transparent 34%),
+        radial-gradient(circle at 12% 8%, rgba(55, 116, 171, .12), transparent 26%),
+        #071018;
+      color: var(--text);
+      font-family: Inter, "SF Pro Display", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+
+    .app {
+      height: 100vh;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      padding: 18px;
+      gap: 14px;
+    }
+
+    .topbar {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 14px 18px 14px 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(18, 41, 55, .92), rgba(10, 24, 34, .84));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand { min-width: 0; }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 760;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(20px, 2vw, 30px);
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      font-weight: 720;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .headline-stats {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .stat {
+      min-width: 82px;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(7, 19, 28, .5);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 19px;
+      line-height: 1;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .06em;
+    }
+
+    .workspace {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 250px minmax(440px, 1fr) 310px;
+      gap: 14px;
+    }
+
+    .panel {
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .sidebar, .detail-panel {
+      overflow: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(145, 168, 184, .25) transparent;
+    }
+
+    .sidebar { padding: 18px; }
+
+    .section + .section {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      color: #b6c9d5;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .view-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(4, 14, 21, .52);
+    }
+
+    .view-switch button {
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 8px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .view-switch button.active {
+      background: linear-gradient(135deg, rgba(82, 211, 194, .2), rgba(126, 215, 255, .12));
+      color: #eafffb;
+      box-shadow: inset 0 0 0 1px rgba(82, 211, 194, .32);
+    }
+
+    .search-wrap { position: relative; }
+
+    .search-wrap::before {
+      content: "⌕";
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-53%);
+      color: var(--muted);
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    .search-wrap input, .select {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      outline: none;
+      background: rgba(4, 14, 21, .58);
+      color: var(--text);
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .search-wrap input { padding: 9px 11px 9px 36px; }
+    .select { padding: 8px 10px; color: var(--soft); }
+
+    .search-wrap input:focus, .select:focus {
+      border-color: rgba(82, 211, 194, .65);
+      box-shadow: 0 0 0 3px rgba(82, 211, 194, .1);
+    }
+
+    .filter-list { display: grid; gap: 8px; }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 36px;
+      padding: 7px 9px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      color: var(--soft);
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .check-row:hover { background: rgba(255, 255, 255, .025); border-color: var(--line); }
+
+    .check-label { display: flex; align-items: center; gap: 9px; font-size: 12px; }
+
+    .check-row input {
+      width: 15px;
+      height: 15px;
+      margin: 0;
+      accent-color: var(--accent);
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--dot);
+      box-shadow: 0 0 10px color-mix(in srgb, var(--dot) 45%, transparent);
+    }
+
+    .count-badge {
+      color: var(--muted);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .effect-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .effect-button {
+      display: grid;
+      place-items: center;
+      gap: 4px;
+      padding: 8px 3px 7px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(4, 14, 21, .46);
+      color: var(--muted);
+      font-size: 10px;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .effect-button i {
+      display: block;
+      width: 24px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--effect);
+      box-shadow: 0 0 8px color-mix(in srgb, var(--effect) 45%, transparent);
+    }
+
+    .effect-button.active {
+      color: var(--text);
+      border-color: color-mix(in srgb, var(--effect) 52%, transparent);
+      background: color-mix(in srgb, var(--effect) 10%, rgba(4, 14, 21, .7));
+    }
+
+    .hint-card {
+      padding: 12px;
+      border: 1px solid rgba(82, 211, 194, .16);
+      border-radius: 11px;
+      background: linear-gradient(135deg, rgba(82, 211, 194, .07), rgba(126, 215, 255, .035));
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.75;
+    }
+
+    .shortcut-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px 10px;
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(82, 211, 194, .12);
+    }
+
+    .shortcut-list span { white-space: nowrap; }
+
+    kbd {
+      display: inline-grid;
+      min-width: 21px;
+      min-height: 20px;
+      place-items: center;
+      margin-right: 4px;
+      padding: 1px 5px;
+      border: 1px solid rgba(184, 211, 224, .26);
+      border-bottom-color: rgba(184, 211, 224, .42);
+      border-radius: 5px;
+      background: rgba(3, 11, 17, .72);
+      color: #dcebf2;
+      font: 600 9px/1.2 ui-monospace, "Cascadia Code", monospace;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .08);
+    }
+
+    .network-panel {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(121, 158, 176, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(121, 158, 176, .035) 1px, transparent 1px),
+        radial-gradient(circle at 50% 48%, rgba(43, 135, 145, .09), transparent 48%),
+        rgba(7, 18, 27, .8);
+      background-size: 34px 34px, 34px 34px, auto, auto;
+    }
+
+    .network-header {
+      position: absolute;
+      z-index: 5;
+      top: 14px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .mode-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(8, 20, 29, .8);
+      color: var(--soft);
+      font-size: 11px;
+      backdrop-filter: blur(10px);
+    }
+
+    .mode-label b { color: var(--accent); font-weight: 700; }
+
+    .canvas-tools {
+      display: flex;
+      gap: 6px;
+      pointer-events: auto;
+    }
+
+    .icon-button {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(8, 20, 29, .84);
+      color: var(--soft);
+      cursor: pointer;
+      transition: .18s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .icon-button:hover { border-color: var(--line-strong); background: var(--panel-2); color: white; }
+
+    #network {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: grab;
+    }
+
+    #network.panning { cursor: grabbing; }
+
+    .edge {
+      fill: none;
+      stroke-linecap: round;
+      opacity: .62;
+      transition: opacity .16s, filter .16s;
+      vector-effect: non-scaling-stroke;
+      animation: flow 2.8s linear infinite;
+    }
+
+    .edge-casing {
+      fill: none;
+      stroke: #071018;
+      stroke-linecap: round;
+      opacity: .92;
+      pointer-events: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .edge.hit {
+      stroke: transparent;
+      stroke-width: 24;
+      opacity: 1;
+      pointer-events: stroke;
+      cursor: pointer;
+      animation: none;
+    }
+
+    .edge-group {
+      cursor: pointer;
+      outline: none;
+      transition: opacity .18s ease;
+    }
+
+    .edge-group.muted { opacity: .14; }
+
+    .edge-group.selected .edge,
+    .edge-group:hover .edge,
+    .edge-group:focus .edge {
+      opacity: 1;
+      filter: drop-shadow(0 0 5px currentColor);
+    }
+
+    .edge-group.selected .edge-casing { stroke: #02070b; opacity: 1; }
+
+    @keyframes flow { to { stroke-dashoffset: -22; } }
+
+    .node { cursor: pointer; outline: none; }
+
+    .node .halo {
+      fill: none;
+      stroke-width: 1;
+      opacity: .14;
+      transition: opacity .18s, stroke-width .18s;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .node .core {
+      stroke: rgba(235, 248, 255, .76);
+      stroke-width: 1.15;
+      vector-effect: non-scaling-stroke;
+      transition: filter .18s, stroke-width .18s;
+    }
+
+    .node:hover .core, .node:focus .core, .node.selected .core {
+      stroke-width: 2.4;
+      filter: drop-shadow(0 0 9px var(--node-color));
+    }
+
+    .node:hover .halo, .node:focus .halo, .node.selected .halo {
+      opacity: .48;
+      stroke-width: 2;
+    }
+
+    .node-label {
+      fill: #eaf4f8;
+      font-size: 12px;
+      font-weight: 620;
+      text-anchor: middle;
+      paint-order: stroke;
+      stroke: rgba(5, 14, 21, .95);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .node-sub {
+      fill: #8fa7b6;
+      font-size: 8.5px;
+      font-weight: 560;
+      letter-spacing: .04em;
+      text-anchor: middle;
+      paint-order: stroke;
+      stroke: rgba(5, 14, 21, .95);
+      stroke-width: 3px;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .empty-state {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    .network-footer {
+      position: absolute;
+      z-index: 5;
+      left: 16px;
+      bottom: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(8, 20, 29, .8);
+      color: var(--muted);
+      font-size: 10px;
+      pointer-events: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .legend-item { display: inline-flex; align-items: center; gap: 5px; }
+    .legend-line { width: 20px; height: 2px; background: var(--legend); border-radius: 2px; }
+    .legend-line.weak { background: repeating-linear-gradient(90deg, var(--legend) 0 4px, transparent 4px 7px); }
+    .legend-line.other { background: repeating-linear-gradient(90deg, var(--legend) 0 2px, transparent 2px 6px); }
+
+    .tooltip {
+      position: fixed;
+      z-index: 30;
+      display: none;
+      max-width: 300px;
+      padding: 9px 11px;
+      border: 1px solid var(--line-strong);
+      border-radius: 9px;
+      background: rgba(8, 20, 29, .96);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .42);
+      color: var(--soft);
+      font-size: 11px;
+      line-height: 1.55;
+      pointer-events: none;
+      backdrop-filter: blur(14px);
+    }
+
+    .tooltip strong { display: block; color: white; margin-bottom: 2px; }
+
+    .detail-panel { padding: 20px; }
+
+    .detail-kicker {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 760;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .detail-title {
+      margin: 10px 0 6px;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: -.02em;
+    }
+
+    .detail-summary {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 13px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 25px;
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(4, 14, 21, .42);
+      color: var(--soft);
+      font-size: 10px;
+    }
+
+    .detail-block {
+      margin-top: 20px;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
+    }
+
+    .detail-label {
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .mechanism {
+      color: #f0f7fa;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .mechanism-intro { margin: 0 0 9px; color: var(--soft); font-size: 12px; line-height: 1.7; }
+    .mechanism-links { display: flex; flex-wrap: wrap; gap: 7px; }
+    .mechanism-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 8px;
+      border: 1px solid rgba(126, 215, 255, .22);
+      border-radius: 8px;
+      background: rgba(126, 215, 255, .06);
+      color: var(--accent-2);
+      font-size: 10px;
+      text-decoration: none;
+    }
+    .mechanism-link:hover { border-color: rgba(126, 215, 255, .52); background: rgba(126, 215, 255, .12); }
+    .mechanism-plain { display: inline-flex; align-items: center; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; color: var(--soft); font-size: 10px; }
+
+    .scenario-details { margin-top: 20px; padding-top: 17px; border-top: 1px solid var(--line); }
+    .scenario-details summary { color: var(--soft); cursor: pointer; font-size: 12px; font-weight: 700; list-style: none; }
+    .scenario-details summary::-webkit-details-marker { display: none; }
+    .scenario-details summary::before { content: '›'; display: inline-block; margin-right: 8px; color: var(--accent); font-size: 17px; line-height: .7; transition: transform .18s ease; }
+    .scenario-details[open] summary::before { transform: rotate(90deg); }
+    .scenario-body { display: grid; gap: 11px; margin-top: 14px; }
+    .scenario-row { display: grid; gap: 3px; }
+    .scenario-label { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .scenario-value { color: var(--soft); font-size: 11.5px; line-height: 1.7; }
+    .scenario-caution { color: #ffcf8a; }
+
+    .function-card {
+      margin-top: 16px;
+      padding: 12px 13px;
+      border: 1px solid color-mix(in srgb, var(--function-color) 38%, transparent);
+      border-radius: 11px;
+      background: color-mix(in srgb, var(--function-color) 9%, rgba(4, 14, 21, .5));
+      color: var(--soft);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .function-card strong { color: var(--function-color); }
+
+    .evidence-note {
+      margin: 0;
+      color: var(--soft);
+      font-size: 11.5px;
+      line-height: 1.75;
+    }
+
+    .pmid-list { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .pmid-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 9px;
+      border: 1px solid rgba(126, 215, 255, .22);
+      border-radius: 8px;
+      background: rgba(126, 215, 255, .06);
+      color: var(--accent-2);
+      font-size: 10px;
+      text-decoration: none;
+      transition: .18s ease;
+    }
+
+    .pmid-link:hover { border-color: rgba(126, 215, 255, .5); background: rgba(126, 215, 255, .12); }
+
+    .relation-list { display: grid; gap: 7px; }
+
+    .relation-item {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 5px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(4, 14, 21, .35);
+      color: var(--soft);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .relation-item:hover { border-color: var(--line-strong); background: rgba(255, 255, 255, .025); }
+    .relation-bar { align-self: stretch; border-radius: 5px; background: var(--rel); }
+    .relation-name { font-size: 10.5px; line-height: 1.4; }
+    .relation-arrow { color: var(--muted); font-size: 12px; }
+
+    .placeholder {
+      height: 100%;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .placeholder-mark {
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 16px;
+      border: 1px solid rgba(82, 211, 194, .25);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(82, 211, 194, .12), transparent 68%);
+      color: var(--accent);
+      font-size: 27px;
+      box-shadow: 0 0 40px rgba(82, 211, 194, .08);
+    }
+
+    .placeholder strong { display: block; margin-bottom: 7px; color: var(--soft); font-size: 14px; }
+    .placeholder span { max-width: 220px; font-size: 11px; line-height: 1.7; }
+
+    @media (max-width: 1120px) {
+      .workspace { grid-template-columns: 220px minmax(420px, 1fr); }
+      .detail-panel {
+        position: fixed;
+        z-index: 20;
+        top: 112px;
+        right: 18px;
+        bottom: 18px;
+        width: min(340px, calc(100vw - 36px));
+        transform: translateX(calc(100% + 30px));
+        transition: transform .24s ease;
+      }
+      .detail-panel.open { transform: translateX(0); }
+    }
+
+    @media (max-width: 760px) {
+      body { overflow: auto; }
+      .app { height: auto; min-height: 100vh; padding: 10px; gap: 10px; }
+      .topbar { align-items: flex-start; padding: 15px; }
+      .headline-stats { display: none; }
+      .subtitle { white-space: normal; }
+      .workspace { display: flex; flex-direction: column; }
+      .sidebar { order: 2; }
+      .network-panel { min-height: 66vh; order: 1; }
+      .detail-panel { top: 10px; right: 10px; bottom: 10px; width: calc(100vw - 20px); }
+      .network-footer { right: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="eyebrow">Osteoimmunology evidence map</div>
+        <h1>骨细胞—淋系细胞相互作用网络</h1>
+        <p class="subtitle">基于 31 篇原始研究与 5 篇背景综述 · 36 条可追溯证据边 · 更新于 2026-08-12</p>
+      </div>
+      <div class="headline-stats" aria-label="网络概览">
+        <div class="stat"><strong id="nodeCount">22</strong><span>可见节点</span></div>
+        <div class="stat"><strong id="edgeCount">36</strong><span>证据边</span></div>
+        <div class="stat"><strong>36</strong><span>Ref ID</span></div>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="panel sidebar" aria-label="网络控制面板">
+        <section class="section">
+          <h2 class="section-title">查看范围</h2>
+          <div class="view-switch" role="group" aria-label="视图模式">
+            <button id="globalView" class="active" type="button">全局图</button>
+            <button id="localView" type="button">局部图</button>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">检索细胞</h2>
+          <div class="search-wrap">
+            <input id="searchInput" type="search" placeholder="名称、缩写或机制…" autocomplete="off" aria-label="检索细胞">
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">细胞类别</h2>
+          <div class="filter-list">
+            <label class="check-row">
+              <span class="check-label"><input type="checkbox" data-category="lym" checked><i class="dot" style="--dot:var(--lym)"></i>淋系细胞</span>
+              <span class="count-badge">12</span>
+            </label>
+            <label class="check-row">
+              <span class="check-label"><input type="checkbox" data-category="bone" checked><i class="dot" style="--dot:var(--bone)"></i>骨系 / 基质</span>
+              <span class="count-badge">6</span>
+            </label>
+            <label class="check-row">
+              <span class="check-label"><input type="checkbox" data-category="heme" checked><i class="dot" style="--dot:var(--heme)"></i>造血 / 发育</span>
+              <span class="count-badge">4</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">研究模块</h2>
+          <div class="filter-list">
+            <label class="check-row">
+              <span class="check-label"><input type="checkbox" data-module="resorption" checked>骨吸收</span>
+              <span class="count-badge" data-module-count="resorption">0</span>
+            </label>
+            <label class="check-row">
+              <span class="check-label"><input type="checkbox" data-module="formation" checked>骨形成</span>
+              <span class="count-badge" data-module-count="formation">0</span>
+            </label>
+            <label class="check-row">
+              <span class="check-label"><input type="checkbox" data-module="fracture" checked>骨折修复</span>
+              <span class="count-badge" data-module-count="fracture">0</span>
+            </label>
+            <label class="check-row">
+              <span class="check-label"><input type="checkbox" data-module="niche" checked>骨髓生态位</span>
+              <span class="count-badge" data-module-count="niche">0</span>
+            </label>
+            <label class="check-row">
+              <span class="check-label"><input type="checkbox" data-module="osteogenesis" checked>成骨</span>
+              <span class="count-badge" data-module-count="osteogenesis">0</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">信号通路</h2>
+          <div class="filter-list">
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="osteoclast" checked>RANKL–RANK / 破骨分化</span><span class="count-badge" data-pathway-count="osteoclast">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="wnt" checked>经典 Wnt 信号</span><span class="count-badge" data-pathway-count="wnt">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="il17" checked>IL-17 信号</span><span class="count-badge" data-pathway-count="il17">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="tgfBmp" checked>TGF-β / BMP–SMAD</span><span class="count-badge" data-pathway-count="tgfBmp">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="notch" checked>Jagged–Notch</span><span class="count-badge" data-pathway-count="notch">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="jakStat" checked>JAK–STAT</span><span class="count-badge" data-pathway-count="jakStat">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="chemokine" checked>CXCL12–CXCR4</span><span class="count-badge" data-pathway-count="chemokine">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="nk" checked>NK 细胞毒性</span><span class="count-badge" data-pathway-count="nk">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="tnf" checked>TNF 信号</span><span class="count-badge" data-pathway-count="tnf">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="tcr" checked>TCR / 共刺激</span><span class="count-badge" data-pathway-count="tcr">0</span></label>
+            <label class="check-row"><span class="check-label"><input type="checkbox" data-pathway="unmapped" checked>未归属单一路径</span><span class="count-badge" data-pathway-count="unmapped">0</span></label>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">作用效应</h2>
+          <div class="effect-row">
+            <button class="effect-button active" data-effect="up" style="--effect:var(--up)" type="button"><i></i>促进</button>
+            <button class="effect-button active" data-effect="down" style="--effect:var(--down)" type="button"><i></i>抑制</button>
+            <button class="effect-button active" data-effect="other" style="--effect:var(--other)" type="button"><i></i>诱导 / 其他</button>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">最低证据强度</h2>
+          <select id="evidenceFilter" class="select" aria-label="最低证据强度">
+            <option value="weak">全部证据</option>
+            <option value="medium">中等及以上</option>
+            <option value="strong">仅强证据</option>
+          </select>
+        </section>
+
+        <section class="section">
+          <div class="hint-card">
+            拖拽节点可重新组织网络，滚轮缩放，拖动空白区域平移。点击节点进入局部图，点击连线查看分子机制与文献证据。
+            <div class="shortcut-list" aria-label="键盘快捷键">
+              <span><kbd>Esc</kbd>全局图</span>
+              <span><kbd>/</kbd>检索</span>
+              <span><kbd>G</kbd>全局</span>
+              <span><kbd>L</kbd>局部</span>
+              <span><kbd>F</kbd>适配</span>
+              <span><kbd>R</kbd>重排</span>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <section class="panel network-panel" aria-label="交互式节点网络">
+        <div class="network-header">
+          <div class="mode-label"><b id="modeName">全局图</b><span id="modeDescription">展示全部可见关系</span></div>
+          <div class="canvas-tools">
+            <button id="fitButton" class="icon-button" type="button" aria-label="适配画布" title="适配画布">◎</button>
+            <button id="resetButton" class="icon-button" type="button" aria-label="重置布局" title="重置布局">↻</button>
+          </div>
+        </div>
+        <svg id="network" viewBox="0 0 1200 760" role="img" aria-label="骨细胞与淋系细胞作用网络">
+          <defs id="networkDefs"></defs>
+          <g id="viewport">
+            <g id="edgeLayer"></g>
+            <g id="nodeLayer"></g>
+          </g>
+        </svg>
+        <div id="emptyState" class="empty-state">没有符合当前筛选条件的关系</div>
+        <div class="network-footer" aria-label="图例">
+          <span class="legend-item"><i class="legend-line" style="--legend:var(--up)"></i>促进</span>
+          <span class="legend-item"><i class="legend-line" style="--legend:var(--down)"></i>抑制</span>
+          <span class="legend-item"><i class="legend-line other" style="--legend:var(--other)"></i>诱导 / 其他</span>
+          <span class="legend-item"><i class="legend-line weak" style="--legend:#8aa0ad"></i>弱证据</span>
+        </div>
+      </section>
+
+      <aside id="detailPanel" class="panel detail-panel" aria-label="节点与关系详情">
+        <div id="detailContent" class="placeholder">
+          <div class="placeholder-mark">⌁</div>
+          <strong>点击节点或连接线</strong>
+          <span>点击连接线可直接查看作用功能、方向、机制、证据强度、研究结论与 PMID。</span>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div id="tooltip" class="tooltip" role="tooltip"></div>
+
+  <script>
+    const nodes = [
+      { id: 'actT', label: '活化 T 细胞', short: 'TCR activation', cat: 'lym', r: 24, note: 'TCR 激活后表达 RANKL；炎症时募集至骨微环境。' },
+      { id: 'reconT', label: '重建 T 细胞', short: 'HIV / ART', cat: 'lym', r: 22, note: 'ART 后免疫重建 T 细胞，高表达 RANKL 与 TNF-α。' },
+      { id: 'th17', label: 'Th17', short: 'IL-17⁺ CD4⁺', cat: 'lym', r: 24, note: 'IL-23 极化的促破骨辅助 T 细胞亚群。' },
+      { id: 'treg', label: 'Treg', short: 'CD4⁺ CD25⁺ FoxP3⁺', cat: 'lym', r: 25, note: '调节性 T 细胞，在稳态和炎症中具有护骨作用。' },
+      { id: 'cd8', label: 'CD8 T 细胞', short: 'Wnt10b source', cat: 'lym', r: 23, note: '骨髓驻留，是间歇性 PTH 促骨形成效应的许可者。' },
+      { id: 'tcreg', label: 'CD8 TcREG', short: 'CD25⁺ FoxP3⁺', cat: 'lym', r: 22, note: '由破骨细胞诱导，可强效抑制破骨分化与骨吸收。' },
+      { id: 'temra', label: 'CD8 TEMRA', short: 'CD28⁻ CD57⁺', cat: 'lym', r: 22, note: '终末分化 CD8 亚群，在延迟愈合骨折血肿中富集。' },
+      { id: 'gdt', label: 'γδ T 细胞', short: 'IL-17A⁺', cat: 'lym', r: 23, note: '骨折愈合早期 IL-17A 来源，促进骨再生。' },
+      { id: 'bcell', label: 'B cell 研究桶', short: 'CL:0000236 · 原词保留', cat: 'lym', r: 26, note: 'Breg、plasma cell 等首轮聚合于此，保留原词而不伪造 CL is_a 从属关系；稳态与疾病/外泌体边必须分开。' },
+      { id: 'pc', label: '恶性浆细胞', short: '多发性骨髓瘤', cat: 'lym', r: 22, note: '疾病限定的 B cell 研究桶成员；DKK1 成骨抑制不可外推为健康 B 细胞效应。' },
+      { id: 'nk', label: 'NK 细胞', short: 'CL:0000623', cat: 'lym', r: 23, note: 'RA 滑膜、MSC 共培养和 IL-15 共培养对应不同条件下的证据边。' },
+      { id: 'ilc2', label: 'ILC2', short: 'CL:0001069', cat: 'lym', r: 23, note: 'IL-7+ATRA 与 IL-33 可使其对破骨生成呈相反方向；必须显示刺激条件。' },
+      { id: 'oc', label: '破骨细胞', short: 'Osteoclast', cat: 'bone', r: 36, note: '网络核心效应节点，接收多条淋系输入，也调节 TcREG 与 HSC 动员。' },
+      { id: 'ob', label: '成骨细胞 / SNO', short: 'Osteoblast', cat: 'bone', r: 31, note: '骨形成细胞，并通过 Jagged1、BMP、CXCL12、IL-7 等支持造血。' },
+      { id: 'ocy', label: '骨细胞', short: 'Osteocyte', cat: 'bone', r: 33, note: '骨组织中数量最多的细胞，生理性 RANKL 主要来源并调控骨髓免疫。' },
+      { id: 'msc', label: 'MSC / 间充质祖细胞', short: 'Mesenchymal stromal cell', cat: 'bone', r: 29, note: '成骨前体与骨折修复效应细胞，也参与 NK 细胞双向调控。' },
+      { id: 'car', label: 'CAR 细胞', short: 'CXCL12-abundant', cat: 'bone', r: 27, note: 'CXCL12 高表达网状细胞，是 HSC 和淋系祖细胞的重要 niche。' },
+      { id: 'cxcl12', label: 'CXCL12⁺ / IL-7⁺ 基质', short: 'B-cell niche', cat: 'bone', r: 26, note: '支持 B 系阶段性发育以及浆细胞归巢。' },
+      { id: 'hsc', label: 'HSC / 造血干细胞', short: 'Hematopoietic stem cell', cat: 'heme', r: 30, note: '造血起点，在稳态维持与应激动员之间保持平衡。' },
+      { id: 'bpro', label: 'B 系祖细胞 / 浆细胞', short: 'B-lineage development', cat: 'heme', r: 27, note: '经历 pre-pro-B、pro-B、pre-B、成熟 B 与浆细胞阶段。' },
+      { id: 'myelo', label: '髓系造血', short: 'Myelopoiesis', cat: 'heme', r: 24, note: '受到骨细胞 Gsα–G-CSF 信号的约束。' },
+      { id: 'lymph', label: '淋巴生成', short: 'Bone marrow + thymus', cat: 'heme', r: 26, note: '骨细胞系统性支持骨髓与胸腺淋系生成，介导分子尚未明确。' }
+    ];
+
+    const rawEdges = [
+      { s: 'actT', t: 'oc', effect: 'up', evidence: 'strong', molecule: 'RANKL–RANK', pmid: ['10580503'], note: 'Kong 1999, Nature：阻断 RANKL 可完全阻止关节炎骨与软骨破坏。' },
+      { s: 'reconT', t: 'oc', effect: 'up', evidence: 'strong', molecule: 'RANKL、TNF-α', pmid: ['26392000'], note: 'Ofotokun 2015, Nat Commun：TNF 或 RANKL 缺陷供体 T 细胞可避免重建相关骨丢失。' },
+      { s: 'th17', t: 'oc', effect: 'up', evidence: 'strong', molecule: 'IL-17 → 支持细胞 RANKL；自身 RANKL', pmid: ['17088434'], note: 'Sato 2006, J Exp Med：Th17 是自身免疫性关节炎中主要促破骨 CD4 亚群。' },
+      { s: 'treg', t: 'oc', effect: 'down', evidence: 'strong', molecule: 'CTLA-4；TGF-β / IL-10 / IL-4', pmid: ['18050211', '20483756'], note: 'Zaiss 2007/2010：Treg 接触依赖地抑制破骨，体内骨保护可独立于抗炎效应。' },
+      { s: 'tcreg', t: 'oc', effect: 'down', evidence: 'weak', molecule: 'IL-6、IL-10、IFN-γ（非接触依赖）', pmid: ['22701612'], note: 'Buchwald 2012：单项体外研究显示 TcREG 抑制破骨分化与骨吸收。' },
+      { s: 'oc', t: 'tcreg', effect: 'other', evidence: 'weak', molecule: 'MHC-I 抗原提呈 → FoxP3⁺ CD8', pmid: ['22701612'], note: '破骨细胞诱导调节性 CD8，后者反向抑制破骨，构成负反馈环。' },
+      { s: 'cd8', t: 'ob', effect: 'up', evidence: 'strong', molecule: 'Wnt10b–经典 Wnt 信号', pmid: ['19723499'], note: 'Terauchi 2009, Cell Metab：T 细胞 Wnt10b 缺失会使 iPTH 骨合成效应消失。' },
+      { s: 'treg', t: 'cd8', effect: 'up', evidence: 'strong', molecule: 'NFAT1–SMAD3 → Wnt10b', pmid: ['30446387'], note: 'Tyagi 2018, Immunity：丁酸盐扩增 Treg，驱动 CD8 细胞产生 Wnt10b。' },
+      { s: 'gdt', t: 'msc', effect: 'up', evidence: 'medium', molecule: 'IL-17A', pmid: ['26965320'], note: 'Ono 2016, Nat Commun：促进间充质祖细胞增殖与成骨分化。' },
+      { s: 'temra', t: 'msc', effect: 'down', evidence: 'strong', molecule: 'IFN-γ、TNF-α', pmid: ['23515078'], note: 'Reinke 2013, Sci Transl Med：人群与动物研究均支持其抑制 MSC 存活和成骨。' },
+      { s: 'bcell', t: 'oc', effect: 'down', evidence: 'strong', molecule: 'OPG', pmid: ['17202317'], note: 'Li 2007, Blood：B 细胞贡献骨髓 64% 的 OPG；缺失可导致骨质疏松。', curve: -44 },
+      { s: 'bcell', t: 'oc', effect: 'up', evidence: 'medium', molecule: 'RANKL（牙周炎病灶）', pmid: ['16936272'], note: 'Kawai 2006：牙周炎病灶中超过 90% 的浸润 B 细胞表达 RANKL。', curve: 44 },
+      { s: 'actT', t: 'bcell', effect: 'up', evidence: 'medium', molecule: 'CD40L–CD40 → B 细胞 OPG', pmid: ['17202317'], note: '此边代表 T→B→破骨细胞的中继：T 细胞共刺激维持 B 系的稳态 OPG 输出。' },
+      { s: 'pc', t: 'ob', effect: 'down', evidence: 'strong', molecule: 'DKK1–Wnt 拮抗', pmid: ['14695408'], note: 'Tian 2003, N Engl J Med：DKK1 水平与多发性骨髓瘤溶骨病灶负荷相关。' },
+      { s: 'ocy', t: 'oc', effect: 'up', evidence: 'strong', molecule: 'RANKL', pmid: ['21909105', '21909103'], note: 'Nakashima / Xiong 2011：骨细胞特异性 Rankl 敲除导致严重骨硬化。' },
+      { s: 'ocy', t: 'oc', effect: 'up', evidence: 'strong', molecule: 'RANKL（矿化软骨吸收/卸载）', pmid: ['21909103'], note: 'E24｜基质内嵌细胞 RANKL 参与矿化软骨吸收、成年重塑和卸载性骨丢失。', curve: 48 },
+      { s: 'ocy', t: 'myelo', effect: 'down', evidence: 'medium', molecule: 'Gsα → G-CSF 约束', pmid: ['23160461'], note: 'Fulzele 2013, Blood：骨细胞 Gsα 缺失引发髓系过度扩增。' },
+      { s: 'ocy', t: 'lymph', effect: 'up', evidence: 'strong', molecule: '未明系统性信号（必需）', pmid: ['24140021'], note: 'Sato M 2013, Cell Metab：骨细胞消融导致骨髓与胸腺支持基质崩溃。' },
+      { s: 'ob', t: 'hsc', effect: 'up', evidence: 'strong', molecule: 'Jagged1–Notch1；BMP–BMPRIA；结构支持', pmid: ['14574413', '14574412', '14726388'], note: 'Calvi / Zhang 2003 与 Visnjic 2004：遗传操作和消融研究支持成骨细胞参与 HSC niche。' },
+      { s: 'ob', t: 'bpro', effect: 'up', evidence: 'strong', molecule: 'VCAM-1、CXCL12、IL-7', pmid: ['17227831'], note: 'Zhu 2007, Blood：成骨细胞支持从 HSC 至成熟 B 的定向分化。' },
+      { s: 'cxcl12', t: 'bpro', effect: 'up', evidence: 'medium', molecule: 'CXCL12–CXCR4、IL-7（阶段性驻留）', pmid: ['15189736'], note: 'Tokoyoda 2004, Immunity：成像定位揭示 B 系发育的阶段特异性 niche。' },
+      { s: 'car', t: 'hsc', effect: 'up', evidence: 'strong', molecule: 'CXCL12、SCF（必需）', pmid: ['20850355'], note: 'Omatsu 2010, Immunity：CAR 细胞消融导致 HSC 与淋系 / 红系祖细胞锐减。' },
+      { s: 'oc', t: 'hsc', effect: 'up', evidence: 'strong', molecule: 'cathepsin K、MMP-9（动员）', pmid: ['16715089'], note: 'Kollet 2006, Nat Med：破骨活化降解 niche 锚定成分，动员祖细胞入血。' },
+      { s: 'nk', t: 'msc', effect: 'down', evidence: 'weak', molecule: 'NKp30、NKp44、NKG2D（杀伤）', pmid: ['17951526'], note: '活化 NK 可在体外裂解 MSC；依赖活化状态和靶细胞配体表达。', curve: -40 },
+      { s: 'msc', t: 'nk', effect: 'down', evidence: 'weak', molecule: 'IDO、PGE2', pmid: ['17951526'], note: 'MSC 在体外抑制 NK 增殖、细胞毒和细胞因子产生。', curve: 40 },
+      { s: 'nk', t: 'oc', effect: 'up', evidence: 'strong', molecule: 'RANKL、M-CSF、细胞接触', pmid: ['20615964'], note: 'E11｜RA 滑膜 NK 可促自体单核细胞破骨化；CIA 中 NK 耗竭减少骨侵蚀。', curve: -64 },
+      { s: 'ilc2', t: 'oc', effect: 'down', evidence: 'strong', molecule: 'IL-4、IL-13、STAT6', pmid: ['32240850'], note: 'E12｜稳态/OVX：ILC2 抑制破骨分化；过继转移保护 OVX 骨量。', curve: -104 },
+      { s: 'ilc2', t: 'oc', effect: 'up', evidence: 'strong', molecule: 'RANKL', pmid: ['34498703'], note: 'E13｜IL-7+ATRA：骨髓 ILC2 高表达 RANKL 并促破骨。', curve: -34 },
+      { s: 'ilc2', t: 'oc', effect: 'down', evidence: 'strong', molecule: 'GM-CSF、IL-13', pmid: ['34498703'], note: 'E14｜IL-33：ILC2 转向抑制性状态；与 E13 是刺激条件差异。', curve: 36 },
+      { s: 'bcell', t: 'ob', effect: 'down', evidence: 'medium', molecule: 'B-cell exosome', pmid: ['34819916'], note: 'E19｜骨折研究中，B 细胞外泌体在体外抑制成骨分化、在体内降低骨形成；不外推为全部 B 细胞恒定效应。', curve: -56 },
+      { s: 'bcell', t: 'oc', effect: 'up', evidence: 'weak', molecule: 'B-cell exosome', pmid: ['34819916'], note: 'E20｜同一研究中外泌体促进体外破骨形成；尚非原位 B 亚群的直接体内因果。', curve: 92 },
+      { s: 'bcell', t: 'treg', effect: 'up', evidence: 'medium', molecule: 'IL-10；Foxp3 诱导', pmid: ['28008635'], note: 'E21｜人骨愈合研究中，原文 Breg 表型与正常愈合相关并可在体外提高 Foxp3；先归 B cell 研究桶。' },
+      { s: 'nk', t: 'ob', effect: 'down', evidence: 'weak', molecule: 'IL-15；caspase-3', pmid: ['24287823'], note: 'E36｜小鼠共培养中 IL-15 效应依赖 NK 活化并与成骨细胞凋亡相关；尚缺体内外推。' },
+      { s: 'treg', t: 'oc', effect: 'down', evidence: 'strong', molecule: 'CTLA-4；抗炎非唯一解释', pmid: ['20483756'], note: 'E04｜hTNFtg 关节炎中 Treg 扩增/转移与局部及全身骨保护相关。', curve: 82 },
+      { s: 'ob', t: 'hsc', effect: 'other', evidence: 'medium', molecule: 'BMP–BMPRIA；N-cadherin', pmid: ['14574412'], note: 'E28｜历史 SNO niche 定义：SNO 数量与 HSC 数量/定位相关，不等同现代全部成骨细胞。', curve: 74 },
+      { s: 'ob', t: 'bpro', effect: 'up', evidence: 'strong', molecule: '结构性生态位支持', pmid: ['14726388'], note: 'E29｜成骨细胞消融伴随淋系、红系、髓系祖细胞耗竭与髓外造血。', curve: -74 }
+    ];
+
+    const moduleDefinitions = [
+      {
+        id: 'resorption',
+        label: '骨吸收',
+        matches: edge => edge.t === 'oc' || (edge.s === 'oc' && edge.t === 'tcreg') || (edge.s === 'actT' && edge.t === 'bcell')
+      },
+      {
+        id: 'formation',
+        label: '骨形成',
+        matches: edge => edge.t === 'ob' || (edge.s === 'treg' && edge.t === 'cd8')
+      },
+      {
+        id: 'fracture',
+        label: '骨折修复',
+        matches: edge => (edge.pmid || []).some(id => ['26965320', '23515078', '34819916', '28008635'].includes(id))
+      },
+      {
+        id: 'niche',
+        label: '骨髓生态位',
+        matches: edge => ['hsc', 'bpro', 'myelo', 'lymph'].includes(edge.t)
+      },
+      {
+        id: 'osteogenesis',
+        label: '成骨',
+        matches: edge => edge.s === 'msc' || edge.t === 'msc'
+      }
+    ];
+
+    rawEdges.forEach(edge => {
+      edge.modules = moduleDefinitions.filter(module => module.matches(edge)).map(module => module.id);
+    });
+
+    // 同一来源、靶点和作用方向只保留一条可视连线；
+    // 不丢弃原始信息，而是合并机制、结论、PMID，并采用其中最高证据等级。
+    function mergeOverlappingEdges(edgeList) {
+      const rank = { weak: 0, medium: 1, strong: 2 };
+      const groups = new Map();
+
+      edgeList.forEach(edge => {
+        const key = `${edge.s}::${edge.t}::${edge.effect}`;
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(edge);
+      });
+
+      return [...groups.values()].map((group, index) => {
+        const first = group[0];
+        const unique = values => [...new Set(values.filter(Boolean))];
+        const molecules = unique(group.map(edge => edge.molecule));
+        const contexts = unique(group.map(edge => edge.context));
+        const notes = unique(group.map(edge => edge.note));
+        const pmids = unique(group.flatMap(edge => edge.pmid || []));
+        const evidence = group.reduce((best, edge) => rank[edge.evidence] > rank[best] ? edge.evidence : best, first.evidence);
+        const modules = unique(group.flatMap(edge => edge.modules || []));
+
+        return {
+          ...first,
+          id: `e${index}`,
+          evidence,
+          molecule: molecules.join('；'),
+          context: contexts.join('；'),
+          note: notes.join('<br><br>'),
+          pmid: pmids,
+          modules,
+          mergedCount: group.length
+        };
+      });
+    }
+
+    const edges = mergeOverlappingEdges(rawEdges);
+
+    const mechanismCatalog = {
+      osteoclast: { label: 'RANKL–RANK / 破骨分化', page: 'pathways/osteoclast-differentiation.html', brief: 'RANK 刺激经 TRAF6、NF-κB、MAPK 与 NFATc1 驱动破骨细胞分化；OPG 是 RANKL 的诱饵受体。' },
+      wnt: { label: '经典 Wnt 信号', page: 'pathways/wnt-signaling.html', brief: 'Wnt 配体稳定 β-catenin，促进成骨相关转录；DKK1 可阻断 LRP5/6 共同受体。' },
+      il17: { label: 'IL-17 信号', page: 'pathways/il17-signaling.html', brief: 'IL-17 受体经 ACT1、NF-κB/MAPK 放大炎性转录；其骨效应取决于细胞来源和局部情境。' },
+      tgfBmp: { label: 'TGF-β / BMP–SMAD', page: 'pathways/tgfb-bmp-signaling.html', brief: 'TGF-β/BMP 通过 SMAD 转录调节细胞分化与生态位信号，方向取决于配体、细胞和实验体系。' },
+      notch: { label: 'Jagged–Notch', page: 'pathways/notch-signaling.html', brief: '膜配体 Jagged 与 Notch 接触后释放 NICD，改变靶细胞的转录程序。' },
+      jakStat: { label: 'JAK–STAT 细胞因子信号', page: 'pathways/jak-stat-signaling.html', brief: '多种细胞因子受体通过 JAK 激活 STAT；IL-4/IL-13–STAT6 与 G-CSF 信号均属于该类通路。' },
+      chemokine: { label: 'CXCL12–CXCR4 趋化信号', page: 'pathways/cxcl12-cxcr4-signaling.html', brief: 'CXCL12 结合 CXCR4，调节造血祖细胞的驻留、迁移与生态位定位。' },
+      nk: { label: 'NK 细胞介导的细胞毒性', page: 'pathways/nk-cytotoxicity.html', brief: 'NK 活化受体与靶细胞配体接触可触发细胞毒颗粒释放和靶细胞凋亡。' },
+      tnf: { label: 'TNF 信号', page: 'pathways/tnf-signaling.html', brief: 'TNF-α 可经 TNFR–NF-κB/MAPK 放大炎症与破骨生成相关信号。' },
+      tcr: { label: 'TCR / 共刺激信号', page: 'pathways/tcr-signaling.html', brief: 'TCR 激活与 CD40L 等共刺激分子共同重塑 T、B 细胞的效应分子输出。' }
+    };
+
+    // 仅写入本地证据主表和题录已支持的信息。精确剂量、培养/随访时长及未在
+    // 可访问资料中确认的技术细节，明确保留为“全文方法节待核对”，不以推测替代。
+    const researchProfiles = {
+      'actT->oc:up': { summary: '炎症性关节炎中，激活 T 细胞的 RANKL 直接支持破骨生成。', mechanisms: ['tcr', 'osteoclast'], type: '体内疾病模型 + 体外破骨功能实验；不是综述或虚拟实验。', material: '大鼠佐剂性关节炎模型；激活 T 细胞与破骨细胞/前体体系。', design: '比较疾病或激活状态、OPG 阻断与对照；关键读出为关节骨/软骨破坏与破骨生成。给药、共培养时长和细胞比例需回到 PMID 10580503 方法节核对。', validation: '主表确认 OPG 阻断和破骨功能读出；RANKL 蛋白/转录检测、组织学和具体抗体平台需全文核对。' },
+      'reconT->oc:up': { summary: '免疫重建中的 T 细胞 TNF-α 与 RANKL 促进骨丢失。', mechanisms: ['tnf', 'osteoclast'], type: '体内免疫重建模型，辅以遗传缺失供体 T 细胞比较。', material: '小鼠免疫重建体系；野生型、TNF-α 缺失或 RANKL 缺失供体 T 细胞。', design: '以供体 T 细胞的基因型为核心变量，比较骨丢失结局；关键节点为免疫重建后 T 细胞回输/扩增。重建窗口、ART 方案和随访时长需核对 PMID 26392000。', validation: '主表支持遗传缺失的因果比较；骨密度/微结构、血清骨转换指标和细胞因子检测的具体方法待全文核对。' },
+      'th17->oc:up': { summary: 'Th17 通过 IL-17 与 RANKL 相关轴放大关节炎性破骨生成。', mechanisms: ['il17', 'osteoclast'], type: '自身免疫关节炎体内模型 + 体外分化/共培养实验。', material: '小鼠 Th17 细胞、破骨细胞前体及关节炎模型材料。', design: '比较 Th17/IL-17 条件与对照，观察支持细胞 RANKL 与破骨分化；关键节点为 IL-17 驱动的炎症性微环境。培养时间、转移剂量和模型周期需核对 PMID 17088434。', validation: '主表确认破骨形成和 RANKL/IL-17 相关功能实验；流式分群、RT-qPCR、ELISA 或 TRAP 染色的组合与条件待全文核对。' },
+      'treg->oc:down': { summary: 'Treg 以接触依赖的 CTLA-4 抑制为主，并在关节炎模型中呈骨保护。', mechanisms: ['osteoclast', 'tcr', 'tgfBmp'], type: 'M-CSF/RANKL 体外体系（R03）+ hTNFtg 关节炎体内干预/转移（R04）。', material: '小鼠 Treg、破骨细胞前体；hTNFtg 小鼠。', design: '体外比较 Treg–破骨前体直接接触、隔膜/阻断条件与对照；体内比较 Treg 扩增或转移后的骨破坏。具体细胞比例、处理次数和观察天数需分别核对 PMID 18050211、20483756。', validation: '主表支持 CTLA-4 依赖接触与体内骨保护；TRAP、骨吸收坑、组织学/μCT、流式及 CTLA-4 阻断的精确流程待全文核对。' },
+      'tcreg->oc:down': { summary: '破骨细胞诱导的 TcREG 以可溶性因子反馈抑制破骨。', mechanisms: ['osteoclast', 'tcr'], type: '体外稳态共培养；不是体内因果实验。', material: '小鼠破骨细胞、CD8 T 细胞及破骨前体/分化体系。', design: '先由破骨细胞诱导 CD25+Foxp3+ CD8 表型，再比较 TcREG 与对照 CD8 对破骨分化/吸收的影响；接触非依赖性是关键变量。诱导和共培养时长需核对 PMID 22701612。', validation: '主表支持 IL-6、IL-10、IFN-γ 相关可溶性因子；流式检测 Foxp3/CD25、细胞因子中和、TRAP/吸收坑和具体检测时点待全文核对。' },
+      'oc->tcreg:other': { summary: '破骨细胞可作为抗原呈递细胞诱导 Foxp3+ CD8 TcREG。', mechanisms: ['tcr'], type: '体外稳态共培养；不是综述或虚拟实验。', material: '小鼠破骨细胞与 naïve CD8 T 细胞。', design: '以破骨细胞是否存在及 MHC-I 抗原呈递条件为变量，评估 CD8 向 TcREG 表型转化；关键节点是后续 TcREG 对破骨的反馈抑制。培养时长和抗原/阻断条件需核对 PMID 22701612。', validation: '主表确认 MHC-I 依赖与 Foxp3/CD25 表型；流式、MHC-I 阻断和功能抑制实验的完整技术参数待全文核对。' },
+      'cd8->ob:up': { summary: '间歇性 PTH 的成骨效应需要 T 细胞来源 Wnt10b。', mechanisms: ['wnt', 'tcr'], type: '遗传缺失 + 体内 iPTH 干预模型。', material: '小鼠 T 细胞及 Wnt10b 缺失/对照体系，成骨细胞谱系。', design: '比较有无 T 细胞或 T 细胞 Wnt10b 的 iPTH 骨合成反应；PTH 给药为主要干预，骨形成结局为主要读出。PTH 剂量、频次和总周期需核对 PMID 19723499。', validation: '主表支持遗传缺失因果验证；Wnt10b 表达、骨形成率、μCT/组织形态计量与细胞检测平台待全文核对。' },
+      'treg->cd8:up': { summary: '丁酸盐扩增 Treg，并经 CD8 T 细胞 Wnt10b 形成促骨中继。', mechanisms: ['tcr', 'tgfBmp', 'wnt'], type: '菌群代谢物干预 + 小鼠遗传/细胞去除验证。', material: '小鼠骨髓 Treg、CD8 T 细胞与成骨谱系；丁酸盐干预。', design: '比较丁酸盐处理与对照，并在 Treg/CD8/Wnt10b 缺失或功能受限背景下评估骨形成；关键节点是 Treg–CD8 串联与 Wnt10b 输出。给药方式、周期和具体缺失策略需核对 PMID 30446387。', validation: '主表支持 NFAT1–SMAD3 与 Wnt10b 轴；流式 Treg/CD8、基因表达、骨组织形态计量及通路验证的完整方法待全文核对。' },
+      'gdt->msc:up': { summary: '骨折早期 γδT 细胞来源 IL-17A 促进 MSC 成骨性分化。', mechanisms: ['il17'], type: '骨折体内模型 + 遗传/功能干预 + 体外 MSC 实验。', material: '小鼠骨折模型、γδ T 细胞、MSC/成骨谱系；IL-17A 相关对照。', design: '按骨折愈合早期时序比较 IL-17A/γδT 存在与缺失或阻断条件，评估成骨性骨形成和愈合；关键节点为炎症早期 IL-17A 峰。骨折固定方式、取样日与培养时长需核对 PMID 26965320。', validation: '主表支持 IL-17A 缺失影响愈合；流式来源鉴定、μCT/组织学、ALP/矿化及 IL-17A 检测的参数待全文核对。' },
+      'temra->msc:down': { summary: '终末分化 CD8 TEMRA 与延迟愈合相关，并抑制 MSC 成骨。', mechanisms: ['tnf', 'tcr'], type: '人体骨折血肿队列 + 小鼠 CD8 清除 + 体外共培养。', material: '人骨折血肿 CD8 TEMRA（CD28−CD57+）；小鼠骨折模型与 MSC。', design: '比较正常与延迟愈合的 TEMRA 富集，体外测试 TEMRA/细胞因子对 MSC 存活与成骨，并以小鼠 CD8 清除验证体内结局。受试者时间点、样本量和动物随访期需核对 PMID 23515078。', validation: '主表支持 IFN-γ/TNF-α 与 MSC 抑制；流式 TEMRA 分群、细胞凋亡/成骨读出、μCT/组织学及中和实验细节待全文核对。' },
+      'bcell->oc:down': { summary: '骨髓 B 系的 OPG 是稳态下抑制破骨的重要来源。', mechanisms: ['osteoclast', 'tcr'], type: '小鼠体内遗传/缺失比较 + 体外功能实验。', material: '小鼠骨髓 B、T 细胞与破骨分化体系。', design: '比较 B 细胞或 T 细胞缺失与对照的骨量、OPG 输出及破骨反应；CD40L–CD40 是维持 B 系 OPG 的关键中继。动物年龄、观察周期和培养时间需核对 PMID 17202317。', validation: '主表支持 OPG 量化与功能关联；ELISA/转录检测、μCT、组织形态计量、TRAP 和基因型验证细节待全文核对。' },
+      'bcell->oc:up': { summary: '病灶 B 细胞 RANKL 与骨折相关 B 细胞外泌体均可促进破骨，但场景不可外推。', mechanisms: ['osteoclast'], type: '人牙周炎病灶样本 + 体外功能实验（R12）；骨折相关外泌体体外实验（R26）。', material: '人牙周炎病灶 B/T 细胞及破骨体系；骨折研究中的 B 细胞外泌体与破骨前体。', design: 'R12 比较病灶/外周及激活状态的 RANKL 破骨支持；R26 比较外泌体处理与对照对破骨形成的影响。各自的样本来源、外泌体剂量和培养时长需分别核对 PMID 16936272、34819916。', validation: '主表支持 RANKL 相关功能读出与外泌体促破骨；流式/免疫染色、TRAP、外泌体表征及中和试验细节待全文核对。' },
+      'actT->bcell:up': { summary: 'T 细胞 CD40L 共刺激维持 B 系 OPG 输出，构成间接骨保护中继。', mechanisms: ['tcr', 'osteoclast'], type: '小鼠体内缺失比较 + 体外 B/T 功能实验。', material: '小鼠骨髓 T、B 细胞及 OPG/破骨相关体系。', design: '以 T 细胞 CD40L–B 细胞 CD40 是否完整为变量，比较 B 细胞 OPG 与后续破骨调控；应解读为 T→B→破骨的中继。培养时长、阻断剂和动物周期需核对 PMID 17202317。', validation: '主表支持 CD40L–CD40 和 OPG 功能关联；共培养、ELISA、基因型比较及破骨读出的具体方法待全文核对。' },
+      'pc->ob:down': { summary: '多发性骨髓瘤细胞 DKK1 拮抗 Wnt，抑制成骨分化。', mechanisms: ['wnt'], type: '人多发性骨髓瘤样本关联 + 体外成骨前体功能实验。', material: '人骨髓瘤患者样本/血清与骨髓瘤细胞；成骨前体或成骨细胞。', design: '比较 DKK1 水平与溶骨病灶，并以骨髓瘤来源 DKK1 或中和/补救条件评估成骨分化；关键变量是 DKK1–Wnt 拮抗。样本量、培养时间和中和剂量需核对 PMID 14695408。', validation: '主表支持 DKK1 与病灶负荷关联及成骨功能；ELISA、成骨标志物/矿化、Wnt 报告或蛋白检测细节待全文核对。' },
+      'ocy->oc:up': { summary: '骨细胞/基质内嵌细胞 RANKL 是生理破骨、软骨吸收与卸载骨丢失的重要来源。', mechanisms: ['osteoclast'], type: '细胞特异性条件性缺失（R14/R15）+ 体内骨重塑/卸载模型，部分体外验证。', material: 'DMP1-Cre 等小鼠骨细胞特异性 Rankl 缺失体系；成年重塑、矿化软骨/卸载相关组织。', design: '比较骨细胞或基质内嵌细胞 Rankl 完整与缺失时的破骨、骨量和软骨吸收；关键节点是细胞来源特异性而非单纯总 RANKL。动物年龄、卸载时长和取材时点需核对 PMID 21909105、21909103。', validation: '主表支持条件性敲除、组织学与破骨功能；Cre 特异性、TRAP、μCT、原位/表达检测和具体时间线待全文核对。' },
+      'ocy->myelo:down': { summary: '骨细胞 Gsα 信号限制 G-CSF 相关髓系扩增。', mechanisms: ['jakStat'], type: '骨细胞特异性遗传缺失小鼠 + 造血/体外功能实验。', material: '小鼠骨细胞 Gsα 缺失与对照；骨髓髓系细胞及 G-CSF 相关体系。', design: '以骨细胞 Gsα 状态为变量比较骨髓髓系扩增和 G-CSF 相关读出；关键节点是骨细胞对造血微环境的约束。动物年龄、随访和培养时长需核对 PMID 23160461。', validation: '主表支持遗传缺失与 G-CSF 关联；流式髓系分群、血清/转录检测、组织学及体外实验细节待全文核对。' },
+      'ocy->lymph:up': { summary: '骨细胞对骨髓与胸腺淋系支持是必需的，但单一介导分子尚未确定。', mechanisms: [], type: '骨细胞消融体内模型 + 连体共生/补救比较；不是虚拟实验。', material: '小鼠骨细胞消融模型，骨髓、胸腺及淋系祖细胞。', design: '比较骨细胞完整与消融后的骨髓/胸腺淋系细胞，连体共生未能补救是关键系统性证据；不应被改写为已证实的单一分子通路。消融时序、共生周期和取样节点需核对 PMID 24140021。', validation: '主表支持细胞消融与器官/细胞计数结局；流式谱系分析、组织学、骨代谢检测及具体时间参数待全文核对。' },
+      'ob->hsc:up': { summary: '成骨细胞谱系可通过 PPR–Jagged1–Notch、BMP 及结构生态位支持 HSC。', mechanisms: ['notch', 'tgfBmp'], type: '小鼠遗传模型、PTH/PPR 干预及骨细胞谱系消融的综合证据。', material: '小鼠成骨细胞/SNO 样细胞、HSC；PPR、Jagged1 或 BMP/BMPRIA 相关模型。', design: '比较成骨细胞信号激活、BMP 受体改变或谱系减少对 HSC 数量/定位的影响；需将历史 SNO 模型与现代生态位异质性区分。各模型处理期和追踪时间需核对 PMID 14574413、14574412、14726388。', validation: '主表支持遗传操作、HSC 数量/定位和骨髓分析；流式 HSC 门控、骨髓移植、免疫定位及分子检测细节待全文核对。' },
+      'ob->bpro:up': { summary: '成骨细胞及其结构性生态位支持早期 B 系承诺与维持。', mechanisms: ['chemokine'], type: '小鼠成骨细胞缺失体内模型 + 体外 B 系分化支持实验。', material: '小鼠成骨细胞、HSC/pre-pro-B/pro-B 等早期 B 系细胞。', design: '比较成骨细胞存在/缺失或共培养与对照对 B 系阶段性发育的影响；VCAM-1、CXCL12、IL-7 为候选支持信号，细胞消融证据是结构支持。培养周期、动物时间线和阶段门控需核对 PMID 17227831、14726388。', validation: '主表支持 B 系祖细胞计数与成骨细胞依赖性；流式阶段分群、共培养、细胞因子/黏附分子检测细节待全文核对。' },
+      'cxcl12->bpro:up': { summary: 'CXCL12 与 IL-7 相关骨髓微生态位控制 B 系不同阶段的驻留。', mechanisms: ['chemokine', 'jakStat'], type: '骨髓空间定位/成像研究；以关联与定位证据为主。', material: '小鼠骨髓 B 系各发育阶段、CXCL12+ 与 IL-7+ 基质细胞。', design: '按 pre-pro-B、pro-B、浆细胞等阶段比较其在骨髓内的空间定位与基质邻近关系；关键是阶段特异性 niche，而非单一细胞培养因果。成像时点和定量规则需核对 PMID 15189736。', validation: '主表支持空间/成像证据（L5）；所用成像、标记和是否含功能阻断须以全文方法节为准。' },
+      'car->hsc:up': { summary: 'CAR 基质细胞分泌 CXCL12 与 SCF，是 HSC 和部分祖细胞维持所必需的生态位成分。', mechanisms: ['chemokine'], type: '小鼠 CAR/Lepr+ 基质细胞消融的遗传体内实验。', material: '小鼠 CXCL12-abundant reticular / Lepr+ 骨髓基质细胞、HSC 与淋系/红系祖细胞。', design: '以 CAR 细胞是否被消融为主变量，比较 HSC 和祖细胞数量；关键结局是细胞消融后的锐减。诱导方式、消融持续时间和取样日需核对 PMID 20850355。', validation: '主表支持细胞消融与造血祖细胞读出；流式 HSC/祖细胞门控、CXCL12/SCF 检测和模型验证待全文核对。' },
+      'oc->hsc:up': { summary: '破骨活化通过降解骨内膜生态位成分促进造血祖细胞动员。', mechanisms: ['osteoclast', 'chemokine'], type: '小鼠 RANKL 刺激/动员体内模型 + 破骨酶功能验证。', material: '小鼠破骨细胞、骨内膜生态位与 HSC/造血祖细胞。', design: '比较 RANKL 诱导破骨活化与对照，观察祖细胞进入外周血；cathepsin K、MMP-9 与 CXCR4–SDF-1 锚定轴解构是关键机制节点。RANKL 给药、抑制剂与采样窗口需核对 PMID 16715089。', validation: '主表支持动员结局和蛋白酶机制；外周血/骨髓流式、蛋白酶检测、骨内膜定位与阻断实验细节待全文核对。' },
+      'nk->msc:down': { summary: '活化 NK 经激活受体识别可裂解 MSC，依赖活化状态与配体表达。', mechanisms: ['nk'], type: '人体外共培养/细胞毒性实验。', material: '人 NK 细胞与人 MSC；NKp30、NKp44、NKG2D 相关受体。', design: '比较活化与未活化 NK、受体阻断或不同靶细胞配体条件下的 MSC 存活；关键变量是接触依赖细胞毒。效靶比、激活方案和共培养时长需核对 PMID 17951526。', validation: '主表支持 NKp30/NKp44/NKG2D 与裂解；流式细胞毒性、受体阻断、凋亡/存活检测的具体平台待全文核对。' },
+      'msc->nk:down': { summary: 'MSC 以 IDO、PGE2 等抑制 NK 增殖、细胞因子产生和细胞毒。', mechanisms: ['nk'], type: '人体外共培养/免疫抑制功能实验。', material: '人 MSC 与人 NK 细胞。', design: '比较 MSC 存在/缺失、接触或可溶性因子条件对 NK 增殖、细胞因子和杀伤功能的影响；与 NK→MSC 为同一研究的双向调控。MSC 预处理、效靶比和培养时长需核对 PMID 17951526。', validation: '主表支持 IDO/PGE2 候选中继；NK 增殖、细胞因子、细胞毒与抑制剂/中和验证的完整方法待全文核对。' },
+      'nk->oc:up': { summary: 'RA 滑膜 NK 在特定疾病环境中以接触、RANKL 与 M-CSF 促进破骨。', mechanisms: ['nk', 'osteoclast'], type: '人 RA 滑膜样本 + 自体体外共培养 + CIA 小鼠 NK 耗竭。', material: '人 RA 滑膜 NK 与自体单核细胞；CIA 小鼠。', design: '体外比较 NK 与单核细胞接触/对照的破骨分化，体内比较 NK 耗竭对 CIA 骨侵蚀的影响；病灶环境是不可省略的条件。样本时间点、耗竭方案和共培养时长需核对 PMID 20615964。', validation: '主表支持 RANKL/M-CSF、接触依赖和 CIA 骨侵蚀；流式/免疫表型、TRAP、骨组织学/影像及阻断方法待全文核对。' },
+      'ilc2->oc:down': { summary: 'ILC2 在 OVX 或 IL-33 条件下可通过 IL-4/IL-13–STAT6、GM-CSF/IL-13 抑制破骨。', mechanisms: ['jakStat', 'osteoclast'], type: '小鼠 OVX/过继转移体内模型 + 体外破骨分化；另含 IL-33 条件化实验。', material: '小鼠 ILC2、破骨前体；OVX 小鼠及 IL-33 刺激体系。', design: 'R30 比较 ILC2/过继转移与对照对 OVX 骨量和破骨的作用；R31 比较 IL-33 与 IL-7+ATRA 条件下 ILC2 输出。处理频次、移植细胞数、培养/随访周期需核对 PMID 32240850、34498703。', validation: '主表支持 IL-4/IL-13–STAT6 与 GM-CSF/IL-13；流式 ILC2、TRAP、μCT、细胞因子中和及 STAT6 验证细节待全文核对。' },
+      'ilc2->oc:up': { summary: 'IL-7+ATRA 条件可使骨髓 ILC2 高表达 RANKL 并促破骨。', mechanisms: ['osteoclast', 'jakStat'], type: '小鼠条件化体内模型 + 体外破骨分化实验。', material: '小鼠骨髓 ILC2、BMM/破骨前体；IL-7 与 ATRA 条件。', design: '以 IL-7+ATRA 刺激与对照为变量，比较 ILC2 的 RANKL 输出和破骨分化；必须与 IL-33 条件的抑制性状态并列解释。刺激剂量、模型周期和培养时长需核对 PMID 34498703。', validation: '主表支持 RANKL 与破骨功能；流式 ILC2、RANKL 检测、TRAP 和体内骨表型的具体方法待全文核对。' },
+      'bcell->ob:down': { summary: '骨折研究中的 B 细胞外泌体可在特定体系中抑制成骨分化。', mechanisms: [], type: '人/鼠骨折时间序列与单细胞关联 + 外泌体体外/体内功能实验。', material: '骨折相关 B 细胞、B 细胞外泌体、MSC/成骨细胞谱系；人和小鼠材料。', design: '先通过单细胞和时间序列描述 B 细胞变化，再比较外泌体处理与对照对成骨分化/骨形成的影响；不能推广为所有 B 细胞的恒定效应。外泌体分离、剂量、给药与观察时长需核对 PMID 34819916。', validation: '主表支持单细胞、体外成骨和体内骨形成读出；外泌体粒径/标志物、ALP/矿化、μCT/组织学及机制验证待全文核对。' },
+      'bcell->treg:up': { summary: '骨愈合中的 IL-10+ Breg 表型与 Foxp3+ Treg 增加相关，并有体外功能支持。', mechanisms: ['jakStat', 'tcr'], type: '人正常愈合、延迟愈合与骨不连样本比较 + 体外免疫功能实验。', material: '人外周/骨愈合相关 IL-10+IgM+CD27+ B 细胞及 T 细胞/Treg。', design: '比较正常愈合、延迟愈合和骨不连在约 6 周时的 Breg 表型，并测试 B 细胞对 T 细胞炎性因子和 Foxp3 的影响；精确随访窗口及样本量需核对 PMID 28008635。', validation: '主表支持 IL-10、Foxp3 与功能关联；流式 Breg/Treg 分群、细胞因子检测、共培养和阻断实验细节待全文核对。' },
+      'nk->ob:down': { summary: 'IL-15 活化 NK 在小鼠共培养中与成骨细胞凋亡及成骨抑制相关。', mechanisms: ['nk', 'jakStat'], type: '小鼠骨髓细胞–成骨细胞体外共培养；缺乏直接体内外推。', material: '小鼠 NK/骨髓细胞、成骨细胞与 IL-15 刺激。', design: '比较 IL-15、有无 NK 或不同共培养条件下的成骨细胞存活；关键变量是 NK 活化而非 IL-15 对所有细胞的直接效应。IL-15 浓度、培养时间和细胞比例需核对 PMID 24287823。', validation: '主表支持 caspase-3 增加与成骨细胞损伤；凋亡检测、成骨读出、NK 耗竭/阻断和具体技术平台待全文核对。' },
+      'ob->hsc:other': { summary: '历史 SNO niche 模型将 BMP–BMPRIA 与 N-cadherin 同 HSC 定位/数量关联。', mechanisms: ['tgfBmp', 'notch'], type: '小鼠遗传模型 + HSC 空间定位/关联证据；属于历史性生态位定义。', material: '小鼠 SNO osteoblast-like 细胞与 LT-HSC；BMP–BMPRIA/N-cadherin 相关体系。', design: '比较 SNO 数量或 BMP 信号改变与 HSC 数量、定位的关系；不能把 SNO 的历史定义等同于全部现代成骨细胞。模型诱导、观察周期和空间量化规则需核对 PMID 14574412。', validation: '主表支持遗传操作与定位关联；HSC 流式门控、免疫定位、N-cadherin/BMP 检测及因果干预细节待全文核对。' }
+    };
+
+    edges.forEach(edge => {
+      const key = `${edge.s}->${edge.t}:${edge.effect}`;
+      edge.research = researchProfiles[key] || { summary: '该连接尚未建立可审计的研究场景卡。', mechanisms: [], type: '待核对', material: '待核对', design: '待核对', validation: '待核对' };
+      edge.pathways = edge.research.mechanisms.length ? edge.research.mechanisms : ['unmapped'];
+    });
+
+    // 为同一对节点的平行/反向证据边分配独立轨道。
+    // 使用无向节点对作为分组键，并将轨道偏移换算回源→靶方向；
+    // 这样 A→B 与 B→A 不会因为法向量反转而意外画在同一条曲线上。
+    function assignEdgeLanes(edgeList) {
+      const groups = new Map();
+      edgeList.forEach(edge => {
+        const pair = [edge.s, edge.t].sort();
+        const key = pair.join('::');
+        if (!groups.has(key)) groups.set(key, { canonicalSource: pair[0], edges: [] });
+        groups.get(key).edges.push(edge);
+      });
+
+      groups.forEach(group => {
+        const ordered = group.edges.sort((a, b) => {
+          const effectOrder = { other: 0, down: 1, up: 2 };
+          return effectOrder[a.effect] - effectOrder[b.effect] || a.id.localeCompare(b.id);
+        });
+        const gap = ordered.length >= 4 ? 50 : ordered.length === 3 ? 58 : 54;
+        const center = (ordered.length - 1) / 2;
+        ordered.forEach((edge, index) => {
+          const canonicalOffset = (index - center) * gap;
+          const direction = edge.s === group.canonicalSource ? 1 : -1;
+          edge.routeCurve = canonicalOffset * direction;
+          edge.routeLane = index + 1;
+          edge.routeLaneCount = ordered.length;
+        });
+      });
+    }
+
+    assignEdgeLanes(edges);
+
+    const colors = { lym: '#5ca7ff', bone: '#f4a340', heme: '#4dd7b4' };
+    const effects = { up: '#ff6b6b', down: '#58a6ff', other: '#b38cff' };
+    const effectNames = { up: '促进', down: '抑制', other: '诱导 / 其他' };
+    const categoryNames = { lym: '淋系细胞', bone: '骨系 / 基质细胞', heme: '造血 / 发育环节' };
+    const evidenceNames = { strong: '强证据', medium: '中等证据', weak: '弱证据' };
+    const evidenceRank = { weak: 0, medium: 1, strong: 2 };
+    const byId = Object.fromEntries(nodes.map(node => [node.id, node]));
+
+    const state = {
+      mode: 'global',
+      focusId: null,
+      selectedNode: null,
+      selectedEdge: null,
+      categories: new Set(['lym', 'bone', 'heme']),
+      modules: new Set(moduleDefinitions.map(module => module.id)),
+      pathways: new Set([...Object.keys(mechanismCatalog), 'unmapped']),
+      effects: new Set(['up', 'down', 'other']),
+      minEvidence: 'weak',
+      query: '',
+      transform: { x: 0, y: 0, k: 1 },
+      alpha: 1,
+      draggingNode: null,
+      panning: null,
+      raf: null
+    };
+
+    const svg = document.getElementById('network');
+    const viewport = document.getElementById('viewport');
+    const edgeLayer = document.getElementById('edgeLayer');
+    const nodeLayer = document.getElementById('nodeLayer');
+    const tooltip = document.getElementById('tooltip');
+    const detailPanel = document.getElementById('detailPanel');
+    const detailContent = document.getElementById('detailContent');
+    const ns = 'http://www.w3.org/2000/svg';
+
+    function svgEl(tag, attrs = {}) {
+      const element = document.createElementNS(ns, tag);
+      Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, value));
+      return element;
+    }
+
+    function createDefs() {
+      const defs = document.getElementById('networkDefs');
+      Object.entries(effects).forEach(([key, color]) => {
+        const marker = svgEl('marker', { id: `arrow-${key}`, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto-start-reverse' });
+        marker.appendChild(svgEl('path', { d: 'M 0 0 L 10 5 L 0 10 z', fill: color }));
+        defs.appendChild(marker);
+      });
+      Object.entries(colors).forEach(([key, color]) => {
+        const gradient = svgEl('radialGradient', { id: `gradient-${key}`, cx: '35%', cy: '28%', r: '70%' });
+        gradient.appendChild(svgEl('stop', { offset: '0%', 'stop-color': '#ffffff', 'stop-opacity': '.65' }));
+        gradient.appendChild(svgEl('stop', { offset: '20%', 'stop-color': color, 'stop-opacity': '1' }));
+        gradient.appendChild(svgEl('stop', { offset: '100%', 'stop-color': color, 'stop-opacity': '.56' }));
+        defs.appendChild(gradient);
+      });
+    }
+
+    function initializePositions() {
+      const rings = { lym: { angle: Math.PI, spread: 2.3 }, bone: { angle: 0, spread: 1.65 }, heme: { angle: Math.PI / 2, spread: 1.25 } };
+      const grouped = Object.groupBy ? Object.groupBy(nodes, node => node.cat) : nodes.reduce((acc, node) => ((acc[node.cat] ||= []).push(node), acc), {});
+      Object.entries(grouped).forEach(([cat, group]) => {
+        const spec = rings[cat];
+        group.forEach((node, index) => {
+          const t = group.length === 1 ? .5 : index / (group.length - 1);
+          const angle = spec.angle - spec.spread / 2 + t * spec.spread;
+          const radius = cat === 'heme' ? 260 : 300 + (index % 2) * 46;
+          node.x = 600 + Math.cos(angle) * radius + (Math.random() - .5) * 25;
+          node.y = 375 + Math.sin(angle) * radius + (Math.random() - .5) * 25;
+          node.vx = 0;
+          node.vy = 0;
+          node.fx = null;
+          node.fy = null;
+        });
+      });
+      byId.oc.x = 695; byId.oc.y = 300;
+      byId.ob.x = 720; byId.ob.y = 455;
+      byId.ocy.x = 555; byId.ocy.y = 300;
+      byId.msc.x = 545; byId.msc.y = 470;
+      byId.hsc.x = 645; byId.hsc.y = 585;
+    }
+
+    function visibleData() {
+      const minRank = evidenceRank[state.minEvidence];
+      let allowedNodes = nodes.filter(node => state.categories.has(node.cat));
+      let allowedIds = new Set(allowedNodes.map(node => node.id));
+      let allowedEdges = edges.filter(edge =>
+        allowedIds.has(edge.s) &&
+        allowedIds.has(edge.t) &&
+        state.effects.has(edge.effect) &&
+        evidenceRank[edge.evidence] >= minRank &&
+        edge.modules.some(module => state.modules.has(module)) &&
+        edge.pathways.some(pathway => state.pathways.has(pathway))
+      );
+
+      const connectedIds = new Set(allowedEdges.flatMap(edge => [edge.s, edge.t]));
+      allowedNodes = allowedNodes.filter(node => connectedIds.has(node.id));
+      allowedIds = new Set(allowedNodes.map(node => node.id));
+
+      if (state.mode === 'local' && state.focusId) {
+        const neighborIds = new Set([state.focusId]);
+        allowedEdges.forEach(edge => {
+          if (edge.s === state.focusId || edge.t === state.focusId) {
+            neighborIds.add(edge.s);
+            neighborIds.add(edge.t);
+          }
+        });
+        allowedNodes = allowedNodes.filter(node => neighborIds.has(node.id));
+        allowedIds = new Set(allowedNodes.map(node => node.id));
+        allowedEdges = allowedEdges.filter(edge => allowedIds.has(edge.s) && allowedIds.has(edge.t) && (edge.s === state.focusId || edge.t === state.focusId));
+      }
+      return { nodes: allowedNodes, edges: allowedEdges };
+    }
+
+    function edgePath(edge) {
+      const a = byId[edge.s];
+      const b = byId[edge.t];
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const length = Math.max(1, Math.hypot(dx, dy));
+      const startPad = a.r + 5;
+      const endPad = b.r + 12;
+      const sx = a.x + dx / length * startPad;
+      const sy = a.y + dy / length * startPad;
+      const ex = b.x - dx / length * endPad;
+      const ey = b.y - dy / length * endPad;
+      const curve = edge.routeCurve ?? 0;
+      const mx = (sx + ex) / 2;
+      const my = (sy + ey) / 2;
+      const cx = mx - dy / length * curve;
+      const cy = my + dx / length * curve;
+      return `M ${sx.toFixed(1)} ${sy.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+    }
+
+    function render() {
+      const data = visibleData();
+      edgeLayer.replaceChildren();
+      nodeLayer.replaceChildren();
+
+      data.edges.forEach(edge => {
+        const group = svgEl('g', {
+          class: 'edge-group',
+          'data-id': edge.id,
+          tabindex: '0',
+          role: 'button',
+          'aria-label': `${byId[edge.s].label} 到 ${byId[edge.t].label}，${effectNames[edge.effect]}，点击查看功能`
+        });
+        const lineWidth = edge.evidence === 'strong' ? 3.2 : edge.evidence === 'medium' ? 2.2 : 1.5;
+        const casing = svgEl('path', {
+          class: 'edge-casing',
+          'data-id': edge.id,
+          'stroke-width': lineWidth + 4.5
+        });
+        const path = svgEl('path', {
+          class: `edge ${state.selectedEdge === edge.id ? 'focused' : ''}`,
+          'data-id': edge.id,
+          stroke: effects[edge.effect],
+          'stroke-width': lineWidth,
+          'stroke-dasharray': edge.effect === 'other' ? '2 7' : edge.evidence === 'weak' ? '5 5' : edge.evidence === 'medium' ? '11 5' : 'none',
+          'marker-end': `url(#arrow-${edge.effect})`
+        });
+        const hit = svgEl('path', { class: 'edge hit', 'data-id': edge.id });
+        hit.addEventListener('mouseenter', event => showEdgeTooltip(event, edge));
+        hit.addEventListener('mousemove', moveTooltip);
+        hit.addEventListener('mouseleave', hideTooltip);
+        group.addEventListener('pointerdown', event => event.stopPropagation());
+        group.addEventListener('click', event => { event.stopPropagation(); selectEdge(edge); });
+        group.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            selectEdge(edge);
+          }
+        });
+        group.append(casing, path, hit);
+        edgeLayer.appendChild(group);
+      });
+
+      data.nodes.forEach(node => {
+        const group = svgEl('g', {
+          class: `node ${state.selectedNode === node.id ? 'selected' : ''}`,
+          'data-id': node.id,
+          tabindex: '0',
+          role: 'button',
+          'aria-label': `${node.label}，${categoryNames[node.cat]}`,
+          style: `--node-color:${colors[node.cat]}`
+        });
+        group.appendChild(svgEl('circle', { class: 'halo', cx: 0, cy: 0, r: node.r + 9, stroke: colors[node.cat] }));
+        group.appendChild(svgEl('circle', { class: 'core', cx: 0, cy: 0, r: node.r, fill: `url(#gradient-${node.cat})` }));
+        const label = svgEl('text', { class: 'node-label', x: 0, y: node.r + 19 });
+        label.textContent = node.label;
+        const sub = svgEl('text', { class: 'node-sub', x: 0, y: node.r + 32 });
+        sub.textContent = node.short;
+        group.append(label, sub);
+        group.addEventListener('mouseenter', event => showNodeTooltip(event, node));
+        group.addEventListener('mousemove', moveTooltip);
+        group.addEventListener('mouseleave', hideTooltip);
+        group.addEventListener('pointerdown', event => beginNodeDrag(event, node));
+        group.addEventListener('click', event => { event.stopPropagation(); if (!group.dataset.dragged) selectNode(node, true); delete group.dataset.dragged; });
+        group.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectNode(node, true); } });
+        nodeLayer.appendChild(group);
+      });
+
+      document.getElementById('nodeCount').textContent = data.nodes.length;
+      document.getElementById('edgeCount').textContent = data.edges.length;
+      document.getElementById('emptyState').style.display = data.nodes.length ? 'none' : 'grid';
+      updatePositions();
+      restartSimulation(.95);
+    }
+
+    function updatePositions() {
+      nodeLayer.querySelectorAll('.node').forEach(group => {
+        const node = byId[group.dataset.id];
+        group.setAttribute('transform', `translate(${node.x.toFixed(1)} ${node.y.toFixed(1)})`);
+      });
+      edgeLayer.querySelectorAll('path').forEach(path => {
+        path.setAttribute('d', edgePath(edges.find(edge => edge.id === path.dataset.id)));
+      });
+    }
+
+    function restartSimulation(alpha = .7) {
+      state.alpha = Math.max(state.alpha, alpha);
+      if (!state.raf) state.raf = requestAnimationFrame(tick);
+    }
+
+    function tick() {
+      const data = visibleData();
+      const activeNodes = data.nodes;
+      const activeIds = new Set(activeNodes.map(node => node.id));
+      const centerX = 600;
+      const centerY = 370;
+
+      for (let i = 0; i < activeNodes.length; i++) {
+        const a = activeNodes[i];
+        for (let j = i + 1; j < activeNodes.length; j++) {
+          const b = activeNodes[j];
+          let dx = b.x - a.x;
+          let dy = b.y - a.y;
+          const dist2 = Math.max(120, dx * dx + dy * dy);
+          const force = (state.mode === 'local' ? 9200 : 6800) / dist2 * state.alpha;
+          const dist = Math.sqrt(dist2);
+          dx /= dist; dy /= dist;
+          a.vx -= dx * force; a.vy -= dy * force;
+          b.vx += dx * force; b.vy += dy * force;
+        }
+      }
+
+      data.edges.forEach(edge => {
+        const a = byId[edge.s];
+        const b = byId[edge.t];
+        if (!activeIds.has(a.id) || !activeIds.has(b.id)) return;
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const dist = Math.max(1, Math.hypot(dx, dy));
+        const ideal = state.mode === 'local' ? 205 : 190;
+        const spring = (dist - ideal) * .0028 * state.alpha;
+        a.vx += dx / dist * spring;
+        a.vy += dy / dist * spring;
+        b.vx -= dx / dist * spring;
+        b.vy -= dy / dist * spring;
+      });
+
+      activeNodes.forEach(node => {
+        let targetX = centerX;
+        let targetY = centerY;
+        if (state.mode === 'global') {
+          if (node.cat === 'lym') { targetX = 365; targetY = 350; }
+          if (node.cat === 'bone') { targetX = 745; targetY = 340; }
+          if (node.cat === 'heme') { targetX = 630; targetY = 590; }
+        }
+        const gravity = state.mode === 'local' ? .008 : .0037;
+        node.vx += (targetX - node.x) * gravity * state.alpha;
+        node.vy += (targetY - node.y) * gravity * state.alpha;
+
+        if (node.fx !== null) { node.x = node.fx; node.vx = 0; } else { node.vx *= .86; node.x += node.vx; }
+        if (node.fy !== null) { node.y = node.fy; node.vy = 0; } else { node.vy *= .86; node.y += node.vy; }
+        node.x = Math.max(65, Math.min(1135, node.x));
+        node.y = Math.max(72, Math.min(690, node.y));
+      });
+
+      updatePositions();
+      state.alpha *= .972;
+      if (state.alpha > .015 || state.draggingNode) state.raf = requestAnimationFrame(tick);
+      else state.raf = null;
+    }
+
+    function switchMode(mode, focusId = state.focusId || 'oc') {
+      state.mode = mode;
+      state.focusId = mode === 'local' ? focusId : null;
+      document.getElementById('globalView').classList.toggle('active', mode === 'global');
+      document.getElementById('localView').classList.toggle('active', mode === 'local');
+      document.getElementById('modeName').textContent = mode === 'global' ? '全局图' : '局部图';
+      document.getElementById('modeDescription').textContent = mode === 'global' ? '展示全部可见关系' : `中心：${byId[focusId].label} · 一阶邻接关系`;
+      nodes.forEach(node => { node.fx = null; node.fy = null; });
+      if (mode === 'local') {
+        const focus = byId[focusId];
+        focus.x = 600; focus.y = 360; focus.fx = 600; focus.fy = 360;
+        const connected = edges.filter(edge => edge.s === focusId || edge.t === focusId).map(edge => byId[edge.s === focusId ? edge.t : edge.s]);
+        [...new Set(connected)].forEach((node, index, list) => {
+          const angle = index / Math.max(1, list.length) * Math.PI * 2 - Math.PI / 2;
+          node.x = 600 + Math.cos(angle) * 225;
+          node.y = 360 + Math.sin(angle) * 225;
+          node.vx = 0; node.vy = 0;
+        });
+      }
+      state.transform = { x: 0, y: 0, k: 1 };
+      applyTransform();
+      render();
+    }
+
+    function selectNode(node, openLocal = false) {
+      state.selectedNode = node.id;
+      state.selectedEdge = null;
+      showNodeDetails(node);
+      if (openLocal) switchMode('local', node.id);
+      else updateSelectionClasses();
+    }
+
+    function selectEdge(edge) {
+      state.selectedEdge = edge.id;
+      state.selectedNode = null;
+      showEdgeDetails(edge);
+      updateSelectionClasses();
+      const selectedGroup = edgeLayer.querySelector(`.edge-group[data-id="${edge.id}"]`);
+      if (selectedGroup) edgeLayer.appendChild(selectedGroup);
+    }
+
+    function updateSelectionClasses() {
+      nodeLayer.querySelectorAll('.node').forEach(group => group.classList.toggle('selected', group.dataset.id === state.selectedNode));
+      edgeLayer.querySelectorAll('.edge-group').forEach(group => {
+        const selected = group.dataset.id === state.selectedEdge;
+        group.classList.toggle('selected', selected);
+        group.classList.toggle('muted', Boolean(state.selectedEdge) && !selected);
+      });
+    }
+
+    function showNodeDetails(node) {
+      const relations = visibleData().edges.filter(edge => edge.s === node.id || edge.t === node.id);
+      detailContent.className = '';
+      detailContent.innerHTML = `
+        <div class="detail-kicker"><i class="dot" style="--dot:${colors[node.cat]}"></i>${categoryNames[node.cat]}</div>
+        <h2 class="detail-title">${node.label}</h2>
+        <p class="detail-summary">${node.note}</p>
+        <div class="detail-meta"><span class="pill">${node.short}</span><span class="pill">${relations.length} 条直接关系</span></div>
+        <div class="detail-block">
+          <div class="detail-label">直接关系</div>
+          <div class="relation-list">${relations.map(edge => {
+            const incoming = edge.t === node.id;
+            const other = byId[incoming ? edge.s : edge.t];
+            return `<button class="relation-item" data-edge="${edge.id}" type="button" style="--rel:${effects[edge.effect]}"><i class="relation-bar"></i><span class="relation-name">${incoming ? other.label + ' → 当前节点' : '当前节点 → ' + other.label}<br>${edge.molecule}</span><span class="relation-arrow">›</span></button>`;
+          }).join('')}</div>
+        </div>`;
+      detailContent.querySelectorAll('[data-edge]').forEach(button => button.addEventListener('click', () => selectEdge(edges.find(edge => edge.id === button.dataset.edge))));
+      detailPanel.classList.add('open');
+    }
+
+    function showEdgeDetails(edge) {
+      const source = byId[edge.s];
+      const target = byId[edge.t];
+      const profile = edge.research;
+      const functionText = edge.effect === 'up'
+        ? `促进 ${target.label} 的相关过程或功能输出`
+        : edge.effect === 'down'
+          ? `抑制 ${target.label} 的相关过程、活性或存活`
+          : `诱导、支持或改变 ${target.label} 的状态/定位`;
+      const evidenceId = edge.mergedCount > 1
+        ? `整合 ${edge.mergedCount} 条证据`
+        : edge.note.match(/^E\d+/)?.[0] || `关系 ${Number(edge.id.slice(1)) + 1}`;
+      const mechanismLinks = profile.mechanisms.length
+        ? profile.mechanisms.map(id => {
+            const mechanism = mechanismCatalog[id];
+            return `<a class="mechanism-link" href="${mechanism.page}" target="_blank" rel="noreferrer">${mechanism.label} ↗</a>`;
+          }).join('')
+        : '<span class="mechanism-plain">尚无可归属的单一 KEGG 通路</span>';
+      const mechanismBrief = profile.mechanisms.length
+        ? [...new Set(profile.mechanisms.map(id => mechanismCatalog[id].brief))].join(' ')
+        : '当前证据为外泌体或结构性生态位效应，尚不能在不增加推断的前提下归入单一信号通路。';
+      detailContent.className = '';
+      detailContent.innerHTML = `
+        <div class="detail-kicker" style="color:${effects[edge.effect]}">${effectNames[edge.effect]}关系</div>
+        <h2 class="detail-title">${source.label} → ${target.label}</h2>
+        <p class="detail-summary">${source.short} 对 ${target.short} 的定向作用</p>
+        <div class="detail-meta"><span class="pill" style="color:${effects[edge.effect]}">${effectNames[edge.effect]}</span><span class="pill">${evidenceNames[edge.evidence]}</span><span class="pill">${evidenceId}</span>${edge.modules.map(id => `<span class="pill">${moduleDefinitions.find(module => module.id === id).label}</span>`).join('')}${edge.routeLaneCount > 1 ? `<span class="pill">平行轨道 ${edge.routeLane}/${edge.routeLaneCount}</span>` : ''}</div>
+        <div class="function-card" style="--function-color:${effects[edge.effect]}"><strong>作用功能：</strong>${functionText}</div>
+        <div class="detail-block"><div class="detail-label">机制简述</div><p class="mechanism-intro">${profile.summary}</p><div class="mechanism-links">${mechanismLinks}</div><p class="mechanism-intro">${mechanismBrief}</p></div>
+        <div class="detail-block"><div class="detail-label">关键证据</div><p class="evidence-note">${edge.note}</p></div>
+        <div class="detail-block"><div class="detail-label">PubMed</div><div class="pmid-list">${edge.pmid.map(id => `<a class="pmid-link" href="https://pubmed.ncbi.nlm.nih.gov/${id}/" target="_blank" rel="noreferrer">PMID ${id} ↗</a>`).join('')}</div></div>
+        <details class="scenario-details"><summary>研究场景（展开查看）</summary><div class="scenario-body"><div class="scenario-row"><span class="scenario-label">证据类型</span><span class="scenario-value">${profile.type}</span></div><div class="scenario-row"><span class="scenario-label">实验材料</span><span class="scenario-value">${profile.material}</span></div><div class="scenario-row"><span class="scenario-label">实验过程与关键节点</span><span class="scenario-value">${profile.design}</span></div><div class="scenario-row"><span class="scenario-label">通路/功能验证</span><span class="scenario-value">${profile.validation}</span></div><div class="scenario-row"><span class="scenario-label">方法学核验状态</span><span class="scenario-value scenario-caution">精确剂量、时长、样本量与未明确的平台均须以所列 PMID 的全文方法节为准；已整理到 papers 下载清单。</span></div></div></details>`;
+      detailPanel.classList.add('open');
+    }
+
+    function showNodeTooltip(event, node) {
+      tooltip.innerHTML = `<strong>${node.label}</strong>${categoryNames[node.cat]} · 点击查看局部网络`;
+      tooltip.style.display = 'block';
+      moveTooltip(event);
+    }
+
+    function showEdgeTooltip(event, edge) {
+      const mergedLabel = edge.mergedCount > 1 ? ` · 整合 ${edge.mergedCount} 条证据` : '';
+      tooltip.innerHTML = `<strong>${byId[edge.s].label} → ${byId[edge.t].label}</strong>${effectNames[edge.effect]} · ${edge.molecule}<br>${evidenceNames[edge.evidence]}${mergedLabel} · 点击查看完整功能`;
+      tooltip.style.display = 'block';
+      moveTooltip(event);
+    }
+
+    function moveTooltip(event) {
+      const margin = 14;
+      const left = Math.min(window.innerWidth - tooltip.offsetWidth - margin, event.clientX + 14);
+      const top = Math.min(window.innerHeight - tooltip.offsetHeight - margin, event.clientY + 14);
+      tooltip.style.left = `${Math.max(margin, left)}px`;
+      tooltip.style.top = `${Math.max(margin, top)}px`;
+    }
+
+    function hideTooltip() { tooltip.style.display = 'none'; }
+
+    function svgPoint(event) {
+      const point = svg.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      const local = point.matrixTransform(viewport.getScreenCTM().inverse());
+      return { x: local.x, y: local.y };
+    }
+
+    function beginNodeDrag(event, node) {
+      if (event.button !== 0) return;
+      event.stopPropagation();
+      const group = event.currentTarget;
+      const start = { x: event.clientX, y: event.clientY };
+      state.draggingNode = node;
+      node.fx = node.x;
+      node.fy = node.y;
+      group.setPointerCapture(event.pointerId);
+      group.addEventListener('pointermove', moveNode);
+      group.addEventListener('pointerup', endNodeDrag, { once: true });
+      group.addEventListener('pointercancel', endNodeDrag, { once: true });
+      group._dragStart = start;
+      restartSimulation(.6);
+    }
+
+    function moveNode(event) {
+      const node = state.draggingNode;
+      if (!node) return;
+      const point = svgPoint(event);
+      node.fx = point.x;
+      node.fy = point.y;
+      const start = event.currentTarget._dragStart;
+      if (start && Math.hypot(event.clientX - start.x, event.clientY - start.y) > 4) event.currentTarget.dataset.dragged = 'true';
+      restartSimulation(.4);
+    }
+
+    function endNodeDrag(event) {
+      const node = state.draggingNode;
+      if (!node) return;
+      if (!(state.mode === 'local' && node.id === state.focusId)) { node.fx = null; node.fy = null; }
+      state.draggingNode = null;
+      event.currentTarget.removeEventListener('pointermove', moveNode);
+      restartSimulation(.3);
+    }
+
+    function applyTransform() {
+      const { x, y, k } = state.transform;
+      viewport.setAttribute('transform', `translate(${x} ${y}) scale(${k})`);
+    }
+
+    svg.addEventListener('wheel', event => {
+      event.preventDefault();
+      const rect = svg.getBoundingClientRect();
+      const sx = (event.clientX - rect.left) / rect.width * 1200;
+      const sy = (event.clientY - rect.top) / rect.height * 760;
+      const oldK = state.transform.k;
+      const newK = Math.max(.55, Math.min(2.5, oldK * Math.exp(-event.deltaY * .001)));
+      state.transform.x = sx - (sx - state.transform.x) * newK / oldK;
+      state.transform.y = sy - (sy - state.transform.y) * newK / oldK;
+      state.transform.k = newK;
+      applyTransform();
+    }, { passive: false });
+
+    svg.addEventListener('pointerdown', event => {
+      if (event.target.closest('.node, .edge-group') || event.button !== 0) return;
+      svg.setPointerCapture(event.pointerId);
+      state.panning = { x: event.clientX, y: event.clientY, tx: state.transform.x, ty: state.transform.y };
+      svg.classList.add('panning');
+    });
+
+    svg.addEventListener('pointermove', event => {
+      if (!state.panning) return;
+      const rect = svg.getBoundingClientRect();
+      state.transform.x = state.panning.tx + (event.clientX - state.panning.x) / rect.width * 1200;
+      state.transform.y = state.panning.ty + (event.clientY - state.panning.y) / rect.height * 760;
+      applyTransform();
+    });
+
+    function endPan() { state.panning = null; svg.classList.remove('panning'); }
+    svg.addEventListener('pointerup', endPan);
+    svg.addEventListener('pointercancel', endPan);
+
+    document.getElementById('globalView').addEventListener('click', () => switchMode('global'));
+    document.getElementById('localView').addEventListener('click', () => switchMode('local', state.selectedNode || state.focusId || 'oc'));
+    document.getElementById('fitButton').addEventListener('click', () => { state.transform = { x: 0, y: 0, k: 1 }; applyTransform(); });
+    document.getElementById('resetButton').addEventListener('click', () => { initializePositions(); switchMode(state.mode, state.focusId || 'oc'); });
+
+    function clearSelectionDetails() {
+      state.selectedNode = null;
+      state.selectedEdge = null;
+      detailPanel.classList.remove('open');
+      detailContent.className = 'placeholder';
+      detailContent.innerHTML = '<div class="placeholder-mark">⌁</div><strong>点击节点或连接线</strong><span>点击连接线可直接查看作用功能、方向、机制、证据强度、研究结论与 PMID。</span>';
+      updateSelectionClasses();
+    }
+
+    document.addEventListener('keydown', event => {
+      const target = event.target;
+      const isTyping = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement || target?.isContentEditable;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        target?.blur?.();
+        hideTooltip();
+        clearSelectionDetails();
+        if (state.mode === 'local') {
+          switchMode('global');
+        }
+        return;
+      }
+
+      if (isTyping || event.ctrlKey || event.metaKey || event.altKey) return;
+      const key = event.key.toLowerCase();
+      if (key === '/') {
+        event.preventDefault();
+        document.getElementById('searchInput').focus();
+      } else if (key === 'g') {
+        switchMode('global');
+      } else if (key === 'l') {
+        switchMode('local', state.selectedNode || state.focusId || 'oc');
+      } else if (key === 'f') {
+        state.transform = { x: 0, y: 0, k: 1 };
+        applyTransform();
+      } else if (key === 'r') {
+        initializePositions();
+        switchMode(state.mode, state.focusId || 'oc');
+      }
+    });
+
+    document.querySelectorAll('[data-category]').forEach(input => input.addEventListener('change', () => {
+      input.checked ? state.categories.add(input.dataset.category) : state.categories.delete(input.dataset.category);
+      render();
+    }));
+
+    document.querySelectorAll('[data-module]').forEach(input => input.addEventListener('change', () => {
+      input.checked ? state.modules.add(input.dataset.module) : state.modules.delete(input.dataset.module);
+      render();
+    }));
+
+    document.querySelectorAll('[data-module-count]').forEach(badge => {
+      badge.textContent = edges.filter(edge => edge.modules.includes(badge.dataset.moduleCount)).length;
+    });
+
+    document.querySelectorAll('[data-pathway]').forEach(input => input.addEventListener('change', () => {
+      input.checked ? state.pathways.add(input.dataset.pathway) : state.pathways.delete(input.dataset.pathway);
+      render();
+    }));
+
+    document.querySelectorAll('[data-pathway-count]').forEach(badge => {
+      badge.textContent = edges.filter(edge => edge.pathways.includes(badge.dataset.pathwayCount)).length;
+    });
+
+    document.querySelectorAll('[data-effect]').forEach(button => button.addEventListener('click', () => {
+      const effect = button.dataset.effect;
+      if (state.effects.has(effect)) state.effects.delete(effect); else state.effects.add(effect);
+      button.classList.toggle('active', state.effects.has(effect));
+      render();
+    }));
+
+    document.getElementById('evidenceFilter').addEventListener('change', event => { state.minEvidence = event.target.value; render(); });
+
+    document.getElementById('searchInput').addEventListener('input', event => {
+      state.query = event.target.value.trim().toLowerCase();
+      const matches = !state.query ? [] : nodes.filter(node => `${node.label} ${node.short} ${node.note}`.toLowerCase().includes(state.query));
+      nodeLayer.querySelectorAll('.node').forEach(group => {
+        const match = matches.some(node => node.id === group.dataset.id);
+        group.style.opacity = !state.query || match ? '1' : '.16';
+      });
+      edgeLayer.style.opacity = state.query ? '.2' : '1';
+      if (matches.length === 1) {
+        const node = matches[0];
+        selectNode(node, false);
+      }
+    });
+
+    createDefs();
+    initializePositions();
+    render();
+  </script>
+</body>
+</html>
