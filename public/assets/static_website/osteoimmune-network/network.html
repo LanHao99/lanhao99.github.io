@@ -1175,6 +1175,30 @@
             "cat": "heme",
             "r": 22,
             "note": "单核/髓系细胞；MIF 介导对 NK 细胞毒的抑制。"
+      },
+      {
+            "id": "osteomac",
+            "label": "骨内膜巨噬细胞",
+            "short": "Osteomac",
+            "cat": "heme",
+            "r": 23,
+            "note": "支持骨内膜成骨细胞与 HSC 驻留因子；耗竭可触发 HSC 动员。"
+      },
+      {
+            "id": "preoc",
+            "label": "前破骨细胞",
+            "short": "TRAP⁺ mononuclear",
+            "cat": "bone",
+            "r": 23,
+            "note": "低吸收性的单核破骨谱系细胞，可通过 PDGF-BB 连接血管生成与成骨。"
+      },
+      {
+            "id": "typeh",
+            "label": "Type H 血管内皮",
+            "short": "CD31hi Emcnhi",
+            "cat": "bone",
+            "r": 24,
+            "note": "骨相关高 CD31/Endomucin 血管亚型，参与血管生成—成骨耦联。"
       }
 ];
 
@@ -1738,6 +1762,190 @@
             "vstatus": "unscored",
             "specificity": null,
             "module": "marrow_immune"
+      },
+      {
+            "s": "bcell",
+            "t": "ob",
+            "effect": "down",
+            "evidence": "strong",
+            "molecule": "DKK1–LRP5/LRP6",
+            "pmid": [
+                  "25985917"
+            ],
+            "note": "【造血动员】G-CSF 诱导 HSPC 动员｜信号分泌｜通路：DKK1 抑制经典 Wnt→成骨细胞减少→CXCL12/OPN 等驻留因子下降｜证据 L1+L2+L3｜scRNA-seq 已验证",
+            "vstatus": "validated",
+            "specificity": null,
+            "module": "mobilization"
+      },
+      {
+            "s": "actT",
+            "t": "oc",
+            "effect": "up",
+            "evidence": "strong",
+            "molecule": "TNFSF11(RANKL)–TNFRSF11A(RANK)；TNFRSF11B(OPG) 竞争",
+            "pmid": [
+                  "25985917"
+            ],
+            "note": "【造血动员】G-CSF 诱导 HSPC 动员｜信号分泌｜通路：RANKL/OPG 比值升高→NF-κB/NFATc1→破骨活化｜证据 L1+L2+L3｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "mobilization"
+      },
+      {
+            "s": "ob",
+            "t": "hsc",
+            "effect": "down",
+            "evidence": "strong",
+            "molecule": "CXCL12–CXCR4",
+            "pmid": [
+                  "19141863"
+            ],
+            "note": "【造血动员】Flt3L/SCF/G-CSF 细胞因子动员｜生态位信号减少｜通路：CXCL12/CXCR4 驻留轴减弱→HSPC 离开骨髓｜证据 L2+L3+L5｜scRNA-seq 已验证（特异性 4.35e-04）",
+            "vstatus": "validated",
+            "specificity": 0.00043489439695715206,
+            "module": "mobilization"
+      },
+      {
+            "s": "osteomac",
+            "t": "ob",
+            "effect": "up",
+            "evidence": "strong",
+            "molecule": "未确定单一 L-R（osteomac 营养性支持）",
+            "pmid": [
+                  "20713966"
+            ],
+            "note": "【造血动员】G-CSF 或巨噬细胞耗竭诱导动员｜信号分泌;生态位支持｜通路：维持成骨细胞与 HSC 滋养因子；耗竭后生态位坍塌｜证据 L2+L3+L5｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "mobilization"
+      },
+      {
+            "s": "oc",
+            "t": "hsc",
+            "effect": "other",
+            "evidence": "strong",
+            "molecule": "非经典 L-R（破骨数量或功能状态）",
+            "pmid": [
+                  "22006978"
+            ],
+            "note": "【造血动员】G-CSF 动员的破骨细胞必要性检验｜反证/条件依赖｜通路：三类破骨缺陷模型仍可动员；破骨细胞并非 G-CSF 动员必需且可能负调节｜证据 L2+L3｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "mobilization"
+      },
+      {
+            "s": "oc",
+            "t": "ob",
+            "effect": "up",
+            "evidence": "strong",
+            "molecule": "EFNB2(ephrinB2)–EPHB4",
+            "pmid": [
+                  "16890539"
+            ],
+            "note": "【骨重塑】吸收向形成转换｜直接接触｜通路：ephrinB2 逆向抑制 c-Fos/NFATc1；EphB4 正向促进成骨分化｜证据 L2+L3+L4｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "remodeling"
+      },
+      {
+            "s": "oc",
+            "t": "ob",
+            "effect": "down",
+            "evidence": "strong",
+            "molecule": "SEMA4D(CD100)–PLXNB1",
+            "pmid": [
+                  "22019888"
+            ],
+            "note": "【骨重塑】稳态及 OVX 骨丢失｜直接接触;信号分泌｜通路：PLXNB1→RhoA→抑制 IGF-1 信号与成骨细胞迁移/成骨｜证据 L2+L3+L4｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "remodeling"
+      },
+      {
+            "s": "oc",
+            "t": "msc",
+            "effect": "up",
+            "evidence": "strong",
+            "molecule": "CTHRC1–WAIF1(TPBG/5T4)",
+            "pmid": [
+                  "23908115",
+                  "29624737"
+            ],
+            "note": "【骨重塑】RANKL 诱导吸收后的骨量恢复｜信号分泌｜通路：WAIF1→PKCδ–MEK/ERK→成骨分化与募集｜证据 L2+L3+L4｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "remodeling"
+      },
+      {
+            "s": "oc",
+            "t": "msc",
+            "effect": "up",
+            "evidence": "strong",
+            "molecule": "TGFB1–TGFBR1",
+            "pmid": [
+                  "19584867"
+            ],
+            "note": "【骨重塑】CED 高 TGF-β 与生理吸收-形成耦联｜信号分泌｜通路：TGF-β1→SMAD→BMSC 向吸收位点迁移｜证据 L2+L3+L4｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "remodeling"
+      },
+      {
+            "s": "preoc",
+            "t": "typeh",
+            "effect": "up",
+            "evidence": "strong",
+            "molecule": "PDGFB–PDGFRA/PDGFRB",
+            "pmid": [
+                  "25282358"
+            ],
+            "note": "【骨重塑】稳态及 OVX 骨质疏松｜信号分泌｜通路：PDGF-BB→CD31hiEmcnhi 血管形成→血管生成-成骨耦联｜证据 L2+L3+L4+L5｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "remodeling"
+      },
+      {
+            "s": "ob",
+            "t": "oc",
+            "effect": "down",
+            "evidence": "strong",
+            "molecule": "WNT16–FZD；WNT16→OPG",
+            "pmid": [
+                  "25306233"
+            ],
+            "note": "【骨重塑】皮质骨稳态与脆性骨折预防｜信号分泌｜通路：WNT16 非经典 Wnt/JNK-cJUN 抑制 RANKL-NF-κB/NFATc1；并提高 OPG｜证据 L2+L3+L4｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "remodeling"
+      },
+      {
+            "s": "ocy",
+            "t": "ob",
+            "effect": "down",
+            "evidence": "medium",
+            "molecule": "SOST(sclerostin)–LRP5/LRP6",
+            "pmid": [
+                  "15024046",
+                  "18089564"
+            ],
+            "note": "【骨重塑】机械负荷/卸载与骨重塑｜信号分泌｜通路：SOST 拮抗 Wnt/LRP5/6→抑制成骨分化与矿化｜证据 L3+L4+L5｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "remodeling"
+      },
+      {
+            "s": "oc",
+            "t": "ob",
+            "effect": "other",
+            "evidence": "strong",
+            "molecule": "LIF–LIFR；PDGFB–PDGFRA；SEMA4D–PLXNB1",
+            "pmid": [
+                  "35775083"
+            ],
+            "note": "【骨重塑】健康青少年股骨皮质重塑｜人体空间共定位｜通路：人皮质骨重塑孔内配体-受体空间邻近；仅支持候选耦联不证明方向性因果｜证据 L1+L5｜BM穿刺数据集无此细胞类型，未评分",
+            "vstatus": "unscored",
+            "specificity": null,
+            "module": "remodeling"
       }
 ];
 
@@ -1803,13 +2011,18 @@
       chemokine: { label: 'CXCL12–CXCR4 趋化信号', page: 'pathways/cxcl12-cxcr4-signaling.html', brief: 'CXCL12 结合 CXCR4，调节造血祖细胞的驻留、迁移与生态位定位。' },
       nk: { label: 'NK 细胞介导的细胞毒性', page: 'pathways/nk-cytotoxicity.html', brief: 'NK 活化受体与靶细胞配体接触可触发细胞毒颗粒释放和靶细胞凋亡。' },
       tnf: { label: 'TNF 信号', page: 'pathways/tnf-signaling.html', brief: 'TNF-α 可经 TNFR–NF-κB/MAPK 放大炎症与破骨生成相关信号。' },
-      tcr: { label: 'TCR / 共刺激信号', page: 'pathways/tcr-signaling.html', brief: 'TCR 激活与 CD40L 等共刺激分子共同重塑 T、B 细胞的效应分子输出。' }
+      tcr: { label: 'TCR / 共刺激信号', page: 'pathways/tcr-signaling.html', brief: 'TCR 激活与 CD40L 等共刺激分子共同重塑 T、B 细胞的效应分子输出。' },
+      ephrin: { label: 'ephrinB2–EphB4 双向信号', page: 'pathways/ephrin-bidirectional.html', brief: '破骨细胞 ephrinB2 与成骨细胞 EphB4 接触，在抑制破骨分化的同时促进成骨分化。' },
+      sema4d: { label: 'SEMA4D–PLXNB1 抗耦联', page: 'pathways/sema4d-plexinb1.html', brief: '破骨细胞 SEMA4D 激活成骨细胞 PLXNB1–RhoA，抑制 IGF-1 信号、迁移与骨形成。' },
+      cthrc1: { label: 'CTHRC1–WAIF1 耦联', page: 'pathways/cthrc1-waif1.html', brief: '活跃破骨细胞分泌 CTHRC1，结合基质/成骨前体 WAIF1，经 PKCδ–MEK/ERK 促进成骨。' },
+      pdgfb: { label: 'PDGF-BB–Type H 血管耦联', page: 'pathways/pdgfb-typeh.html', brief: '前破骨细胞 PDGF-BB 诱导 CD31hiEmcnhi 血管，连接血管生成与成骨。' },
+      sclerostin: { label: 'SOST / sclerostin–LRP5/6', page: 'pathways/sclerostin-wnt.html', brief: '骨细胞 sclerostin 拮抗 LRP5/6–Wnt，按机械负荷调节成骨分化与矿化。' }
     };
 
     // 仅写入本地证据主表和题录已支持的信息。精确剂量、培养/随访时长及未在
     // 可访问资料中确认的技术细节，明确保留为“全文方法节待核对”，不以推测替代。
     const researchProfiles = {
-      'actT->oc:up': { summary: '炎症性关节炎中，激活 T 细胞的 RANKL 直接支持破骨生成。', mechanisms: ['tcr', 'osteoclast'], type: '体内疾病模型 + 体外破骨功能实验；不是综述或虚拟实验。', material: '大鼠佐剂性关节炎模型；激活 T 细胞与破骨细胞/前体体系。', design: '比较疾病或激活状态、OPG 阻断与对照；关键读出为关节骨/软骨破坏与破骨生成。给药、共培养时长和细胞比例需回到 PMID 10580503 方法节核对。', validation: '主表确认 OPG 阻断和破骨功能读出；RANKL 蛋白/转录检测、组织学和具体抗体平台需全文核对。' },
+      'actT->oc:up': { summary: '激活/骨髓 T 细胞在炎症关节炎和 G-CSF 动员中通过 RANKL–RANK 促进破骨活化。', mechanisms: ['tcr', 'osteoclast'], type: '大鼠关节炎体内/体外实验（PMID 10580503）+ 人体动员前后配对样本和 T 细胞缺陷小鼠（PMID 25985917）。', material: '大鼠佐剂性关节炎；10 名健康供者 G-CSF 动员前后骨髓 T 细胞；6–8 周 C57BL/6、Cd3e 缺陷小鼠。', design: '动员研究中小鼠腹腔注射 G-CSF 50 μg/日，连续 3 或 5 日，末次后 4–6 小时取材；人供者接受 G-CSF 3–5 日。比较稳态/动员及 T 细胞完整/缺陷条件下破骨活性与 RANKL/OPG。', validation: '流式检测外周血 LSK；TRAP 组织染色和血清 TRACP-5b 评价破骨；分选 CD3+ T 细胞后以 qPCR 与 Western blot 验证 RANKL/OPG；关节炎研究另含 OPG 阻断和破骨功能读出。' },
       'reconT->oc:up': { summary: '免疫重建中的 T 细胞 TNF-α 与 RANKL 促进骨丢失。', mechanisms: ['tnf', 'osteoclast'], type: '体内免疫重建模型，辅以遗传缺失供体 T 细胞比较。', material: '小鼠免疫重建体系；野生型、TNF-α 缺失或 RANKL 缺失供体 T 细胞。', design: '以供体 T 细胞的基因型为核心变量，比较骨丢失结局；关键节点为免疫重建后 T 细胞回输/扩增。重建窗口、ART 方案和随访时长需核对 PMID 26392000。', validation: '主表支持遗传缺失的因果比较；骨密度/微结构、血清骨转换指标和细胞因子检测的具体方法待全文核对。' },
       'th17->oc:up': { summary: 'Th17 通过 IL-17 与 RANKL 相关轴放大关节炎性破骨生成。', mechanisms: ['il17', 'osteoclast'], type: '自身免疫关节炎体内模型 + 体外分化/共培养实验。', material: '小鼠 Th17 细胞、破骨细胞前体及关节炎模型材料。', design: '比较 Th17/IL-17 条件与对照，观察支持细胞 RANKL 与破骨分化；关键节点为 IL-17 驱动的炎症性微环境。培养时间、转移剂量和模型周期需核对 PMID 17088434。', validation: '主表确认破骨形成和 RANKL/IL-17 相关功能实验；流式分群、RT-qPCR、ELISA 或 TRAP 染色的组合与条件待全文核对。' },
       'treg->oc:down': { summary: 'Treg 以接触依赖的 CTLA-4 抑制为主，并在关节炎模型中呈骨保护。', mechanisms: ['osteoclast', 'tcr', 'tgfBmp'], type: 'M-CSF/RANKL 体外体系（R03）+ hTNFtg 关节炎体内干预/转移（R04）。', material: '小鼠 Treg、破骨细胞前体；hTNFtg 小鼠。', design: '体外比较 Treg–破骨前体直接接触、隔膜/阻断条件与对照；体内比较 Treg 扩增或转移后的骨破坏。具体细胞比例、处理次数和观察天数需分别核对 PMID 18050211、20483756。', validation: '主表支持 CTLA-4 依赖接触与体内骨保护；TRAP、骨吸收坑、组织学/μCT、流式及 CTLA-4 阻断的精确流程待全文核对。' },
@@ -1836,9 +2049,25 @@
       'nk->oc:up': { summary: 'RA 滑膜 NK 在特定疾病环境中以接触、RANKL 与 M-CSF 促进破骨。', mechanisms: ['nk', 'osteoclast'], type: '人 RA 滑膜样本 + 自体体外共培养 + CIA 小鼠 NK 耗竭。', material: '人 RA 滑膜 NK 与自体单核细胞；CIA 小鼠。', design: '体外比较 NK 与单核细胞接触/对照的破骨分化，体内比较 NK 耗竭对 CIA 骨侵蚀的影响；病灶环境是不可省略的条件。样本时间点、耗竭方案和共培养时长需核对 PMID 20615964。', validation: '主表支持 RANKL/M-CSF、接触依赖和 CIA 骨侵蚀；流式/免疫表型、TRAP、骨组织学/影像及阻断方法待全文核对。' },
       'ilc2->oc:down': { summary: 'ILC2 在 OVX 或 IL-33 条件下可通过 IL-4/IL-13–STAT6、GM-CSF/IL-13 抑制破骨。', mechanisms: ['jakStat', 'osteoclast'], type: '小鼠 OVX/过继转移体内模型 + 体外破骨分化；另含 IL-33 条件化实验。', material: '小鼠 ILC2、破骨前体；OVX 小鼠及 IL-33 刺激体系。', design: 'R30 比较 ILC2/过继转移与对照对 OVX 骨量和破骨的作用；R31 比较 IL-33 与 IL-7+ATRA 条件下 ILC2 输出。处理频次、移植细胞数、培养/随访周期需核对 PMID 32240850、34498703。', validation: '主表支持 IL-4/IL-13–STAT6 与 GM-CSF/IL-13；流式 ILC2、TRAP、μCT、细胞因子中和及 STAT6 验证细节待全文核对。' },
       'ilc2->oc:up': { summary: 'IL-7+ATRA 条件可使骨髓 ILC2 高表达 RANKL 并促破骨。', mechanisms: ['osteoclast', 'jakStat'], type: '小鼠条件化体内模型 + 体外破骨分化实验。', material: '小鼠骨髓 ILC2、BMM/破骨前体；IL-7 与 ATRA 条件。', design: '以 IL-7+ATRA 刺激与对照为变量，比较 ILC2 的 RANKL 输出和破骨分化；必须与 IL-33 条件的抑制性状态并列解释。刺激剂量、模型周期和培养时长需核对 PMID 34498703。', validation: '主表支持 RANKL 与破骨功能；流式 ILC2、RANKL 检测、TRAP 和体内骨表型的具体方法待全文核对。' },
-      'bcell->ob:down': { summary: '骨折研究中的 B 细胞外泌体可在特定体系中抑制成骨分化。', mechanisms: [], type: '人/鼠骨折时间序列与单细胞关联 + 外泌体体外/体内功能实验。', material: '骨折相关 B 细胞、B 细胞外泌体、MSC/成骨细胞谱系；人和小鼠材料。', design: '先通过单细胞和时间序列描述 B 细胞变化，再比较外泌体处理与对照对成骨分化/骨形成的影响；不能推广为所有 B 细胞的恒定效应。外泌体分离、剂量、给药与观察时长需核对 PMID 34819916。', validation: '主表支持单细胞、体外成骨和体内骨形成读出；外泌体粒径/标志物、ALP/矿化、μCT/组织学及机制验证待全文核对。' },
+      'bcell->ob:down': { summary: 'B 细胞可在骨折外泌体场景抑制成骨；在 G-CSF 动员中则通过 DKK1 抑制成骨细胞并解除 HSPC 驻留。', mechanisms: ['wnt'], type: '人/鼠骨折时间序列、外泌体功能实验（PMID 34819916）+ 人体动员前后配对样本和 B 细胞缺陷小鼠（PMID 25985917）。', material: '骨折相关 B 细胞/外泌体与成骨谱系；10 名健康供者的骨髓 CD19+ B 细胞；6–8 周 C57BL/6 与 Cd19 缺陷小鼠。', design: 'G-CSF 50 μg/日处理小鼠 3 或 5 日，并与 B 细胞缺陷对照比较；人供者 G-CSF 3–5 日前后配对。第 3 日成骨细胞下降，B 细胞缺陷显著减弱该变化；骨折外泌体场景独立解读。', validation: '骨内膜 osteocalcin 免疫组化、血清 osteocalcin ELISA、SDF-1/OPN qPCR 与免疫组化；分选 B 细胞后 qPCR 和 Western blot 显示 DKK1 上调。' },
       'bcell->treg:up': { summary: '骨愈合中的 IL-10+ Breg 表型与 Foxp3+ Treg 增加相关，并有体外功能支持。', mechanisms: ['jakStat', 'tcr'], type: '人正常愈合、延迟愈合与骨不连样本比较 + 体外免疫功能实验。', material: '人外周/骨愈合相关 IL-10+IgM+CD27+ B 细胞及 T 细胞/Treg。', design: '比较正常愈合、延迟愈合和骨不连在约 6 周时的 Breg 表型，并测试 B 细胞对 T 细胞炎性因子和 Foxp3 的影响；精确随访窗口及样本量需核对 PMID 28008635。', validation: '主表支持 IL-10、Foxp3 与功能关联；流式 Breg/Treg 分群、细胞因子检测、共培养和阻断实验细节待全文核对。' },
       'nk->ob:down': { summary: 'IL-15 活化 NK 在小鼠共培养中与成骨细胞凋亡及成骨抑制相关。', mechanisms: ['nk', 'jakStat'], type: '小鼠骨髓细胞–成骨细胞体外共培养；缺乏直接体内外推。', material: '小鼠 NK/骨髓细胞、成骨细胞与 IL-15 刺激。', design: '比较 IL-15、有无 NK 或不同共培养条件下的成骨细胞存活；关键变量是 NK 活化而非 IL-15 对所有细胞的直接效应。IL-15 浓度、培养时间和细胞比例需核对 PMID 24287823。', validation: '主表支持 caspase-3 增加与成骨细胞损伤；凋亡检测、成骨读出、NK 耗竭/阻断和具体技术平台待全文核对。' },
+      'ob->hsc:down': { summary: '多种动员因子通过减少成骨谱系 CXCL12 并削弱 CXCR4 驻留信号促进 HSPC 外周释放。', mechanisms: ['chemokine'], type: '小鼠骨髓嵌合与细胞因子动员体内实验，辅以空间/分选表达分析。', material: 'CXCR4 缺失骨髓嵌合小鼠、野生型对照；Flt3L、SCF 与 G-CSF 动员体系；成骨谱系与 HSPC。', design: '比较不同动员因子及 CXCR4 基因状态，评估外周 HSPC 动员；RNA 原位和分选实验定位 CXCL12 下降到成骨谱系细胞减少。精确给药周期需核对 PMID 19141863 全文。', validation: '外周 HSPC/集落形成读出、CXCR4 遗传嵌合、CXCL12/CXCR4 表达、RNA 原位杂交与细胞分选共同验证。' },
+      'osteomac->ob:up': { summary: '骨内膜 osteomac 维持成骨细胞和 HSC 滋养因子；其耗竭足以引起 HSC 动员。', mechanisms: ['chemokine'], type: 'G-CSF 动员 + 两种巨噬细胞耗竭体内因果实验。', material: '小鼠骨内膜巨噬细胞、成骨细胞与 HSC；Mafia 转基因小鼠和氯膦酸脂质体处理野生型小鼠。', design: '比较 G-CSF、遗传性巨噬细胞凋亡、氯膦酸耗竭与相应对照；观察 osteomac 丢失、成骨细胞抑制、HSC 滋养因子下降及外周动员是否同步。精确时间线需核对 PMID 20713966。', validation: '组织学/免疫定位成骨细胞和巨噬细胞，骨内膜细胞因子表达，外周 HSC/祖细胞计数及两种独立耗竭策略提供因果交叉验证。' },
+      'oc->hsc:other': { summary: '破骨细胞对 G-CSF 动员的必要性存在直接反证：缺乏破骨细胞并未阻断动员，破骨增多甚至与动员下降相关。', mechanisms: ['osteoclast', 'chemokine'], type: '三种遗传性骨硬化模型 + 药理性破骨消融 + G-CSF 动员体内实验。', material: 'op/op、c-Fos 缺失、RANKL 缺失和 OPG 缺失小鼠；野生型药理消融对照。', design: '8–12 周小鼠皮下注射 G-CSF 250 μg/kg/日、连续 5 日；比较破骨缺失、破骨增多和药理消融背景下外周 LSK 与 CFU-C。该结果与 PMID 16715089 的促动员模型并列，不强行合并结论。', validation: '流式检测 Lin−Sca1+c-Kit+、CFU-C、μCT/组织学确认骨硬化和破骨状态，并使用多种独立遗传模型检验必要性。' },
+      'oc->ob:up': { summary: '破骨细胞 ephrinB2 与成骨细胞 EphB4 的接触型双向信号促进从骨吸收到骨形成的转换。', mechanisms: ['ephrin'], type: '小鼠细胞 gain/loss-of-function + 成骨细胞特异 EphB4 转基因体内实验。', material: '小鼠破骨前体/成熟破骨细胞、成骨细胞与 EphB4 转基因小鼠。', design: '操纵 ephrinB2 逆向和 EphB4 正向信号，分别比较破骨分化与成骨分化；成骨细胞 EphB4 过表达用于验证体内骨量效应。', validation: 'c-Fos/NFATc1 级联、破骨/成骨分化标志、gain/loss-of-function 与转基因骨量表型共同支持 PMID 16890539。' },
+      'oc->ob:down': { summary: '破骨细胞 SEMA4D–成骨细胞 PLXNB1 是抑制骨形成的抗耦联轴。', mechanisms: ['sema4d'], type: '体外受体信号实验 + 三类遗传小鼠 + OVX 抗体干预。', material: '破骨细胞、成骨细胞；Sema4d−/−、Plxnb1−/−、成骨细胞显性负性 RhoA 小鼠及 OVX 模型。', design: '比较配体/受体缺失和成骨细胞 RhoA 受限条件，检测骨形成与骨量；在绝经后骨质疏松模型中用 SEMA4D 抗体检验可逆性。', validation: 'PLXNB1–RhoA、IGF-1 信号和成骨细胞迁移实验，μCT/组织形态计量及抗体干预共同验证 PMID 22019888。' },
+      'oc->ob:other': { summary: '人体重塑位点显示 LIF–LIFR、PDGFB–PDGFRA 和 SEMA4D–PLXNB1 的空间配对，但不单独证明作用方向。', mechanisms: ['sema4d', 'pdgfb'], type: '人体股骨皮质重塑位点空间表达研究。', material: '9 名接受 Coxa Valga 矫形手术的健康青少年对照股骨皮质；破骨细胞、逆转细胞和成骨细胞。', design: '在吸收、逆转和形成阶段的皮质骨孔中比较候选配体及受体的细胞定位；空间邻近仅标为候选耦联证据。', validation: '高灵敏度 RNA 原位杂交结合组织学/免疫标记；PMID 35775083 支持人体定位，不能替代干预性因果验证。' },
+      'oc->msc:up': { summary: '骨吸收通过破骨细胞 CTHRC1 和骨基质 TGF-β1 两条轴募集 MSC/成骨前体并促进后续骨形成。', mechanisms: ['cthrc1', 'tgfBmp'], type: '体外矿化基质/迁移实验 + 细胞特异缺失和疾病突变小鼠体内实验。', material: '成熟破骨细胞、dentin/羟基磷灰石、STRO-1+ 人 BMSC、Cthrc1 破骨特异缺失小鼠、CED-TGFB1 突变小鼠。', design: 'CTHRC1 研究用急性 RANKL 吸收后最长 8 周恢复曲线比较缺失与对照；TGF-β1 研究用吸收条件培养基、中和/补救与 TGFBR1 抑制比较 BMSC 迁移。', validation: 'RT-PCR/蛋白检测、Transwell、ELISA/Western blot、WAIF1 LC-MS/MS 与 co-IP、PKCδ–ERK、μCT/组织形态计量支持 PMID 23908115、29624737、19584867。' },
+      'preoc->typeh:up': { summary: 'TRAP+ 前破骨细胞分泌 PDGF-BB，诱导 Type H 血管并连接血管生成与成骨。', mechanisms: ['pdgfb'], type: 'TRAP 谱系 Pdgfb 条件缺失 + OVX 干预体内实验，辅以细胞迁移/增殖验证。', material: '小鼠 TRAP+ 前破骨细胞、CD31hiEmcnhi 内皮、MSC；Pdgfb 条件缺失和 OVX 小鼠。', design: '比较 Pdgfb 缺失与野生型骨量/Type H 血管；OVX 后给予外源 PDGF-BB 或 CTSK 抑制剂以增加前破骨细胞，观察是否恢复血管和骨形成。', validation: 'PDGF-BB ELISA、CD31/Emcn 免疫荧光、μCT、矿化沉积率/骨形成率及遗传缺失验证 PMID 25282358。' },
+      'ob->oc:down': { summary: '成骨细胞来源 WNT16 直接抑制破骨前体，并通过提高 OPG 间接限制皮质骨吸收。', mechanisms: ['wnt', 'osteoclast'], type: '细胞特异缺失小鼠 + 小鼠/人破骨培养 + 局部炎症骨丢失干预。', material: 'Runx2-Cre 与 Dmp1-Cre Wnt16 条件缺失小鼠；小鼠 BMM、成骨细胞及人 CD14+ 单核细胞。', design: '比较成骨谱系不同阶段 Wnt16 缺失的皮质骨表型；重组 WNT16 以剂量/时间梯度处理 RANKL 诱导破骨培养，并测试 OPG 间接通路。', validation: 'TRAP、CTX-I、NF-κB 报告、qPCR、Western blot（β-catenin/JNK/c-JUN）、μCT 和力学测试验证 PMID 25306233。' },
+      'ocy->ob:down': { summary: '骨细胞 SOST/sclerostin 拮抗 LRP5/6–Wnt，并随机械负荷变化调节成骨。', mechanisms: ['sclerostin', 'wnt'], type: '人/鼠组织定位 + 体外成骨分化 + 小鼠体内加载/卸载实验。', material: '人和小鼠骨组织、KS483 前成骨细胞与人 MSC；小鼠尺骨加载和后肢卸载模型。', design: '体外从第 4 日起给予 sclerostin，18 日评估分化/矿化；体内比较高应变加载区域与卸载胫骨的 Sost 转录和蛋白。', validation: 'ALP/矿化、原位杂交、免疫组化、应变分区和 Sost 表达共同支持 PMID 15024046、18089564。' },
+      'oc->cd8:other': { summary: '破骨细胞通过 MHC-I 抗原呈递诱导 Foxp3+ CD8 TcREG，形成抑制破骨的反馈环。', mechanisms: ['tcr'], type: '小鼠体外抗原呈递与共培养功能实验。', material: '小鼠成熟破骨细胞、naïve CD8 T 细胞及后续破骨分化体系。', design: '比较有无破骨细胞、MHC-I 阻断和不同 CD8 状态，先检测 TcREG 表型，再测试其抑制破骨的功能；培养时长以 PMID 22701612 全文为准。', validation: '流式检测 CD25/Foxp3、MHC-I 阻断、TRAP/骨吸收坑及反馈抑制实验支持该边。' },
+      'treg->ob:up': { summary: '丁酸盐扩增 Treg 后经 CD8 T 细胞 Wnt10b 中继促进成骨；并非 Treg 直接分泌 Wnt10b。', mechanisms: ['tcr', 'tgfBmp', 'wnt'], type: '菌群代谢物干预 + 小鼠遗传/细胞去除体内验证。', material: '小鼠骨髓 Treg、CD8 T 细胞与成骨谱系；丁酸盐处理。', design: '比较丁酸盐与对照，并在 Treg、CD8 或 Wnt10b 功能受限背景下评估骨形成；关键控制变量是串联环节是否完整。给药周期以 PMID 30446387 为准。', validation: '流式 Treg/CD8、Wnt10b 表达、遗传/清除补救及骨组织形态计量支持间接促成骨中继。' },
+      'th17->ob:down': { summary: '慢性炎症中的 Th17/IL-17 可抑制成骨细胞 Wnt 信号并造成骨丢失。', mechanisms: ['il17', 'wnt'], type: '人体疾病关联 + 小鼠炎症模型 + 体外成骨实验。', material: '慢性皮肤炎症相关人样本、小鼠模型、Th17/IL-17 与成骨细胞体系。', design: '比较炎症/IL-17 条件与对照，并使用阻断或遗传条件评估成骨和骨量；疾病场景不可外推到骨折早期 IL-17 的促修复作用。', validation: '炎症细胞分群、IL-17 检测、成骨分化/矿化、Wnt 读出和骨组织学支持 PMID 27089206。' },
+      'cd4->oc:up': { summary: '糖尿病牙周炎中衰老 CD4 T 细胞通过 JAK–STAT–ROS–p38 MAPK 环境促进骨丢失。', mechanisms: ['jakStat', 'tnf', 'osteoclast'], type: '人体病灶关联 + 体外免疫/骨细胞实验。', material: '糖尿病牙周炎患者相关 CD4 T 细胞、破骨/骨系细胞体系。', design: '比较衰老与非衰老 CD4 状态及通路抑制条件，观察炎性输出和破骨/骨丢失读出；具体培养与随访时间以 PMID 41408493 全文为准。', validation: '流式衰老表型、ROS、磷酸化通路与破骨/组织读出构成机制链；人体证据仍需与体外因果区分。' },
+      'bcell->myelo:down': { summary: '假体周围关节感染中调节性 B 细胞—髓系网络与免疫麻痹及 PD-1 相关，干预可逆转抑制状态。', mechanisms: ['tcr'], type: '人体病灶单细胞/空间关联 + 小鼠或体外功能验证。', material: '假体周围感染组织中的 B 细胞和髓系细胞网络。', design: '比较感染与对照微环境，并测试调节 B 网络/PD-1 相关干预对髓系功能的影响；无单一经典 L-R 时保持网络级表述。', validation: '单细胞/空间分群、流式/功能实验及干预验证依据 PMID 42325123；不把相关网络伪装为已确定单一配体受体。' },
+      'mono->nk:down': { summary: '单核细胞来源 MIF 经 CD74/CXCR4 抑制 NK 细胞毒，形成骨髓肿瘤免疫抑制轴。', mechanisms: ['chemokine', 'nk'], type: '人体肿瘤/骨髓样本关联 + 体外共培养和通路干预。', material: '人单核细胞、NK 细胞及肿瘤骨髓微环境样本。', design: '比较 MIF 高低、单核细胞存在/缺失和 CD74/CXCR4 阻断条件下 NK 杀伤功能；具体样本量和培养时长以 PMID 42172122 为准。', validation: '流式细胞表型、MIF 定量、受体阻断及 NK 细胞毒读出支持该轴。' },
       'ob->hsc:other': { summary: '历史 SNO niche 模型将 BMP–BMPRIA 与 N-cadherin 同 HSC 定位/数量关联。', mechanisms: ['tgfBmp', 'notch'], type: '小鼠遗传模型 + HSC 空间定位/关联证据；属于历史性生态位定义。', material: '小鼠 SNO osteoblast-like 细胞与 LT-HSC；BMP–BMPRIA/N-cadherin 相关体系。', design: '比较 SNO 数量或 BMP 信号改变与 HSC 数量、定位的关系；不能把 SNO 的历史定义等同于全部现代成骨细胞。模型诱导、观察周期和空间量化规则需核对 PMID 14574412。', validation: '主表支持遗传操作与定位关联；HSC 流式门控、免疫定位、N-cadherin/BMP 检测及因果干预细节待全文核对。' }
     };
 
