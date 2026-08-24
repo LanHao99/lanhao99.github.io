@@ -1,764 +1,1819 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="day">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的医学院课表 (带数据看板)</title>
-    <!-- 引入 Tailwind CSS 进行极简现代的样式设计 -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 React 和 ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- 引入 htm 用于模板字符串 JSX 替代方案 -->
-    <script src="https://unpkg.com/htm@3/dist/htm.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#eef3ef">
+    <meta name="description" content="2026-2027 学年第一学期，23 级临床医学八年制四班课程表。">
+    <title>临床八年制四班课表 · 2026-2027（1）</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f3f4f6;
-            overscroll-behavior-y: none;
+        :root {
+            color-scheme: light;
+            --bg: #eef3ef;
+            --bg-deep: #dfe9e2;
+            --surface: rgba(255, 255, 255, .88);
+            --surface-solid: #ffffff;
+            --surface-soft: #f6f8f6;
+            --text: #18201c;
+            --muted: #66716b;
+            --faint: #929d96;
+            --line: rgba(24, 32, 28, .11);
+            --line-strong: rgba(24, 32, 28, .2);
+            --brand: #176b4d;
+            --brand-strong: #0c4f38;
+            --brand-soft: #dcefe6;
+            --warm: #d47731;
+            --shadow: 0 18px 52px rgba(37, 57, 46, .09);
+            --shadow-soft: 0 8px 26px rgba(37, 57, 46, .07);
         }
 
-        .no-scrollbar::-webkit-scrollbar {
+        html[data-theme="night"] {
+            color-scheme: dark;
+            --bg: #0c1210;
+            --bg-deep: #080d0b;
+            --surface: rgba(22, 31, 27, .9);
+            --surface-solid: #161f1b;
+            --surface-soft: #1b2722;
+            --text: #edf4ef;
+            --muted: #a9b6ae;
+            --faint: #78867e;
+            --line: rgba(237, 244, 239, .1);
+            --line-strong: rgba(237, 244, 239, .18);
+            --brand: #6bd3a6;
+            --brand-strong: #a1ebca;
+            --brand-soft: #18382b;
+            --warm: #f0a462;
+            --shadow: 0 22px 58px rgba(0, 0, 0, .28);
+            --shadow-soft: 0 10px 28px rgba(0, 0, 0, .2);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            background: var(--bg);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 12% -12%, color-mix(in srgb, var(--brand) 15%, transparent), transparent 34rem),
+                radial-gradient(circle at 92% 4%, color-mix(in srgb, var(--warm) 10%, transparent), transparent 28rem),
+                linear-gradient(180deg, var(--bg), var(--bg-deep));
+            font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            transition: color .25s ease, background-color .25s ease;
+        }
+
+        button {
+            color: inherit;
+            font: inherit;
+        }
+
+        button:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 3px solid color-mix(in srgb, var(--brand) 45%, transparent);
+            outline-offset: 3px;
+        }
+
+        .shell {
+            width: min(1500px, 100%);
+            margin: 0 auto;
+            padding: max(18px, env(safe-area-inset-top)) clamp(14px, 3vw, 42px) max(32px, env(safe-area-inset-bottom));
+        }
+
+        .topbar {
+            display: flex;
+            min-height: 58px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 8px 4px;
+        }
+
+        .topbar-brand {
+            display: flex;
+            min-width: 0;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .topbar-brand strong {
+            font-family: Georgia, "Songti SC", "STSong", serif;
+            font-size: 1.08rem;
+            letter-spacing: -.02em;
+        }
+
+        .topbar-brand span {
+            overflow: hidden;
+            color: var(--muted);
+            font-size: .74rem;
+            font-weight: 650;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .topbar-actions {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--brand-soft);
+            letter-spacing: .04em;
+            text-transform: none;
+        }
+
+        .status-pill::before {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--brand);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 14%, transparent);
+            content: "";
+        }
+
+        .about-title {
+            margin: 0 0 12px;
+            font-family: Georgia, "Songti SC", "STSong", serif;
+            font-size: clamp(1.55rem, 4vw, 2.3rem);
+            font-weight: 600;
+            letter-spacing: -.035em;
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            max-width: 760px;
+            margin: 0;
+            color: var(--muted);
+            font-size: .84rem;
+            line-height: 1.7;
+        }
+
+        .about-details {
+            margin-top: 16px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: color-mix(in srgb, var(--surface-solid) 72%, transparent);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .about-details summary {
+            display: flex;
+            min-height: 52px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 18px;
+            color: var(--muted);
+            font-size: .78rem;
+            font-weight: 750;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .about-details summary::-webkit-details-marker {
             display: none;
         }
 
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .about-details summary::after {
+            color: var(--brand-strong);
+            content: "＋";
+            font-size: 1.1rem;
         }
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        .about-details[open] summary::after {
+            content: "－";
         }
 
-        .drag-active {
-            user-select: none;
-            cursor: grabbing !important;
+        .about-content {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
+            gap: 24px;
+            align-items: end;
+            padding: 6px 18px 20px;
+        }
+
+        .theme-toggle,
+        .next-card,
+        .toolbar-button,
+        .tab-button,
+        .event-card,
+        .month-day,
+        .day-jump,
+        .modal-close {
+            border: 0;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            justify-self: end;
+            display: inline-flex;
+            min-height: 44px;
+            align-items: center;
+            gap: 9px;
+            padding: 10px 14px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--surface-solid);
+            box-shadow: var(--shadow-soft);
+            font-size: .84rem;
+            font-weight: 700;
+        }
+
+        .theme-icon {
+            display: grid;
+            width: 24px;
+            height: 24px;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--brand-soft);
+            color: var(--brand-strong);
+        }
+
+        .next-card {
+            width: 100%;
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: color-mix(in srgb, var(--surface-solid) 86%, transparent);
+            text-align: left;
+            box-shadow: var(--shadow-soft);
+            cursor: default;
+        }
+
+        .micro-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--faint);
+            font-size: .68rem;
+            font-weight: 850;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .next-title {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .next-meta {
+            display: block;
+            color: var(--muted);
+            font-size: .82rem;
+            line-height: 1.6;
+        }
+
+        .view-tabs {
+            position: sticky;
+            z-index: 50;
+            top: max(10px, env(safe-area-inset-top));
+            display: grid;
+            width: fit-content;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin: 18px auto;
+            padding: 5px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: color-mix(in srgb, var(--surface-solid) 88%, transparent);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(18px);
+        }
+
+        .tab-button {
+            min-height: 42px;
+            padding: 9px 18px;
+            border-radius: 11px;
+            background: transparent;
+            color: var(--muted);
+            font-size: .86rem;
+            font-weight: 750;
+            white-space: nowrap;
+        }
+
+        .tab-button[aria-selected="true"] {
+            background: var(--text);
+            color: var(--surface-solid);
+            box-shadow: 0 6px 18px color-mix(in srgb, var(--text) 18%, transparent);
+        }
+
+        .panel {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(20px);
+        }
+
+        .toolbar {
+            display: flex;
+            min-height: 72px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px clamp(14px, 3vw, 28px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .toolbar-copy {
+            min-width: 0;
+        }
+
+        .toolbar-kicker {
+            margin: 0 0 4px;
+            color: var(--brand-strong);
+            font-size: .7rem;
+            font-weight: 850;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .toolbar-title {
+            margin: 0;
+            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            line-height: 1.25;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            flex-shrink: 0;
+            gap: 7px;
+        }
+
+        .toolbar-button {
+            display: inline-grid;
+            min-width: 42px;
+            min-height: 42px;
+            place-items: center;
+            padding: 8px 12px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--surface-solid);
+            color: var(--text);
+            font-weight: 750;
+        }
+
+        .toolbar-button.text-button {
+            font-size: .8rem;
+        }
+
+        .week-board {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(210px, 1fr));
+            gap: 10px;
+            overflow-x: auto;
+            padding: 16px;
+            scroll-padding: 16px;
+            scroll-snap-type: x proximity;
+            scrollbar-color: var(--line-strong) transparent;
+        }
+
+        .day-column {
+            min-height: 440px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: color-mix(in srgb, var(--surface-solid) 72%, transparent);
+            scroll-snap-align: center;
+        }
+
+        .day-column.is-today {
+            border-color: color-mix(in srgb, var(--brand) 46%, var(--line));
+            box-shadow: inset 0 3px 0 var(--brand);
+        }
+
+        .day-column.is-selected {
+            background: color-mix(in srgb, var(--brand-soft) 42%, var(--surface-solid));
+        }
+
+        .day-jump {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 15px;
+            border-bottom: 1px solid var(--line);
+            background: transparent;
+            text-align: left;
+        }
+
+        .day-name {
+            font-size: .78rem;
+            font-weight: 800;
+        }
+
+        .day-date {
+            color: var(--muted);
+            font-size: .72rem;
+            font-weight: 650;
+        }
+
+        .day-count {
+            display: grid;
+            min-width: 24px;
+            height: 24px;
+            place-items: center;
+            padding: 0 7px;
+            border-radius: 999px;
+            background: var(--surface-soft);
+            color: var(--muted);
+            font-size: .68rem;
+            font-weight: 800;
+        }
+
+        .event-list {
+            display: grid;
+            gap: 9px;
+            padding: 10px;
+        }
+
+        .event-card {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 12px 12px 12px 15px;
+            border: 1px solid color-mix(in srgb, var(--course) 36%, var(--line));
+            border-radius: 13px;
+            background: color-mix(in srgb, var(--course) 12%, var(--surface-solid));
+            text-align: left;
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        }
+
+        .event-card::before {
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 0;
+            width: 3px;
+            border-radius: 0 3px 3px 0;
+            background: var(--course);
+            content: "";
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            border-color: color-mix(in srgb, var(--course) 64%, var(--line));
+            box-shadow: 0 10px 24px color-mix(in srgb, var(--course) 12%, transparent);
+        }
+
+        .event-card[data-kind="exam"] {
+            --course: #d76552 !important;
+        }
+
+        .event-card[data-kind="holiday"] {
+            --course: #d69a31 !important;
+            cursor: default;
+        }
+
+        .event-time {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+            color: color-mix(in srgb, var(--course) 72%, var(--text));
+            font-size: .68rem;
+            font-weight: 850;
+            letter-spacing: .03em;
+        }
+
+        .event-type {
+            padding: 3px 6px;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--course) 14%, transparent);
+            font-size: .58rem;
+        }
+
+        .event-title {
+            display: block;
+            font-size: .88rem;
+            font-weight: 800;
+            line-height: 1.45;
+        }
+
+        .empty-day {
+            display: grid;
+            min-height: 120px;
+            place-items: center;
+            padding: 20px;
+            color: var(--faint);
+            font-size: .76rem;
+            text-align: center;
+        }
+
+        .term-note {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            align-items: center;
+            padding: 14px 20px 18px;
+            color: var(--muted);
+            font-size: .74rem;
+            line-height: 1.6;
+        }
+
+        .term-note strong {
+            color: var(--text);
+        }
+
+        .month-wrap {
+            overflow-x: auto;
+            padding: 16px;
+        }
+
+        .month-grid {
+            display: grid;
+            min-width: 760px;
+            grid-template-columns: repeat(5, minmax(140px, 1fr));
+            gap: 1px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--line);
+        }
+
+        .month-weekday {
+            padding: 12px 8px;
+            background: var(--surface-soft);
+            color: var(--muted);
+            font-size: .72rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .month-day {
+            min-height: 148px;
+            padding: 12px;
+            background: var(--surface-solid);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .month-day.is-empty {
+            background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
+            cursor: default;
+        }
+
+        .month-day.is-today {
+            box-shadow: inset 0 0 0 2px var(--brand);
+        }
+
+        .month-number {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            width: fit-content;
+            min-width: 32px;
+            min-height: 32px;
+            margin-bottom: 9px;
+            padding: 0 8px;
+            border-radius: 999px;
+            font-size: .8rem;
+            font-weight: 850;
+        }
+
+        .month-number small {
+            color: var(--muted);
+            font-size: .63rem;
+            font-weight: 700;
+        }
+
+        .month-day.is-today .month-number small {
+            color: inherit;
+            opacity: .78;
+        }
+
+        .month-day.is-today .month-number {
+            background: var(--brand);
+            color: var(--surface-solid);
+        }
+
+        .month-events {
+            display: grid;
+            gap: 4px;
+        }
+
+        .month-event {
+            overflow: hidden;
+            padding: 6px 8px;
+            border-left: 3px solid var(--course);
+            border-radius: 7px;
+            background: color-mix(in srgb, var(--course) 10%, var(--surface-soft));
+            font-size: .68rem;
+            font-weight: 700;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .month-more {
+            color: var(--muted);
+            font-size: .62rem;
+            font-weight: 700;
+        }
+
+        .dashboard {
+            display: grid;
+            gap: 16px;
+            padding: 16px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .kpi-card,
+        .dashboard-card {
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: color-mix(in srgb, var(--surface-solid) 78%, transparent);
+        }
+
+        .kpi-card {
+            min-height: 132px;
+            padding: 20px;
+        }
+
+        .kpi-value {
+            margin: 8px 0 4px;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            letter-spacing: -.04em;
+            line-height: 1;
+        }
+
+        .kpi-label {
+            margin: 0;
+            color: var(--muted);
+            font-size: .78rem;
+            line-height: 1.5;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+            gap: 16px;
+        }
+
+        .dashboard-card {
+            padding: clamp(18px, 3vw, 28px);
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .card-title {
+            margin: 0 0 5px;
+            font-size: 1.05rem;
+        }
+
+        .card-subtitle {
+            margin: 0;
+            color: var(--muted);
+            font-size: .74rem;
+            line-height: 1.55;
+        }
+
+        .hours-list {
+            display: grid;
+            gap: 13px;
+        }
+
+        .hours-row {
+            display: grid;
+            grid-template-columns: minmax(100px, 160px) minmax(100px, 1fr) 52px;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .hours-name {
+            overflow: hidden;
+            font-size: .78rem;
+            font-weight: 750;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .hours-track {
+            height: 8px;
+            overflow: hidden;
+            border-radius: 99px;
+            background: var(--surface-soft);
+        }
+
+        .hours-bar {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--brand), color-mix(in srgb, var(--brand) 55%, var(--warm)));
+        }
+
+        .hours-value {
+            color: var(--muted);
+            font-size: .72rem;
+            font-weight: 750;
+            text-align: right;
+        }
+
+        .composition {
+            display: grid;
+            justify-items: center;
+            gap: 22px;
+        }
+
+        .donut {
+            position: relative;
+            display: grid;
+            width: min(230px, 70vw);
+            aspect-ratio: 1;
+            place-items: center;
+            border-radius: 50%;
+            background: conic-gradient(var(--brand) 0 60.37%, var(--warm) 60.37% 85.37%, #8f79c6 85.37% 100%);
+        }
+
+        .donut::after {
+            position: absolute;
+            width: 64%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--surface-solid);
+            content: "";
+        }
+
+        .donut-copy {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .donut-value {
+            display: block;
+            font-family: Georgia, serif;
+            font-size: 2.2rem;
+        }
+
+        .donut-label {
+            color: var(--muted);
+            font-size: .68rem;
+        }
+
+        .legend {
+            display: grid;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .legend-row {
+            display: grid;
+            grid-template-columns: 11px 1fr auto;
+            gap: 10px;
+            align-items: center;
+            color: var(--muted);
+            font-size: .76rem;
+        }
+
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--dot);
+        }
+
+        .legend-row strong {
+            color: var(--text);
+        }
+
+        .exam-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .exam-item {
+            display: grid;
+            width: 100%;
+            grid-template-columns: 52px minmax(0, 1fr);
+            gap: 12px;
+            align-items: center;
+            padding: 13px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: var(--surface-soft);
+            color: inherit;
+            text-align: left;
+            cursor: pointer;
+            transition: transform .18s ease, border-color .18s ease, background .18s ease;
+        }
+
+        .exam-item:hover {
+            transform: translateY(-2px);
+            border-color: color-mix(in srgb, #d76552 42%, var(--line));
+            background: color-mix(in srgb, #d76552 8%, var(--surface-soft));
+        }
+
+        .exam-date {
+            padding: 8px 4px;
+            border-radius: 10px;
+            background: color-mix(in srgb, #d76552 12%, var(--surface-solid));
+            color: color-mix(in srgb, #d76552 75%, var(--text));
+            font-size: .68rem;
+            font-weight: 850;
+            text-align: center;
+        }
+
+        .exam-title {
+            margin: 0 0 4px;
+            font-size: .78rem;
+            font-weight: 800;
+            line-height: 1.45;
+        }
+
+        .exam-time {
+            color: var(--muted);
+            font-size: .68rem;
+        }
+
+        .page-footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px 24px;
+            padding: 22px 4px 0;
+            color: var(--muted);
+            font-size: .7rem;
+            line-height: 1.6;
+        }
+
+        dialog {
+            width: min(440px, calc(100% - 28px));
+            max-height: calc(100dvh - 28px);
+            margin: auto;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--surface-solid);
+            color: var(--text);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, .32);
+        }
+
+        dialog::backdrop {
+            background: rgba(5, 12, 9, .54);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-accent {
+            height: 8px;
+            background: var(--course);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1.55rem;
+            line-height: 1.25;
+        }
+
+        .modal-close {
+            display: grid;
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--surface-soft);
+            font-size: 1.2rem;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .modal-field {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: var(--surface-soft);
+        }
+
+        .modal-field.wide {
+            grid-column: 1 / -1;
+        }
+
+        .modal-field-label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--faint);
+            font-size: .62rem;
+            font-weight: 850;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .modal-field-value {
+            font-size: .86rem;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 980px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .shell {
+                padding-inline: 10px;
+            }
+
+            .topbar {
+                min-height: 50px;
+                padding-inline: 2px;
+            }
+
+            .topbar-brand span,
+            .topbar-actions .status-pill {
+                display: none;
+            }
+
+            .theme-toggle {
+                min-height: 40px;
+                padding: 7px 10px;
+                background: color-mix(in srgb, var(--surface-solid) 82%, transparent);
+            }
+
+            .theme-text {
+                display: none;
+            }
+
+            .next-card {
+                padding: 16px;
+            }
+
+            .view-tabs {
+                width: 100%;
+                margin: 12px 0;
+            }
+
+            .tab-button {
+                padding-inline: 8px;
+            }
+
+            .panel {
+                border-radius: 20px;
+            }
+
+            .toolbar {
+                align-items: flex-start;
+                padding: 12px;
+            }
+
+            .toolbar-button.text-button {
+                display: none;
+            }
+
+            .week-board {
+                grid-template-columns: repeat(5, minmax(82vw, 82vw));
+                padding: 10px;
+                scroll-snap-type: x mandatory;
+            }
+
+            .day-column {
+                min-height: 390px;
+            }
+
+            .month-wrap,
+            .dashboard {
+                padding: 10px;
+            }
+
+            .month-grid {
+                min-width: 0;
+                grid-template-columns: 1fr;
+                gap: 8px;
+                overflow: visible;
+                border: 0;
+                background: transparent;
+            }
+
+            .month-weekday {
+                display: none;
+            }
+
+            .month-day {
+                display: grid;
+                min-height: 94px;
+                grid-template-columns: 82px minmax(0, 1fr);
+                gap: 10px;
+                align-items: start;
+                padding: 12px;
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                text-align: left;
+            }
+
+            .month-day.is-empty {
+                display: none;
+            }
+
+            .month-number {
+                width: 100%;
+                margin: 0;
+                justify-content: center;
+                font-size: .78rem;
+            }
+
+            .month-event {
+                padding: 6px 8px;
+                border-left: 3px solid var(--course);
+                border-radius: 7px;
+                background: color-mix(in srgb, var(--course) 10%, var(--surface-soft));
+                color: inherit;
+            }
+
+            .month-more {
+                display: block;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .kpi-card {
+                min-height: 112px;
+                padding: 16px;
+            }
+
+            .hours-row {
+                grid-template-columns: minmax(88px, 120px) minmax(70px, 1fr) 44px;
+                gap: 8px;
+            }
+
+            .exam-list {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-field.wide {
+                grid-column: auto;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div id="root"></div>
+    <div class="shell">
+        <header class="topbar">
+            <div class="topbar-brand">
+                <strong>四班课表</strong>
+                <span>2026—2027 学年第一学期</span>
+            </div>
+            <div class="topbar-actions">
+                <span class="status-pill" id="semesterStatus">读取学期状态</span>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换为夜间模式">
+                    <span class="theme-icon" id="themeIcon" aria-hidden="true">☾</span>
+                    <span class="theme-text" id="themeText">夜间模式</span>
+                </button>
+            </div>
+        </header>
+
+        <nav class="view-tabs" aria-label="课表视图">
+            <button class="tab-button" type="button" data-view="week" aria-selected="true">周课表</button>
+            <button class="tab-button" type="button" data-view="month" aria-selected="false">月历</button>
+            <button class="tab-button" type="button" data-view="dashboard" aria-selected="false">数据看板</button>
+        </nav>
+
+        <main id="app" aria-live="polite"></main>
+
+        <details class="about-details">
+            <summary>学期说明与下一项安排</summary>
+            <div class="about-content">
+                <div>
+                    <span class="micro-label">About this schedule</span>
+                    <h2 class="about-title">临床八年制四班课表</h2>
+                    <p class="hero-description">上海交通大学新华临床医学院 · 2023 级。页面覆盖课程、见习、PBL / CBL、假期与考试安排；课程地点请以学院后续通知为准。</p>
+                </div>
+                <div class="next-card" id="nextCard" aria-live="polite"></div>
+            </div>
+        </details>
+
+        <footer class="page-footer">
+            <span>数据依据：2026—2027 学年第一学期课程安排与课程总表</span>
+            <span>课程地点未在源文件中列明，请以学院后续通知为准</span>
+        </footer>
+    </div>
+
+    <dialog id="eventDialog" aria-labelledby="modalTitle">
+        <div class="modal-accent" id="modalAccent"></div>
+        <div class="modal-body">
+            <div class="modal-head">
+                <div>
+                    <span class="micro-label" id="modalKind">课程详情</span>
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                </div>
+                <button class="modal-close" id="modalClose" type="button" aria-label="关闭">×</button>
+            </div>
+            <div class="modal-grid" id="modalGrid"></div>
+        </div>
+    </dialog>
 
     <script>
-        const html = htm.bind(React.createElement);
-        const { useState, useMemo, useEffect, useRef, Fragment } = React;
+        const RAW_EVENTS = `2026-09-07,08:00,11:10,儿科学,c,1
+2026-09-07,13:30,16:40,消化系统,c,1
+2026-09-08,08:00,11:10,呼吸系统,c,1
+2026-09-08,13:30,15:50,临床健康心理学,c,1
+2026-09-09,08:00,12:00,循环系统,c,1
+2026-09-09,13:30,17:30,神经系统,c,1
+2026-09-10,08:00,12:00,泌尿系统,c,1
+2026-09-10,13:30,16:40,循环系统,c,1
+2026-09-11,08:00,12:00,血液系统,c,1
+2026-09-11,13:30,15:50,临床健康心理学,c,1
+2026-09-14,08:00,12:00,儿科学,c,2
+2026-09-14,13:30,16:40,消化系统,c,2
+2026-09-15,08:00,11:10,呼吸系统,c,2
+2026-09-15,13:30,15:50,临床健康心理学,c,2
+2026-09-16,08:00,09:30,循环系统-CBL,c,2
+2026-09-16,09:40,12:00,循环系统,c,2
+2026-09-16,13:30,17:30,神经系统,c,2
+2026-09-17,08:00,11:10,泌尿系统,c,2
+2026-09-17,13:30,16:40,血液系统,c,2
+2026-09-18,08:00,11:10,循环系统,c,2
+2026-09-18,13:30,15:50,临床健康心理学,c,2
+2026-09-21,08:00,11:10,消化系统-见习,c,3
+2026-09-21,13:30,15:50,儿科学-见习,c,3
+2026-09-22,08:00,11:10,呼吸系统,c,3
+2026-09-22,13:30,15:50,临床健康心理学,c,3
+2026-09-23,08:00,10:20,循环系统-CBL,c,3
+2026-09-23,13:30,15:50,神经系统,c,3
+2026-09-23,16:00,17:30,神经系统-PBL,c,3
+2026-09-24,08:00,11:10,泌尿系统,c,3
+2026-09-24,13:30,15:50,血液系统,c,3
+2026-09-25,08:00,17:30,中秋假期,h,3
+2026-09-28,08:00,11:10,消化系统,c,4
+2026-09-28,13:30,15:00,儿科学-PBL1,c,4
+2026-09-28,15:10,17:30,儿科学,c,4
+2026-09-29,08:00,09:30,呼吸系统,c,4
+2026-09-29,09:40,11:10,呼吸系统-PBL,c,4
+2026-09-29,13:30,16:40,临床健康心理学,c,4
+2026-09-30,08:00,12:00,循环系统,c,4
+2026-09-30,13:30,17:30,神经系统,c,4
+2026-10-01,08:00,17:30,国庆假期,h,4
+2026-10-05,08:00,17:30,国庆假期,h,5
+2026-10-08,08:00,11:10,泌尿系统,c,5
+2026-10-08,13:30,15:50,血液系统,c,5
+2026-10-09,08:00,10:20,循环系统,c,5
+2026-10-09,10:30,12:00,循环系统-PBL,c,5
+2026-10-09,13:30,16:40,临床健康心理学,c,5
+2026-10-12,08:00,12:00,儿科学,c,6
+2026-10-12,13:30,16:40,消化系统,c,6
+2026-10-13,08:00,11:10,呼吸系统,c,6
+2026-10-13,13:30,16:40,临床健康心理学,c,6
+2026-10-14,08:00,10:20,循环系统-PBL,c,6
+2026-10-14,13:30,15:50,神经系统-PBL,c,6
+2026-10-15,08:00,10:20,泌尿系统,c,6
+2026-10-15,10:30,12:00,泌尿系统-PBL,c,6
+2026-10-15,13:30,15:50,血液系统,c,6
+2026-10-15,16:00,17:30,血液系统-PBL,c,6
+2026-10-16,08:00,12:00,消化系统-见习,c,6
+2026-10-16,13:30,15:50,呼吸系统-见习,c,6
+2026-10-19,08:00,11:10,循环系统,c,7
+2026-10-19,13:30,15:50,儿科学-PBL1,c,7
+2026-10-20,08:00,09:30,呼吸系统,c,7
+2026-10-20,09:40,12:00,呼吸系统-PBL,c,7
+2026-10-20,13:30,15:50,临床健康心理学,c,7
+2026-10-21,08:00,11:10,循环系统-见习,c,7
+2026-10-21,13:30,15:00,神经系统-见习,c,7
+2026-10-22,08:00,10:20,泌尿系统-PBL,c,7
+2026-10-22,10:30,15:00,儿科学,c,7
+2026-10-22,15:10,17:30,血液系统-PBL,c,7
+2026-10-23,08:00,12:00,生殖系统,c,7
+2026-10-23,13:30,15:50,呼吸系统,c,7
+2026-10-26,08:00,12:00,儿科学,c,8
+2026-10-26,13:30,16:40,消化系统,c,8
+2026-10-26,16:50,17:30,儿科学-PBL1总结,c,8
+2026-10-27,08:00,11:10,呼吸系统,c,8
+2026-10-27,11:20,12:00,呼吸系统-PBL总结,c,8
+2026-10-27,13:30,15:50,生殖系统,c,8
+2026-10-27,16:00,17:30,消化系统-PBL（内）,c,8
+2026-10-28,08:00,10:20,循环系统,c,8
+2026-10-28,10:30,11:10,循环系统-PBL总结,c,8
+2026-10-28,13:30,15:50,泌尿系统,c,8
+2026-10-28,16:00,16:40,泌尿系统-PBL总结,c,8
+2026-10-29,08:00,11:10,血液系统-见习,c,8
+2026-10-29,11:20,12:00,血液系统-答疑,c,8
+2026-10-29,13:30,15:50,呼吸系统-见习,c,8
+2026-10-30,08:00,11:10,生殖系统,c,8
+2026-10-30,13:30,16:40,儿科学,c,8
+2026-11-02,08:00,12:00,消化系统-见习,c,9
+2026-11-02,13:30,17:30,泌尿系统-见习,c,9
+2026-11-03,08:00,11:10,血液系统,c,9
+2026-11-03,14:00,15:30,临床健康心理学-考试,e,9
+2026-11-04,13:30,16:40,生殖系统,c,9
+2026-11-04,16:50,17:30,血液系统-PBL总结,c,9
+2026-11-05,08:00,10:20,消化系统-PBL（内）,c,9
+2026-11-05,13:30,15:50,神经系统,c,9
+2026-11-05,16:00,16:40,神经系统-PBL总结,c,9
+2026-11-06,08:00,09:30,生殖系统-CBL1,c,9
+2026-11-06,09:40,10:20,生殖系统,c,9
+2026-11-06,10:30,12:00,血液系统,c,9
+2026-11-06,13:30,15:50,儿科学,c,9
+2026-11-09,13:30,15:00,呼吸系统统考,e,10
+2026-11-10,08:00,12:00,生殖系统,c,10
+2026-11-10,13:30,17:30,消化系统,c,10
+2026-11-11,13:30,15:00,循环系统统考,e,10
+2026-11-12,08:00,10:20,生殖系统,c,10
+2026-11-12,13:30,17:30,消化系统,c,10
+2026-11-13,13:30,15:00,泌尿系统统考,e,10
+2026-11-16,13:30,15:00,神经系统统考,e,11
+2026-11-17,08:00,09:30,生殖系统-PBL1,c,11
+2026-11-17,09:40,11:10,生殖系统-CBL2,c,11
+2026-11-18,13:30,15:00,血液系统统考,e,11
+2026-11-19,08:00,11:10,生殖系统,c,11
+2026-11-19,13:30,16:40,消化系统,c,11
+2026-11-19,16:50,17:30,消化系统-PBL总结（内）,c,11
+2026-11-20,08:00,10:20,儿科学-见习,c,11
+2026-11-20,13:30,16:40,生殖系统-见习,c,11
+2026-11-23,08:00,11:10,麻醉学气道管理实践,c,12
+2026-11-23,13:30,17:30,消化系统-见习,c,12
+2026-11-24,08:00,11:10,骨关节系统,c,12
+2026-11-24,13:30,15:50,儿科学,c,12
+2026-11-24,16:00,17:30,儿科学-PBL2,c,12
+2026-11-25,08:00,12:00,消化系统-见习,c,12
+2026-11-25,13:30,16:40,生殖系统-见习,c,12
+2026-11-26,08:00,11:10,麻醉学气道管理实践,c,12
+2026-11-26,13:30,16:40,儿科学-见习,c,12
+2026-11-27,08:00,12:00,内分泌系统,c,12
+2026-11-27,13:30,15:50,生殖系统-PBL1,c,12
+2026-11-27,16:00,17:30,生殖系统-CBL3,c,12
+2026-11-30,08:00,11:10,麻醉学气道管理实践,c,13
+2026-11-30,13:30,16:40,儿科学-见习,c,13
+2026-12-01,08:00,11:10,骨关节系统,c,13
+2026-12-01,13:30,15:00,消化系统-PBL（外）,c,13
+2026-12-01,15:10,17:30,消化系统,c,13
+2026-12-02,08:00,11:10,消化系统,c,13
+2026-12-02,13:30,14:10,生殖系统,c,13
+2026-12-02,14:20,15:00,生殖系统-PBL1总结,c,13
+2026-12-02,15:10,17:30,儿科学-PBL2,c,13
+2026-12-03,08:00,11:10,麻醉学气道管理实践,c,13
+2026-12-04,08:00,12:00,内分泌系统,c,13
+2026-12-04,13:30,15:00,生殖系统-PBL2,c,13
+2026-12-04,15:10,16:40,生殖系统-CBL4,c,13
+2026-12-07,08:00,11:10,麻醉学气道管理实践,c,14
+2026-12-07,13:30,15:50,生殖系统-见习,c,14
+2026-12-08,08:00,11:10,骨关节系统,c,14
+2026-12-08,13:30,16:40,消化系统,c,14
+2026-12-09,08:00,10:20,生殖系统-PBL2,c,14
+2026-12-09,13:30,15:50,儿科学,c,14
+2026-12-10,08:00,11:10,麻醉学气道管理实践,c,14
+2026-12-10,13:30,17:30,消化系统-见习,c,14
+2026-12-11,08:00,10:20,内分泌系统-CBL1,c,14
+2026-12-11,13:30,15:50,消化系统-PBL（外）,c,14
+2026-12-11,16:00,16:40,儿科学-PBL2总结,c,14
+2026-12-14,09:40,11:10,麻醉学气道管理实践,c,15
+2026-12-14,13:30,17:30,消化系统-见习,c,15
+2026-12-15,08:00,11:10,骨关节系统,c,15
+2026-12-15,13:30,15:50,生殖系统,c,15
+2026-12-15,16:00,16:40,生殖系统-PBL总结,c,15
+2026-12-16,08:00,10:20,免疫系统,c,15
+2026-12-16,10:30,12:00,免疫系统-CBL1,c,15
+2026-12-16,13:30,16:40,儿科学-见习,c,15
+2026-12-17,08:00,11:10,麻醉学气道管理实践,c,15
+2026-12-17,13:30,16:40,生殖系统-见习,c,15
+2026-12-18,08:00,10:20,内分泌系统,c,15
+2026-12-18,10:30,12:00,内分泌系统-CBL2,c,15
+2026-12-18,13:30,16:40,儿科学-见习,c,15
+2026-12-21,08:00,11:10,儿科学-见习,c,16
+2026-12-21,15:10,16:40,麻醉学气道管理实践考试,e,16
+2026-12-22,08:00,11:10,骨关节系统,c,16
+2026-12-22,13:30,15:00,免疫系统-CBL2,c,16
+2026-12-22,15:10,15:50,消化系统-PBL总结（外）,c,16
+2026-12-23,08:00,10:20,免疫系统-见习,c,16
+2026-12-23,13:30,15:00,儿科学-情景模拟 （考核）,e,16
+2026-12-24,08:00,11:10,骨关节系统-见习,c,16
+2026-12-24,13:30,15:50,内分泌系统-见习,c,16
+2026-12-25,08:00,12:00,消化系统,c,16
+2027-01-01,08:00,17:30,元旦假期,h,17
+2027-01-04,13:30,15:00,消化系统统考,e,18
+2027-01-06,13:30,15:00,免疫系统统考,e,18
+2027-01-08,13:30,15:00,骨关节系统统考,e,18
+2027-01-11,13:30,15:30,生殖系统统考,e,19
+2027-01-13,13:30,15:00,儿科学统考,e,19
+2027-01-15,13:30,15:00,内分泌系统统考,e,19`;
 
-        // ====== 完整版课表原始数据 ======
-        const INITIAL_SCHEDULE_DATA = [
-            // --- 3月份 ---
-            { date: '2026-03-02', start: '08:00', end: '11:10', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-02', start: '13:30', end: '15:50', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-03', start: '08:00', end: '10:20', title: '生殖系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-03', start: '13:30', end: '16:40', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-04', start: '08:00', end: '12:00', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-04', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-03-05', start: '08:00', end: '11:10', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-05', start: '13:30', end: '15:50', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-06', start: '08:00', end: '11:10', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-06', start: '13:30', end: '18:20', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
-            { date: '2026-03-09', start: '08:00', end: '11:10', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-09', start: '13:30', end: '16:40', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-10', start: '09:40', end: '12:00', title: '生殖系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-03-10', start: '13:30', end: '16:40', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-11', start: '08:50', end: '12:00', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-11', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-03-12', start: '08:00', end: '09:30', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-12', start: '09:40', end: '10:20', title: '内分泌系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-03-12', start: '10:30', end: '11:10', title: '呼吸系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-03-12', start: '11:20', end: '12:00', title: '泌尿系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-03-12', start: '13:30', end: '15:50', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-13', start: '08:00', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-13', start: '13:30', end: '18:20', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
-            { date: '2026-03-16', start: '09:40', end: '11:10', title: '泌尿系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-03-16', start: '13:30', end: '15:50', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-17', start: '08:00', end: '09:30', title: '生殖系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-17', start: '13:30', end: '15:50', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-18', start: '08:00', end: '10:20', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-18', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-03-19', start: '08:00', end: '10:20', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-19', start: '13:30', end: '17:30', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-20', start: '08:00', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-20', start: '13:30', end: '17:30', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
-            { date: '2026-03-23', start: '08:00', end: '10:20', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-23', start: '13:30', end: '16:40', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-24', start: '08:00', end: '10:20', title: '生殖系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-24', start: '13:30', end: '16:40', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-25', start: '08:00', end: '10:20', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-25', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-03-26', start: '08:50', end: '10:20', title: '内分泌系统', room: '新华临床-病区示教室' },
-            { date: '2026-03-26', start: '13:30', end: '15:00', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-26', start: '15:10', end: '17:30', title: '呼吸系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-03-27', start: '08:00', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-27', start: '13:30', end: '17:30', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
-            { date: '2026-03-30', start: '08:00', end: '09:30', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-30', start: '09:40', end: '11:10', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-30', start: '13:30', end: '15:50', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-31', start: '08:00', end: '08:40', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-03-31', start: '09:40', end: '11:10', title: '生殖系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-03-31', start: '11:20', end: '12:00', title: '内分泌系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-03-31', start: '13:30', end: '15:00', title: '生殖系统', room: '08号楼-05层-507教室' },
-            // --- 4月份 ---
-            { date: '2026-04-01', start: '08:00', end: '10:20', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-01', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-04-02', start: '09:40', end: '11:10', title: '内分泌系统', room: '08号楼-05层-507教室' },
-            { date: '2026-04-02', start: '13:30', end: '15:50', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-03', start: '08:00', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-03', start: '13:30', end: '17:30', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
-            { date: '2026-04-07', start: '09:40', end: '12:00', title: '生殖系统', room: '08号楼-05层-507教室' },
-            { date: '2026-04-07', start: '13:30', end: '15:00', title: '血液系统', room: '08号楼-05层-507教室' },
-            { date: '2026-04-08', start: '08:50', end: '10:20', title: '泌尿系统', room: '08号楼-05层-507教室' },
-            { date: '2026-04-08', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-04-09', start: '09:40', end: '12:00', title: '内分泌系统', room: '08号楼-05层-507教室' },
-            { date: '2026-04-09', start: '13:30', end: '16:40', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-10', start: '08:00', end: '10:20', title: '血液系统', room: '07号楼-01层-109实验室' },
-            { date: '2026-04-10', start: '13:30', end: '17:30', title: '儿童心肺复苏与生命支持', room: '07号楼-03层-314实训室' },
-            { date: '2026-04-13', start: '08:50', end: '11:10', title: '循证科学', room: '08号楼-03层-319教室' },
-            { date: '2026-04-13', start: '13:30', end: '15:50', title: '血液系统', room: '新华临床-病区示教室' },
-            { date: '2026-04-14', start: '09:40', end: '10:20', title: '生殖系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-14', start: '13:30', end: '15:50', title: '血液系统', room: '08号楼-05层-507教室' },
-            { date: '2026-04-15', start: '09:40', end: '12:00', title: '泌尿系统', room: '08号楼-05层-507教室' },
-            { date: '2026-04-15', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-04-16', start: '09:40', end: '10:20', title: '内分泌系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-16', start: '13:30', end: '14:10', title: '呼吸系统', room: '网课超星课堂' },
-            { date: '2026-04-16', start: '14:20', end: '16:40', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-17', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-04-20', start: '08:50', end: '11:10', title: '循证科学', room: '公卫学院-线上教室01' },
-            { date: '2026-04-21', start: '08:00', end: '11:10', title: '口腔科学', room: '08号楼-03层-319教室' },
-            { date: '2026-04-21', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-04-22', start: '08:50', end: '09:30', title: '泌尿系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-22', start: '09:40', end: '10:20', title: '血液系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-22', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-04-23', start: '13:30', end: '14:10', title: '呼吸系统', room: '08号楼-03层-319教室' },
-            { date: '2026-04-23', start: '14:20', end: '15:00', title: '呼吸系统', room: '网课超星课堂' },
-            { date: '2026-04-24', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-04-27', start: '08:00', end: '11:10', title: '循证科学', room: '08号楼-05层-506教室' },
-            { date: '2026-04-27', start: '13:30', end: '17:30', title: '呼吸系统', room: '新华临床-病区示教室' },
-            { date: '2026-04-28', start: '08:00', end: '12:00', title: '口腔科学', room: '08号楼-03层-319教室' },
-            { date: '2026-04-28', start: '13:30', end: '17:30', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-04-29', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
-            { date: '2026-04-29', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-04-30', start: '13:30', end: '15:00', title: '呼吸系统', room: '08号楼-05层-507教室' },
-            // --- 5月份 ---
-            { date: '2026-05-06', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
-            { date: '2026-05-07', start: '13:30', end: '15:50', title: '呼吸系统', room: '08号楼-05层-507教室' },
-            { date: '2026-05-08', start: '08:00', end: '10:20', title: '循证临床实践', room: '08号楼-03层-319教室' },
-            { date: '2026-05-08', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-05-09', start: '08:00', end: '09:30', title: '口腔科学', room: '08号楼-03层-319教室' },
-            { date: '2026-05-09', start: '09:40', end: '11:10', title: '口腔科学', room: '08号楼-05层-507教室' },
-            { date: '2026-05-09', start: '13:30', end: '17:30', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-05-11', start: '08:50', end: '12:00', title: '循证科学', room: '08号楼-05层-506教室' },
-            { date: '2026-05-12', start: '08:00', end: '11:10', title: '口腔科学', room: '08号楼-03层-319教室' },
-            { date: '2026-05-12', start: '13:30', end: '17:30', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-05-13', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
-            { date: '2026-05-13', start: '13:30', end: '16:40', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-05-14', start: '13:30', end: '14:10', title: '呼吸系统', room: '网课超星课堂' },
-            { date: '2026-05-15', start: '08:00', end: '11:10', title: '循证临床实践', room: '08号楼-03层-319教室' },
-            { date: '2026-05-15', start: '13:30', end: '16:40', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-05-18', start: '08:50', end: '12:00', title: '循证科学', room: '08号楼-05层-506教室' },
-            { date: '2026-05-19', start: '08:00', end: '11:10', title: '口腔科学', room: '08号楼-03层-319教室' },
-            { date: '2026-05-19', start: '13:30', end: '15:00', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-05-19', start: '15:10', end: '16:40', title: '外科学总论', room: '08号楼-05层-507教室' },
-            { date: '2026-05-20', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
-            { date: '2026-05-20', start: '13:30', end: '18:20', title: '功能学实验（A类）', room: '07号楼-04层-406实验室' },
-            { date: '2026-05-22', start: '08:00', end: '11:10', title: '循证临床实践', room: '08号楼-03层-319教室' },
-            { date: '2026-05-22', start: '13:30', end: '15:50', title: '外科学总论', room: '08号楼-05层-507教室' },
-            { date: '2026-05-25', start: '08:00', end: '12:00', title: '循证科学', room: '公卫学院-线上教室01' },
-            { date: '2026-05-26', start: '13:30', end: '14:10', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-05-26', start: '14:20', end: '15:50', title: '外科学总论', room: '08号楼-05层-507教室' },
-            { date: '2026-05-27', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
-            { date: '2026-05-27', start: '13:30', end: '15:50', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-05-29', start: '08:00', end: '11:10', title: '循证临床实践', room: '08号楼-03层-319教室' },
-            { date: '2026-05-29', start: '13:30', end: '15:50', title: '外科学总论', room: '08号楼-05层-507教室' },
-            // --- 6月份 ---
-            { date: '2026-06-01', start: '08:50', end: '12:00', title: '循证科学', room: '公卫学院-线上教室01' },
-            { date: '2026-06-02', start: '13:30', end: '15:50', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-06-03', start: '08:00', end: '11:10', title: '全科医学', room: '08号楼-03层-319教室' },
-            { date: '2026-06-03', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '网上教室' },
-            { date: '2026-06-04', start: '13:30', end: '17:30', title: '外科学总论', room: '新华临床-外科楼-519' },
-            { date: '2026-06-05', start: '08:00', end: '10:20', title: '循证临床实践', room: '08号楼-03层-319教室' },
-            { date: '2026-06-05', start: '13:30', end: '16:40', title: '外科学总论', room: '新华临床-外总病区5' },
-            { date: '2026-06-09', start: '08:50', end: '12:00', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
-            { date: '2026-06-09', start: '13:30', end: '18:20', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
-            { date: '2026-06-10', start: '08:00', end: '09:30', title: '全科医学', room: '08号楼-03层-319教室' },
-            { date: '2026-06-10', start: '13:30', end: '16:40', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-06-12', start: '15:10', end: '17:30', title: '外科学总论', room: '瑞金临床-外总临床病区1' },
-            { date: '2026-06-17', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-06-18', start: '13:30', end: '15:50', title: '外科学总论', room: '08号楼-03层-319教室' },
-            { date: '2026-06-22', start: '08:50', end: '12:00', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
-            { date: '2026-06-23', start: '13:30', end: '16:40', title: '外科学总论', room: '新华临床-外总病区5' },
-            { date: '2026-06-24', start: '13:30', end: '17:30', title: '功能学实验（A类）', room: '07号楼-04层-407实验室' },
-            { date: '2026-06-25', start: '08:50', end: '12:00', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
-            { date: '2026-06-25', start: '13:30', end: '18:20', title: '外科手术学', room: '11号楼-B1层-动物手术室' },
+        const COURSE_HOURS = [
+            { name: "呼吸系统", hours: 39, category: "必修" },
+            { name: "循环系统", hours: 46, category: "必修" },
+            { name: "消化系统", hours: 96, category: "必修" },
+            { name: "神经系统", hours: 29, category: "必修" },
+            { name: "泌尿系统", hours: 34, category: "必修" },
+            { name: "血液系统", hours: 34, category: "必修" },
+            { name: "内分泌系统", hours: 21, category: "必修" },
+            { name: "骨关节系统", hours: 24, category: "必修" },
+            { name: "免疫系统", hours: 10, category: "必修" },
+            { name: "生殖系统", hours: 68, category: "必修" },
+            { name: "儿科学", hours: 79, category: "必修" },
+            { name: "临床健康心理学", hours: 30, category: "选修" },
+            { name: "麻醉学气道管理实践", hours: 30, category: "选修" }
         ];
 
-        // 颜色生成器 (含进度条颜色 bar)
-        const getCourseColors = (title) => {
-            const colors = {
-                '泌尿系统': { bg: 'bg-blue-100', text: 'text-blue-800', border: 'border-blue-200', bar: 'bg-blue-500' },
-                '血液系统': { bg: 'bg-red-100', text: 'text-red-800', border: 'border-red-200', bar: 'bg-red-500' },
-                '生殖系统': { bg: 'bg-pink-100', text: 'text-pink-800', border: 'border-pink-200', bar: 'bg-pink-500' },
-                '内分泌系统': { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-200', bar: 'bg-purple-500' },
-                '呼吸系统': { bg: 'bg-green-100', text: 'text-green-800', border: 'border-green-200', bar: 'bg-green-500' },
-                '儿童心肺复苏与生命支持': { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-200', bar: 'bg-orange-500' },
-                '功能学实验（A类）': { bg: 'bg-teal-100', text: 'text-teal-800', border: 'border-teal-200', bar: 'bg-teal-500' },
-                '外科学总论': { bg: 'bg-indigo-100', text: 'text-indigo-800', border: 'border-indigo-200', bar: 'bg-indigo-500' },
-                '全科医学': { bg: 'bg-yellow-100', text: 'text-yellow-800', border: 'border-yellow-200', bar: 'bg-yellow-500' },
-                '循证科学': { bg: 'bg-cyan-100', text: 'text-cyan-800', border: 'border-cyan-200', bar: 'bg-cyan-500' },
-                '循证临床实践': { bg: 'bg-sky-100', text: 'text-sky-800', border: 'border-sky-200', bar: 'bg-sky-500' },
-                '口腔科学': { bg: 'bg-lime-100', text: 'text-lime-800', border: 'border-lime-200', bar: 'bg-lime-500' },
-                '外科手术学': { bg: 'bg-rose-100', text: 'text-rose-800', border: 'border-rose-200', bar: 'bg-rose-500' },
+        const TERM_START = new Date("2026-09-07T12:00:00");
+        const TERM_END = new Date("2027-01-17T12:00:00");
+        const WEEKDAYS = ["周一", "周二", "周三", "周四", "周五"];
+        const KIND_LABELS = { course: "课程", exam: "考核", holiday: "假期" };
+        const HUES = [154, 207, 26, 268, 338, 188, 42, 223, 115, 294, 12, 174, 50];
+        const THEME_KEY = "schedule-theme-override-v1";
+
+        const EVENTS = RAW_EVENTS.trim().split("\n").filter(Boolean).map((line, id) => {
+            const [date, start, end, title, kindCode, week] = line.split(",");
+            return {
+                id,
+                date,
+                start,
+                end,
+                title,
+                kind: { c: "course", e: "exam", h: "holiday" }[kindCode],
+                week: Number(week),
+                room: "地点以通知为准"
             };
-            return colors[title] || { bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-gray-200', bar: 'bg-gray-500' };
+        });
+
+        const app = document.getElementById("app");
+        const dialog = document.getElementById("eventDialog");
+        const today = new Date();
+        const initialDate = weekdayAnchor(today < TERM_START ? TERM_START : today > TERM_END ? TERM_END : today);
+        const state = {
+            view: "week",
+            selectedDate: formatYmd(initialDate),
+            weekStart: startOfWeek(initialDate),
+            monthStart: new Date(initialDate.getFullYear(), initialDate.getMonth(), 1)
         };
 
-        // UI图标组件
-        const IconChevronLeft = () => html`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>`;
-        const IconChevronRight = () => html`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>`;
-        const IconCalendar = () => html`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>`;
-        const IconList = () => html`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" /></svg>`;
-        const IconDashboard = () => html`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></svg>`;
-        const IconClose = () => html`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>`;
-        const IconEdit = () => html`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
-        const IconReset = () => html`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>`;
+        function formatYmd(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`;
+        }
 
-        const App = () => {
-            const [currentDate, setCurrentDate] = useState(() => {
-                const today = new Date();
-                const scheduleStart = new Date('2026-03-02T00:00:00');
-                const scheduleEnd = new Date('2026-06-25T00:00:00');
-                // 如果今天在课表范围内，跳转到当前周；否则回到学期第一天
-                if (today >= scheduleStart && today <= scheduleEnd) {
-                    return today;
-                }
-                return scheduleStart;
-            });
-            const [viewMode, setViewMode] = useState('week'); // 'week', 'month', 'dashboard'
-            const [selectedCourse, setSelectedCourse] = useState(null);
+        function parseDate(dateString) {
+            return new Date(`${dateString}T12:00:00`);
+        }
 
-            // 编辑和拖拽状态
-            const [isEditing, setIsEditing] = useState(false);
-            const [dragInfo, setDragInfo] = useState(null);
-            const gridRef = useRef(null);
+        function addDays(date, amount) {
+            const next = new Date(date);
+            next.setDate(next.getDate() + amount);
+            return next;
+        }
 
-            // 读取或初始化最新缓存
-            const [courses, setCourses] = useState(() => {
-                const saved = localStorage.getItem('medical_schedule_v5');
-                if (saved) {
-                    try { return JSON.parse(saved); } catch (e) { }
-                }
-                return INITIAL_SCHEDULE_DATA.map((c, i) => ({ ...c, id: `course_${Date.now()}_${i}` }));
-            });
+        function weekdayAnchor(date) {
+            const anchor = new Date(date);
+            if (anchor.getDay() === 6) return addDays(anchor, -1);
+            if (anchor.getDay() === 0) return addDays(anchor, 1);
+            return anchor;
+        }
 
-            // 自动保存
-            useEffect(() => {
-                localStorage.setItem('medical_schedule_v5', JSON.stringify(courses));
-            }, [courses]);
+        function startOfWeek(date) {
+            const result = new Date(date);
+            const offset = (result.getDay() + 6) % 7;
+            result.setDate(result.getDate() - offset);
+            result.setHours(12, 0, 0, 0);
+            return result;
+        }
 
-            // 恢复原厂数据
-            const handleReset = () => {
-                if (window.confirm("确定要放弃所有修改，恢复到最新版原始课表吗？")) {
-                    const freshData = INITIAL_SCHEDULE_DATA.map((c, i) => ({ ...c, id: `course_${Date.now()}_${i}` }));
-                    setCourses(freshData);
-                    setIsEditing(false);
-                }
-            };
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>'"]/g, char => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;"
+            })[char]);
+        }
 
-            const changeDate = (amount) => {
-                const newDate = new Date(currentDate);
-                if (viewMode === 'month') {
-                    newDate.setMonth(newDate.getMonth() + amount);
-                } else {
-                    newDate.setDate(newDate.getDate() + (amount * 7));
-                }
-                setCurrentDate(newDate);
-            };
+        function formatDate(dateString, withWeekday = true) {
+            const date = parseDate(dateString);
+            return new Intl.DateTimeFormat("zh-CN", {
+                month: "long",
+                day: "numeric",
+                weekday: withWeekday ? "short" : undefined
+            }).format(date);
+        }
 
-            const goToToday = () => {
-                setCurrentDate(new Date());
-                setViewMode('week');
-            };
+        function colorFor(title) {
+            const matchedIndex = COURSE_HOURS.findIndex(course => title.includes(course.name));
+            const hue = HUES[matchedIndex >= 0 ? matchedIndex : 0];
+            return `hsl(${hue} 58% 52%)`;
+        }
 
-            const getYearMonthLabel = () => `${currentDate.getFullYear()}年 ${currentDate.getMonth() + 1}月`;
-            const formatYMD = (d) => {
-                const y = d.getFullYear();
-                const m = String(d.getMonth() + 1).padStart(2, '0');
-                const day = String(d.getDate()).padStart(2, '0');
-                return `${y}-${m}-${day}`;
-            };
+        function eventType(title, kind) {
+            if (kind === "holiday") return "假期";
+            if (kind === "exam") return title.includes("情景模拟") ? "情景考核" : "考试";
+            if (title.includes("见习")) return "见习";
+            if (title.includes("PBL")) return "PBL";
+            if (title.includes("CBL")) return "CBL";
+            return "课程";
+        }
 
-            // 月视图（去除周六周日，仅展示周一到周五的工作日）
-            const monthDays = useMemo(() => {
-                const year = currentDate.getFullYear();
-                const month = currentDate.getMonth();
-                const lastDay = new Date(year, month + 1, 0).getDate();
-                const days = [];
+        function eventsOn(dateString) {
+            return EVENTS.filter(event => event.date === dateString);
+        }
 
-                // 寻找该月的第一个工作日
-                let firstWorkday = null;
-                for (let i = 1; i <= lastDay; i++) {
-                    const d = new Date(year, month, i);
-                    if (d.getDay() >= 1 && d.getDay() <= 5) {
-                        firstWorkday = d;
-                        break;
-                    }
-                }
+        function currentTimeString(date = new Date()) {
+            return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+        }
 
-                // 填充空白
-                if (firstWorkday) {
-                    const blanks = firstWorkday.getDay() - 1;
-                    for (let i = 0; i < blanks; i++) days.push(null);
-                }
+        function semesterStatus() {
+            const current = new Date();
+            const currentDay = new Date(current.getFullYear(), current.getMonth(), current.getDate(), 12);
+            if (currentDay < TERM_START) {
+                const days = Math.ceil((TERM_START - currentDay) / 86400000);
+                return `距开课 ${days} 天`;
+            }
+            if (currentDay > TERM_END) return "本学期已结束";
+            const week = Math.min(19, Math.floor((currentDay - TERM_START) / 604800000) + 1);
+            return `教学第 ${week} 周`;
+        }
 
-                for (let i = 1; i <= lastDay; i++) {
-                    const d = new Date(year, month, i);
-                    if (d.getDay() >= 1 && d.getDay() <= 5) { // 剔除周末
-                        days.push(d);
-                    }
-                }
-                return days;
-            }, [currentDate]);
+        function updateContextualHeader() {
+            document.getElementById("semesterStatus").textContent = semesterStatus();
+            const now = new Date();
+            const todayKey = formatYmd(now);
+            const timeKey = currentTimeString(now);
+            const nextEvent = EVENTS.find(event => event.date > todayKey || (event.date === todayKey && event.end >= timeKey));
+            const card = document.getElementById("nextCard");
+            if (!nextEvent) {
+                card.innerHTML = `<span class="micro-label">学期进度</span><strong class="next-title">本学期安排已完成</strong><span class="next-meta">课程表覆盖至 2027 年 1 月 17 日</span>`;
+                return;
+            }
+            card.innerHTML = `
+                <span class="micro-label">下一项安排</span>
+                <strong class="next-title">${escapeHtml(nextEvent.title)}</strong>
+                <span class="next-meta">${formatDate(nextEvent.date)} · ${nextEvent.start}—${nextEvent.end}<br>第 ${nextEvent.week} 教学周</span>
+            `;
+        }
 
-            // 周视图（仅取本周的周一至周五）
-            const weekDays = useMemo(() => {
-                const dayOfWeek = currentDate.getDay() === 0 ? 6 : currentDate.getDay() - 1;
-                const monday = new Date(currentDate);
-                monday.setDate(currentDate.getDate() - dayOfWeek);
-                const days = [];
-                for (let i = 0; i < 5; i++) { // 只循环5天
-                    const d = new Date(monday);
-                    d.setDate(monday.getDate() + i);
-                    days.push(d);
-                }
-                return days;
-            }, [currentDate]);
+        function eventCard(event) {
+            const type = eventType(event.title, event.kind);
+            return `
+                <button class="event-card" type="button" data-event-id="${event.id}" data-kind="${event.kind}" style="--course:${colorFor(event.title)}" ${event.kind === "holiday" ? "aria-disabled=\"true\"" : ""}>
+                    <span class="event-time"><span>${event.start}—${event.end}</span><span class="event-type">${type}</span></span>
+                    <strong class="event-title">${escapeHtml(event.title)}</strong>
+                </button>
+            `;
+        }
 
-            const timeToMinutes = (timeStr) => {
-                const [h, m] = timeStr.split(':').map(Number);
-                return h * 60 + m;
-            };
-
-            const minutesToTime = (min) => {
-                const h = Math.floor(min / 60);
-                const m = min % 60;
-                return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-            };
-
-            const formatMinutesToHours = (m) => `${Math.floor(m / 60)}小时${m % 60 > 0 ? ` ${m % 60}分` : ''}`;
-
-            const START_HOUR = 7.5;
-            const END_HOUR = 19;
-            const PIXELS_PER_MINUTE = 1.2;
-
-            // ================= 拖拽逻辑 =================
-            useEffect(() => {
-                if (!dragInfo) return;
-
-                const handlePointerMove = (e) => {
-                    const deltaY = e.clientY - dragInfo.startY;
-                    const deltaMin = Math.round((deltaY / PIXELS_PER_MINUTE) / 10) * 10;
-
-                    setCourses(prev => prev.map(c => {
-                        if (c.id !== dragInfo.id) return c;
-                        const newCourse = { ...c };
-
-                        if (dragInfo.type === 'resize') {
-                            const newEndMin = Math.max(dragInfo.initialStart + 10, dragInfo.initialEnd + deltaMin);
-                            newCourse.end = minutesToTime(newEndMin);
-                        } else if (dragInfo.type === 'move') {
-                            const newStartMin = Math.max(START_HOUR * 60, dragInfo.initialStart + deltaMin);
-                            const duration = dragInfo.initialEnd - dragInfo.initialStart;
-                            newCourse.start = minutesToTime(newStartMin);
-                            newCourse.end = minutesToTime(newStartMin + duration);
-
-                            if (gridRef.current) {
-                                const gridRect = gridRef.current.getBoundingClientRect();
-                                const relativeX = e.clientX - gridRect.left - 64;
-                                if (relativeX > 0 && relativeX < gridRect.width - 64) {
-                                    const colWidth = (gridRect.width - 64) / 5; // 周末剔除后，网格总分为5列
-                                    const colIndex = Math.floor(relativeX / colWidth);
-                                    if (colIndex >= 0 && colIndex <= 4) {
-                                        newCourse.date = formatYMD(weekDays[colIndex]);
-                                    }
-                                }
-                            }
-                        }
-                        return newCourse;
-                    }));
-                };
-
-                const handlePointerUp = () => {
-                    setDragInfo(null);
-                    document.body.classList.remove('drag-active');
-                };
-
-                window.addEventListener('pointermove', handlePointerMove);
-                window.addEventListener('pointerup', handlePointerUp);
-                document.body.classList.add('drag-active');
-
-                return () => {
-                    window.removeEventListener('pointermove', handlePointerMove);
-                    window.removeEventListener('pointerup', handlePointerUp);
-                    document.body.classList.remove('drag-active');
-                };
-            }, [dragInfo, weekDays]);
-
-            // ================= 数据看板渲染逻辑 =================
-            const renderDashboard = () => {
-                const now = new Date();
-                const stats = {};
-                let totalMins = 0;
-                let passedMinsOverall = 0;
-
-                courses.forEach(c => {
-                    if (!stats[c.title]) {
-                        stats[c.title] = { totalCount: 0, passedCount: 0, totalMins: 0, passedMins: 0, totalPeriods: 0, passedPeriods: 0 };
-                    }
-
-                    const duration = timeToMinutes(c.end) - timeToMinutes(c.start);
-                    const periods = Math.round((duration + 10) / 50);
-
-                    stats[c.title].totalCount++;
-                    stats[c.title].totalMins += duration;
-                    stats[c.title].totalPeriods += periods;
-                    totalMins += duration;
-
-                    const courseEndDate = new Date(`${c.date}T${c.end}:00`);
-                    if (courseEndDate < now) {
-                        stats[c.title].passedCount++;
-                        stats[c.title].passedMins += duration;
-                        stats[c.title].passedPeriods += periods;
-                        passedMinsOverall += duration;
-                    }
-                });
-
-                const sortedStats = Object.entries(stats).sort((a, b) => {
-                    const remainPeriodsA = a[1].totalPeriods - a[1].passedPeriods;
-                    const remainPeriodsB = b[1].totalPeriods - b[1].passedPeriods;
-                    return remainPeriodsB - remainPeriodsA;
-                });
-
-                const overallProgress = totalMins === 0 ? 0 : Math.round((passedMinsOverall / totalMins) * 100);
-
-                return html`
-                    <div className="p-4 sm:p-6 flex-1 overflow-y-auto bg-gray-50/50">
-                        <div className="mb-6 p-6 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
-                            <div>
-                                <h2 className="text-xl font-bold text-gray-800">全学期进度总览</h2>
-                                <p className="text-sm text-gray-500 mt-1">
-                                    当前对比基准：<span className="font-semibold text-gray-700">${now.toLocaleString('zh-CN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
-                                </p>
-                            </div>
-                            <div className="text-right flex items-center gap-4">
-                                <div className="text-right">
-                                    <div className="text-3xl font-black text-blue-600">${overallProgress}%</div>
-                                    <div className="text-xs text-gray-400 font-medium">已完成比例</div>
-                                </div>
-                                <div className="relative w-14 h-14">
-                                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                                        <path className="text-gray-100" strokeWidth="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                        <path className="text-blue-500" strokeWidth="4" strokeDasharray="${overallProgress}, 100" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                            ${sortedStats.map(([title, s]) => {
-                                const remainCount = s.totalCount - s.passedCount;
-                                const remainPeriods = s.totalPeriods - s.passedPeriods;
-                                const remainMins = s.totalMins - s.passedMins;
-                                const progress = s.totalCount === 0 ? 0 : Math.round((s.passedCount / s.totalCount) * 100);
-                                const colors = getCourseColors(title);
-
-                                return html`
-                                    <div key=${title} className="bg-white rounded-2xl border ${colors.border} shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                                        <div className="px-4 py-3 ${colors.bg} border-b ${colors.border} flex justify-between items-center">
-                                            <span className="font-bold text-base ${colors.text}">${title}</span>
-                                            <span className="text-xs px-2 py-0.5 bg-white/60 rounded font-bold ${colors.text}">完成 ${progress}%</span>
-                                        </div>
-                                        <div className="p-5">
-                                            <div className="flex justify-between items-end mb-5">
-                                                <div>
-                                                    <div className="text-xs text-gray-500 font-medium mb-1">剩余课次 / 总次</div>
-                                                    <div className="text-2xl font-black text-gray-800">
-                                                        ${remainCount} <span className="text-sm font-medium text-gray-400">/ ${s.totalCount} 次</span>
-                                                    </div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className="text-xs text-gray-500 font-medium mb-1">剩余时间分析</div>
-                                                    <div className="text-lg font-bold text-gray-700">
-                                                        <span className="text-blue-600">${remainPeriods}</span> 节
-                                                    </div>
-                                                    <div className="text-xs text-gray-400 font-medium mt-0.5">
-                                                        (共 ${formatMinutesToHours(remainMins)})
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="w-full bg-gray-100 rounded-full h-2">
-                                                <div className="${colors.bar} h-2 rounded-full transition-all duration-1000" style=${{ width: `${progress}%` }}></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-                            })}
-                        </div>
+        function toolbar(kicker, title, unit) {
+            return `
+                <div class="toolbar">
+                    <div class="toolbar-copy">
+                        <p class="toolbar-kicker">${kicker}</p>
+                        <h2 class="toolbar-title">${title}</h2>
                     </div>
-                `;
-            };
-
-            const currentWeekKey = formatYMD(weekDays[0]);
-
-            return html`
-                <div className="h-screen flex flex-col bg-gray-100 pt-6 pb-8 px-4 sm:px-8 overflow-hidden">
-                    <div className="w-full max-w-7xl mx-auto glass-panel rounded-2xl shadow-sm border border-gray-100 p-4 mb-4 flex flex-col sm:flex-row justify-between items-center gap-4 flex-shrink-0 z-40 relative">
-                        <div className="flex items-center gap-4">
-                            <h1 className="text-2xl font-bold text-gray-800">医学院课表</h1>
-                            ${isEditing ? html`
-                                <span className="px-3 py-1 bg-red-50 text-red-600 rounded-full text-sm font-medium animate-pulse border border-red-200">编辑模式进行中...</span>
-                            ` : html`
-                                <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium hidden sm:block">23级临床八年制</span>
-                            `}
-                        </div>
-
-                        <div className="flex items-center gap-3 flex-wrap justify-end">
-                            ${viewMode !== 'dashboard' && html`
-                                <div className="flex gap-2">
-                                    ${isEditing && html`
-                                        <button onClick=${handleReset} className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 transition-colors">
-                                            <${IconReset} /> 恢复默认
-                                        </button>
-                                    `}
-                                    <button
-                                        onClick=${() => {
-                                            setIsEditing(!isEditing);
-                                            if (viewMode === 'month' && !isEditing) setViewMode('week');
-                                        }}
-                                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold transition-all shadow-sm ${isEditing ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'}"
-                                    >
-                                        ${isEditing ? '保存修改并退出' : html`<${Fragment}><${IconEdit} /> 编辑课表</${Fragment}>`}
-                                    </button>
-                                </div>
-                            `}
-
-                            ${viewMode !== 'dashboard' && html`
-                                <div className="flex items-center gap-2 ml-2">
-                                    <div className="flex items-center bg-gray-50 rounded-lg p-1 border border-gray-200">
-                                        <button onClick=${() => changeDate(-1)} className="p-1.5 hover:bg-white rounded-md transition-colors"><${IconChevronLeft} /></button>
-                                        <span className="w-28 text-center text-sm font-semibold text-gray-700">${getYearMonthLabel()}</span>
-                                        <button onClick=${() => changeDate(1)} className="p-1.5 hover:bg-white rounded-md transition-colors"><${IconChevronRight} /></button>
-                                    </div>
-                                    <button onClick=${goToToday} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-md text-sm font-bold hover:bg-blue-100 transition-colors shadow-sm whitespace-nowrap">
-                                        回本周
-                                    </button>
-                                </div>
-                            `}
-
-                            <div className="flex bg-gray-200/60 rounded-lg p-1">
-                                <button
-                                    onClick=${() => setViewMode('week')}
-                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${viewMode === 'week' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
-                                >
-                                    <${IconList} /> 周视图
-                                </button>
-                                <button
-                                    disabled=${isEditing}
-                                    onClick=${() => setViewMode('month')}
-                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${isEditing ? 'opacity-40 cursor-not-allowed' : ''} ${viewMode === 'month' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
-                                >
-                                    <${IconCalendar} /> 月视图
-                                </button>
-                                <button
-                                    disabled=${isEditing}
-                                    onClick=${() => setViewMode('dashboard')}
-                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${isEditing ? 'opacity-40 cursor-not-allowed' : ''} ${viewMode === 'dashboard' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}"
-                                >
-                                    <${IconDashboard} /> 数据看板
-                                </button>
-                            </div>
-                        </div>
+                    <div class="toolbar-actions">
+                        <button class="toolbar-button" type="button" data-action="prev-${unit}" aria-label="上一${unit === "week" ? "周" : "月"}">‹</button>
+                        <button class="toolbar-button text-button" type="button" data-action="today">定位今日</button>
+                        <button class="toolbar-button" type="button" data-action="next-${unit}" aria-label="下一${unit === "week" ? "周" : "月"}">›</button>
                     </div>
-
-                    <div className="w-full max-w-7xl mx-auto flex-1 glass-panel rounded-2xl shadow-sm border border-gray-100 overflow-hidden bg-white flex flex-col relative z-10">
-
-                        ${viewMode === 'dashboard' && renderDashboard()}
-
-                        ${viewMode === 'month' && html`
-                            <div className="p-4 sm:p-6 overflow-y-auto">
-                                <div className="grid grid-cols-5 gap-px bg-gray-200 border border-gray-200 rounded-xl overflow-hidden">
-                                    ${['周一', '周二', '周三', '周四', '周五'].map(day => html`
-                                        <div key=${day} className="bg-gray-50 py-3 text-center text-sm font-semibold text-gray-500">
-                                            ${day}
-                                        </div>
-                                    `)}
-
-                                    ${monthDays.map((date, idx) => {
-                                        if (!date) return html`<div key=${`empty-${idx}`} className="bg-white min-h-[120px]"></div>`;
-                                        const dateStr = formatYMD(date);
-                                        const dayClasses = courses.filter(c => c.date === dateStr);
-                                        const isToday = formatYMD(new Date()) === dateStr;
-
-                                        return html`
-                                            <div key=${dateStr} className="bg-white min-h-[120px] p-2 border-t border-gray-100 transition-colors hover:bg-gray-50 ${isToday ? 'bg-blue-50/30' : ''}">
-                                                <div className="flex justify-between items-center mb-2">
-                                                    <span className="text-sm font-medium w-7 h-7 flex items-center justify-center rounded-full ${isToday ? 'bg-blue-600 text-white' : 'text-gray-700'}">
-                                                        ${date.getDate()}
-                                                    </span>
-                                                </div>
-                                                <div className="space-y-1.5">
-                                                    ${dayClasses.map((cls) => {
-                                                        const colors = getCourseColors(cls.title);
-                                                        return html`
-                                                            <div key=${cls.id} onClick=${() => setSelectedCourse(cls)}
-                                                                className="p-1.5 rounded-md cursor-pointer border transition-transform hover:scale-[1.02] flex flex-col gap-0.5 ${colors.bg} ${colors.text} ${colors.border}"
-                                                                title="${cls.start}-${cls.end} ${cls.title}">
-                                                                <span className="font-semibold text-xs truncate leading-tight">${cls.title}</span>
-                                                                <span className="opacity-80 text-[10px]">${cls.start} - ${cls.end}</span>
-                                                            </div>
-                                                        `;
-                                                    })}
-                                                </div>
-                                            </div>
-                                        `;
-                                    })}
-                                </div>
-                            </div>
-                        `}
-
-                        ${viewMode === 'week' && html`
-                            <div className="flex flex-col flex-1 overflow-hidden relative">
-                                <div className="flex border-b border-gray-200 bg-gray-50 z-30 sticky top-0 flex-col">
-                                    <div className="flex w-full">
-                                        <div className="w-16 flex-shrink-0 border-r border-gray-200 flex items-center justify-center text-xs text-gray-400">时间</div>
-                                        ${weekDays.map(date => {
-                                            const dateStr = formatYMD(date);
-                                            const isToday = formatYMD(new Date()) === dateStr;
-                                            const dayName = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][date.getDay()];
-
-                                            return html`
-                                                <div key=${dateStr} className="flex-1 py-3 text-center border-r border-gray-100 last:border-r-0">
-                                                    <div className="text-sm font-bold mb-0.5 ${isToday ? 'text-blue-600' : 'text-gray-700'}">${dayName}</div>
-                                                    <div className="text-xs font-medium ${isToday ? 'text-blue-500' : 'text-gray-400'}">
-                                                        ${date.getMonth() + 1}/${date.getDate()}
-                                                    </div>
-                                                </div>
-                                            `;
-                                        })}
-                                    </div>
-                                </div>
-
-                                <div className="flex-1 overflow-y-auto relative no-scrollbar bg-white">
-                                    <div ref=${gridRef} className="flex relative" style=${{ height: `${(END_HOUR - START_HOUR) * 60 * PIXELS_PER_MINUTE}px` }}>
-                                        <div className="w-16 flex-shrink-0 border-r border-gray-200 relative bg-white z-20">
-                                            ${Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => html`
-                                                <div key=${i} className="absolute w-full text-right pr-2 text-xs text-gray-400 -mt-2" style=${{ top: `${i * 60 * PIXELS_PER_MINUTE}px` }}>
-                                                    ${Math.floor(START_HOUR + i)}:00
-                                                </div>
-                                            `)}
-                                        </div>
-
-                                        ${weekDays.map((date) => {
-                                            const dateStr = formatYMD(date);
-                                            const dayClasses = courses.filter(c => c.date === dateStr);
-
-                                            return html`
-                                                <div key=${dateStr} className="flex-1 relative border-r border-gray-100 last:border-r-0">
-                                                    ${Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => html`
-                                                        <div key=${i} className="absolute w-full border-t border-gray-100 pointer-events-none" style=${{ top: `${i * 60 * PIXELS_PER_MINUTE}px` }}></div>
-                                                    `)}
-
-                                                    ${formatYMD(new Date()) === dateStr && html`
-                                                        <div className="absolute inset-0 bg-blue-50/20 pointer-events-none"></div>
-                                                    `}
-
-                                                    ${dayClasses.map((cls) => {
-                                                        const startMin = timeToMinutes(cls.start) - (START_HOUR * 60);
-                                                        const duration = timeToMinutes(cls.end) - timeToMinutes(cls.start);
-                                                        const topPos = startMin * PIXELS_PER_MINUTE;
-                                                        const heightPos = duration * PIXELS_PER_MINUTE;
-                                                        const colors = getCourseColors(cls.title);
-                                                        const isDraggingThis = dragInfo?.id === cls.id;
-
-                                                        return html`
-                                                            <div key=${cls.id}
-                                                                onPointerDown=${(e) => {
-                                                                    if (!isEditing) return;
-                                                                    e.stopPropagation();
-                                                                    setDragInfo({ id: cls.id, type: 'move', startY: e.clientY, startX: e.clientX, initialStart: timeToMinutes(cls.start), initialEnd: timeToMinutes(cls.end) });
-                                                                }}
-                                                                onClick=${() => { if (!isEditing && !dragInfo) setSelectedCourse(cls); }}
-                                                                className="absolute left-1 right-1 rounded-lg border shadow-sm transition-all overflow-hidden flex flex-col
-                                                                    ${isEditing ? 'cursor-move ring-1 ring-black/5 hover:ring-blue-400 hover:shadow-md' : 'cursor-pointer hover:shadow-md hover:-translate-y-0.5'}
-                                                                    ${isDraggingThis ? 'z-50 shadow-2xl opacity-90 scale-105 transition-none ring-2 ring-blue-500' : 'z-10'}
-                                                                    ${colors.bg} ${colors.border} ${colors.text}"
-                                                                style=${{ top: `${topPos}px`, height: `${heightPos}px` }}>
-
-                                                                <div className="p-2 flex-1 pointer-events-none flex flex-col justify-start">
-                                                                    <div className="text-sm font-bold leading-tight mb-1 truncate">${cls.title}</div>
-                                                                    <div className="text-[11px] font-semibold opacity-80 mb-0.5">${cls.start} - ${cls.end}</div>
-                                                                    ${heightPos > 60 && html`<div className="text-[10px] opacity-75 leading-tight truncate">${cls.room}</div>`}
-                                                                </div>
-
-                                                                ${isEditing && html`
-                                                                    <div onPointerDown=${(e) => {
-                                                                        e.stopPropagation();
-                                                                        setDragInfo({ id: cls.id, type: 'resize', startY: e.clientY, startX: e.clientX, initialStart: timeToMinutes(cls.start), initialEnd: timeToMinutes(cls.end) });
-                                                                    }}
-                                                                        className="h-3 w-full cursor-ns-resize flex items-center justify-center bg-black/5 hover:bg-black/15 transition-colors" title="拖动改变时长">
-                                                                        <div className="w-8 h-1 rounded-full bg-black/20"></div>
-                                                                    </div>
-                                                                `}
-                                                            </div>
-                                                        `;
-                                                    })}
-                                                </div>
-                                            `;
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                        `}
-                    </div>
-
-                    ${selectedCourse && html`
-                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity" onClick=${() => setSelectedCourse(null)}>
-                            <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden transform transition-all flex flex-col max-h-[90vh]" onClick=${e => e.stopPropagation()}>
-                                <div className="p-6 border-b ${getCourseColors(selectedCourse.title).bg} flex-shrink-0">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div className="px-2.5 py-1 rounded-md text-xs font-bold border ${getCourseColors(selectedCourse.title).border} ${getCourseColors(selectedCourse.title).text} bg-white/50">
-                                            课程详情
-                                        </div>
-                                        <button onClick=${() => setSelectedCourse(null)} className="text-gray-500 hover:text-gray-800"><${IconClose} /></button>
-                                    </div>
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-1">${selectedCourse.title}</h2>
-                                    <p className="text-gray-700 font-medium">${selectedCourse.date}</p>
-                                </div>
-
-                                <div className="p-6 space-y-6 flex-1 overflow-y-auto">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">上课时间</p>
-                                            <p className="text-gray-800 font-medium text-lg">${selectedCourse.start} <span className="text-gray-400 mx-1">-</span> ${selectedCourse.end}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">上课地点</p>
-                                            <p className="text-gray-800 font-medium text-base leading-tight mt-1">${selectedCourse.room}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `}
                 </div>
             `;
-        };
+        }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(html`<${App} />`);
+        function renderWeek() {
+            const days = Array.from({ length: 5 }, (_, index) => addDays(state.weekStart, index));
+            const end = days[4];
+            const title = `${state.weekStart.getFullYear()} 年 ${state.weekStart.getMonth() + 1} 月 ${state.weekStart.getDate()} 日 — ${end.getMonth() + 1} 月 ${end.getDate()} 日`;
+            const todayKey = formatYmd(weekdayAnchor(new Date()));
+            app.innerHTML = `
+                <section class="panel">
+                    ${toolbar(`第 ${Math.max(1, Math.min(19, Math.floor((state.weekStart - TERM_START) / 604800000) + 1))} 教学周`, title, "week")}
+                    <div class="week-board" aria-label="一周课程安排">
+                        ${days.map((date, index) => {
+                            const dateKey = formatYmd(date);
+                            const dayEvents = eventsOn(dateKey);
+                            const classes = ["day-column"];
+                            if (dateKey === todayKey) classes.push("is-today");
+                            if (dateKey === state.selectedDate) classes.push("is-selected");
+                            return `
+                                <article class="${classes.join(" ")}" data-day-column="${dateKey}">
+                                    <button class="day-jump" type="button" data-date="${dateKey}">
+                                        <span><span class="day-name">${WEEKDAYS[index]}</span><br><span class="day-date">${date.getMonth() + 1} 月 ${date.getDate()} 日</span></span>
+                                        <span class="day-count">${dayEvents.length}</span>
+                                    </button>
+                                    ${dayEvents.length ? `<div class="event-list">${dayEvents.map(eventCard).join("")}</div>` : `<div class="empty-day">今天没有安排<br>留一点空白给自己</div>`}
+                                </article>
+                            `;
+                        }).join("")}
+                    </div>
+                    <div class="term-note">
+                        <span><strong>显示规则</strong> 周课表仅展示周一至周五；周末定位会自动落到相邻工作日。</span>
+                        <span>课程与节假日安排以学院最新通知为准。</span>
+                    </div>
+                </section>
+            `;
+            requestAnimationFrame(() => {
+                const selected = document.querySelector(`[data-day-column="${state.selectedDate}"]`);
+                selected?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+            });
+        }
+
+        function renderMonth() {
+            const year = state.monthStart.getFullYear();
+            const month = state.monthStart.getMonth();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const weekdays = Array.from({ length: daysInMonth }, (_, index) => new Date(year, month, index + 1, 12))
+                .filter(date => date.getDay() >= 1 && date.getDay() <= 5);
+            const leadingCells = (weekdays[0].getDay() + 6) % 7;
+            const days = [...Array(leadingCells).fill(null), ...weekdays];
+            const todayKey = formatYmd(weekdayAnchor(new Date()));
+            app.innerHTML = `
+                <section class="panel">
+                    ${toolbar("学期月历", `${year} 年 ${month + 1} 月`, "month")}
+                    <div class="month-wrap">
+                        <div class="month-grid">
+                            ${WEEKDAYS.map(day => `<div class="month-weekday">${day}</div>`).join("")}
+                            ${days.map(date => {
+                                if (!date) return `<div class="month-day is-empty" aria-hidden="true"></div>`;
+                                const dateKey = formatYmd(date);
+                                const dayEvents = eventsOn(dateKey);
+                                const classes = ["month-day"];
+                                if (dateKey === todayKey) classes.push("is-today");
+                                return `
+                                    <button class="${classes.join(" ")}" type="button" data-date="${dateKey}" aria-label="查看 ${formatDate(dateKey)} 的安排">
+                                        <span class="month-number">${date.getDate()} <small>${WEEKDAYS[date.getDay() - 1]}</small></span>
+                                        <span class="month-events">
+                                            ${dayEvents.slice(0, 4).map(event => `<span class="month-event" style="--course:${event.kind === "exam" ? "#d76552" : event.kind === "holiday" ? "#d69a31" : colorFor(event.title)}">${event.start} · ${escapeHtml(event.title)}</span>`).join("")}
+                                            ${dayEvents.length > 4 ? `<span class="month-more">另 ${dayEvents.length - 4} 项</span>` : ""}
+                                            ${dayEvents.length === 0 ? `<span class="month-more">无安排</span>` : ""}
+                                        </span>
+                                    </button>
+                                `;
+                            }).join("")}
+                        </div>
+                    </div>
+                    <div class="term-note"><span>点选任意日期即可进入对应周课表。</span></div>
+                </section>
+            `;
+        }
+
+        function renderDashboard() {
+            const sortedHours = [...COURSE_HOURS].sort((a, b) => b.hours - a.hours);
+            const maxHours = sortedHours[0].hours;
+            const exams = EVENTS.filter(event => event.kind === "exam");
+            const formalExams = exams.filter(event => !event.title.includes("情景模拟"));
+            const teachingBlocks = EVENTS.filter(event => event.kind === "course").length;
+            app.innerHTML = `
+                <section class="panel">
+                    <div class="toolbar">
+                        <div class="toolbar-copy">
+                            <p class="toolbar-kicker">Semester dashboard</p>
+                            <h2 class="toolbar-title">2026—2027 学年第一学期 · 数据看板</h2>
+                        </div>
+                    </div>
+                    <div class="dashboard">
+                        <div class="kpi-grid">
+                            <article class="kpi-card"><span class="micro-label">课程规模</span><div class="kpi-value">13</div><p class="kpi-label">11 门必修 · 2 门选修</p></article>
+                            <article class="kpi-card"><span class="micro-label">教学周期</span><div class="kpi-value">19</div><p class="kpi-label">2026.09.07—2027.01.17</p></article>
+                            <article class="kpi-card"><span class="micro-label">计划学时</span><div class="kpi-value">540</div><p class="kpi-label">必修 480 · 选修 60</p></article>
+                            <article class="kpi-card"><span class="micro-label">考核安排</span><div class="kpi-value">14</div><p class="kpi-label">${formalExams.length} 场正式考试 · 1 场情景考核</p></article>
+                        </div>
+
+                        <div class="dashboard-grid">
+                            <article class="dashboard-card">
+                                <div class="card-heading"><div><h3 class="card-title">课程学时分布</h3><p class="card-subtitle">按教学安排文件中的计划学时统计，共 ${teachingBlocks} 个授课时段</p></div></div>
+                                <div class="hours-list">
+                                    ${sortedHours.map(course => `
+                                        <div class="hours-row">
+                                            <span class="hours-name" title="${course.name}">${course.name}</span>
+                                            <span class="hours-track"><span class="hours-bar" style="display:block;width:${course.hours / maxHours * 100}%"></span></span>
+                                            <span class="hours-value">${course.hours} 学时</span>
+                                        </div>
+                                    `).join("")}
+                                </div>
+                            </article>
+
+                            <article class="dashboard-card composition">
+                                <div class="card-heading" style="width:100%;margin-bottom:0"><div><h3 class="card-title">教学构成</h3><p class="card-subtitle">理论、见习/实践与 PBL</p></div></div>
+                                <div class="donut"><div class="donut-copy"><strong class="donut-value">540</strong><span class="donut-label">总计划学时</span></div></div>
+                                <div class="legend">
+                                    <div class="legend-row"><span class="legend-dot" style="--dot:var(--brand)"></span><span>理论</span><strong>326</strong></div>
+                                    <div class="legend-row"><span class="legend-dot" style="--dot:var(--warm)"></span><span>见习 / 实践</span><strong>135</strong></div>
+                                    <div class="legend-row"><span class="legend-dot" style="--dot:#8f79c6"></span><span>PBL</span><strong>79</strong></div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <article class="dashboard-card">
+                            <div class="card-heading"><div><h3 class="card-title">考核时间线</h3><p class="card-subtitle">正式考试时间以课程安排文件为准；具体要求另行通知</p></div></div>
+                            <div class="exam-list">
+                                ${exams.map(event => `
+                                    <button class="exam-item" type="button" data-jump-date="${event.date}" aria-label="跳转到 ${formatDate(event.date)} 的课表">
+                                        <div class="exam-date">${parseDate(event.date).getMonth() + 1}/${parseDate(event.date).getDate()}</div>
+                                        <div><p class="exam-title">${escapeHtml(event.title)}</p><span class="exam-time">${event.start}—${event.end} · 第 ${event.week} 周</span></div>
+                                    </button>
+                                `).join("")}
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            `;
+        }
+
+        function render() {
+            document.querySelectorAll("[data-view]").forEach(button => {
+                button.setAttribute("aria-selected", String(button.dataset.view === state.view));
+            });
+            if (state.view === "week") renderWeek();
+            if (state.view === "month") renderMonth();
+            if (state.view === "dashboard") renderDashboard();
+            updateContextualHeader();
+        }
+
+        function openEvent(event) {
+            const courseColor = event.kind === "exam" ? "#d76552" : colorFor(event.title);
+            document.getElementById("modalAccent").style.setProperty("--course", courseColor);
+            document.getElementById("modalKind").textContent = eventType(event.title, event.kind);
+            document.getElementById("modalTitle").textContent = event.title;
+            document.getElementById("modalGrid").innerHTML = `
+                <div class="modal-field"><span class="modal-field-label">日期</span><span class="modal-field-value">${formatDate(event.date)}</span></div>
+                <div class="modal-field"><span class="modal-field-label">教学周</span><span class="modal-field-value">第 ${event.week} 周</span></div>
+                <div class="modal-field"><span class="modal-field-label">时间</span><span class="modal-field-value">${event.start}—${event.end}</span></div>
+                <div class="modal-field"><span class="modal-field-label">类型</span><span class="modal-field-value">${eventType(event.title, event.kind)}</span></div>
+                <div class="modal-field wide"><span class="modal-field-label">地点</span><span class="modal-field-value">${event.room}</span></div>
+            `;
+            dialog.showModal();
+        }
+
+        document.querySelector(".view-tabs").addEventListener("click", event => {
+            const button = event.target.closest("[data-view]");
+            if (!button) return;
+            state.view = button.dataset.view;
+            render();
+        });
+
+        app.addEventListener("click", event => {
+            const jumpButton = event.target.closest("[data-jump-date]");
+            if (jumpButton) {
+                const date = weekdayAnchor(parseDate(jumpButton.dataset.jumpDate));
+                state.selectedDate = formatYmd(date);
+                state.weekStart = startOfWeek(date);
+                state.monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
+                state.view = "week";
+                render();
+                return;
+            }
+
+            const eventButton = event.target.closest("[data-event-id]");
+            if (eventButton) {
+                const selected = EVENTS.find(item => item.id === Number(eventButton.dataset.eventId));
+                if (selected && selected.kind !== "holiday") openEvent(selected);
+                return;
+            }
+
+            const dateButton = event.target.closest("[data-date]");
+            if (dateButton) {
+                const date = parseDate(dateButton.dataset.date);
+                state.selectedDate = dateButton.dataset.date;
+                if (state.view === "month") {
+                    state.weekStart = startOfWeek(date);
+                    state.view = "week";
+                }
+                render();
+                return;
+            }
+
+            const actionButton = event.target.closest("[data-action]");
+            if (!actionButton) return;
+            const action = actionButton.dataset.action;
+            if (action === "prev-week" || action === "next-week") {
+                state.weekStart = addDays(state.weekStart, action === "prev-week" ? -7 : 7);
+                state.selectedDate = formatYmd(state.weekStart);
+            }
+            if (action === "prev-month" || action === "next-month") {
+                state.monthStart = new Date(state.monthStart.getFullYear(), state.monthStart.getMonth() + (action === "prev-month" ? -1 : 1), 1);
+            }
+            if (action === "today") {
+                const current = new Date();
+                const anchor = weekdayAnchor(current < TERM_START ? TERM_START : current > TERM_END ? TERM_END : current);
+                state.selectedDate = formatYmd(anchor);
+                state.weekStart = startOfWeek(anchor);
+                state.monthStart = new Date(anchor.getFullYear(), anchor.getMonth(), 1);
+            }
+            render();
+        });
+
+        document.getElementById("modalClose").addEventListener("click", () => dialog.close());
+        dialog.addEventListener("click", event => {
+            if (event.target === dialog) dialog.close();
+        });
+
+        function nextThemeBoundary(now = new Date()) {
+            const boundary = new Date(now);
+            if (now.getHours() < 8) boundary.setHours(8, 0, 0, 0);
+            else if (now.getHours() < 18) boundary.setHours(18, 0, 0, 0);
+            else {
+                boundary.setDate(boundary.getDate() + 1);
+                boundary.setHours(8, 0, 0, 0);
+            }
+            return boundary;
+        }
+
+        function automaticTheme(now = new Date()) {
+            return now.getHours() >= 18 || now.getHours() < 8 ? "night" : "day";
+        }
+
+        function storedTheme(now = new Date()) {
+            try {
+                const stored = JSON.parse(localStorage.getItem(THEME_KEY));
+                if (stored && stored.expiresAt > now.getTime() && ["day", "night"].includes(stored.theme)) return stored.theme;
+                localStorage.removeItem(THEME_KEY);
+            } catch (_) {
+                localStorage.removeItem(THEME_KEY);
+            }
+            return automaticTheme(now);
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.dataset.theme = theme;
+            const night = theme === "night";
+            document.getElementById("themeIcon").textContent = night ? "☀" : "☾";
+            document.getElementById("themeText").textContent = night ? "日间模式" : "夜间模式";
+            document.getElementById("themeToggle").setAttribute("aria-label", night ? "切换为日间模式" : "切换为夜间模式");
+            document.querySelector('meta[name="theme-color"]').setAttribute("content", night ? "#0c1210" : "#eef3ef");
+        }
+
+        document.getElementById("themeToggle").addEventListener("click", () => {
+            const next = document.documentElement.dataset.theme === "night" ? "day" : "night";
+            localStorage.setItem(THEME_KEY, JSON.stringify({ theme: next, expiresAt: nextThemeBoundary().getTime() }));
+            applyTheme(next);
+        });
+
+        function scheduleThemeSync() {
+            const delay = Math.min(nextThemeBoundary().getTime() - Date.now() + 1000, 2147483647);
+            window.setTimeout(() => {
+                applyTheme(storedTheme());
+                scheduleThemeSync();
+            }, Math.max(delay, 1000));
+        }
+
+        applyTheme(storedTheme());
+        scheduleThemeSync();
+        render();
     </script>
 </body>
 
