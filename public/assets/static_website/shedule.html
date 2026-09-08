@@ -1974,9 +1974,11 @@
         function openEvent(event) {
             const courseColor = event.kind === "exam" ? "#d76552" : colorFor(event.title);
             const detail = teachingDetail(event);
+            const labeledType = eventType(event.title, event.kind);
             const sessions = detail.sessions.map(session => {
+                const displayType = ["PBL", "CBL", "见习"].includes(labeledType) ? labeledType : session.type;
                 const meta = [
-                    session.type ? `形式：${session.type}` : "",
+                    displayType ? `形式：${displayType}` : "",
                     session.teacher ? `教师：${session.teacher}` : "",
                     session.location ? `地点：${session.location}` : "",
                     session.extra ? `安排：${session.extra}` : ""
