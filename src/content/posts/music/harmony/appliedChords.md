@@ -1,5 +1,5 @@
 ---
-title: "Applied chords｜借用和弦"
+title: "借用和弦"
 published: 2022-02-07
 description: "以临时主音为中心的应用和弦，即副属和弦与副导和弦。"
 cover: /media/music/covers/gramophone.jpg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/appliedChords.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：借用和弦　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Applied chords*
 
 *Tonicization* is the process of momentarily emphasizing a non-tonic chord by using chords borrowed from the key in which that chord is tonic. Unlike *modulation*, there is no cadence in a new key, only a short progression of chords borrowed from another key.
 

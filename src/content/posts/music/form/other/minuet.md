@@ -1,5 +1,5 @@
 ---
-title: "Minuet form｜小步舞曲曲式"
+title: "小步舞曲曲式"
 published: 2022-03-04
 description: "小步舞曲及其三声中部的组合方式与内部结构。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/minuet.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/minuet.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：小步舞曲曲式　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Minuet Form*
 
 A classical minuet movement typically contains a *main minuet*, followed by a *trio, \_followed by a \_da capo* repeat of the main minuet (usually performed without taking the repeats). The movement, then, has a large-scale ABA’ form: *minuet–trio–minuet da capo*.
 

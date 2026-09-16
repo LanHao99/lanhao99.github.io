@@ -1,5 +1,5 @@
 ---
-title: "Harmonic syntax - the idealized phrase｜和声句法：理想化乐句"
+title: "和声句法：理想化乐句"
 published: 2022-02-02
 description: "调性音乐中理想化乐句的和声进行模式，即 T–S–D–T 的基本框架。"
 cover: /media/music/graphics/harmony/k331-reduction.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/harmonicSyntax1.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：和声句法：理想化乐句　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Harmonic syntax - the idealized phrase*
 
 *Harmonic syntax* concerns the norms or principles according to which harmonies (chords) are placed into meaningful successions. These norms include progressions that are more or less common than others. Those norms generate expectations for listeners familiar with the style: if **IV–V** is more common than **IV–VI**, the appearance of a **IV** chord generates an expectation that the next chord is more likely to be **V** than it is to be **VI**.
 

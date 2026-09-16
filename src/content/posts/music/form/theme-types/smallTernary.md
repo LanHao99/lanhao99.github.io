@@ -1,5 +1,5 @@
 ---
-title: "The small ternary｜小三部曲式"
+title: "小三部曲式"
 published: 2022-02-15
 description: "由 A–B–A′ 构成的独立小三部结构，常用于舞曲与主题内部。"
 cover: /media/music/graphics/ClassicalThemes/smallTernary.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/smallTernary.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/smallTernary.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：小三部曲式　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*The Small Ternary*
 
 Like the smaller [sentence](/posts/music/form/theme-types/sentence/), [period](/posts/music/form/theme-types/period/), and [hybrid](/posts/music/form/theme-types/hybridThemes/) themes, the small ternary can act alone as the theme of a full-movement form. The small ternary is larger, however–constructed from themes just as the smaller theme types were constructed from phrases and sub-phrases. As a slightly larger structure, this theme type involves interesting questions about formal organization and perception–questions that stem from its historical pedigree among other things–that we will also find in the full-movement forms.
 

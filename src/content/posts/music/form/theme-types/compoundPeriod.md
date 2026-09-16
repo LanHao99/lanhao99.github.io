@@ -1,5 +1,5 @@
 ---
-title: "Compound periods｜复合乐段"
+title: "复合乐段"
 published: 2022-02-13
 description: "由两个乐段式或混合主题叠加而成的复合乐段结构。"
 cover: /media/music/graphics/ClassicalThemes/16period-sent.svg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/compoundPeriod.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/compoundPeriod.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：复合乐段　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Compound period*
 
 The compound period (also called the *16-bar period* because its typical form is 16 bars long) is made of *two themes* instead of *two phrases*. Like an [8-bar period](/posts/music/form/theme-types/period/), the two halves of the compound period exhibit [antecedent](/posts/music/form/theme-types/themeFunctions/#antecedent) and [consequent](/posts/music/form/theme-types/themeFunctions/#consequent) function. To distinguish them, we will call these “large antecedents” and “large consequents.”
 

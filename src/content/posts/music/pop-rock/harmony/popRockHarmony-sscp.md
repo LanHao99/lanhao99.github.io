@@ -1,5 +1,5 @@
 ---
-title: "The “Singer/Songwriter” progression｜唱作人进行"
+title: "唱作人进行"
 published: 2022-04-02
 description: "以 I–V–vi–IV 及其置换为代表的唱作人式和声进行。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/popRockHarmony-sscp.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/popRockHarmony-sscp.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：唱作人进行　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*The Singer/Songwriter chord progression*
 
 **||: VI – IV – I – V :||** (in major／大调中)
 **||: I – VI – III – VII :||** (in minor／小调中)

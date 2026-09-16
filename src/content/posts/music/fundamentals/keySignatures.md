@@ -1,5 +1,5 @@
 ---
-title: "Key signatures｜调号"
+title: "调号"
 published: 2022-01-09
 description: "五度圈、各调号在四种谱号中的写法与识别方法。"
 cover: /media/music/graphics/melodyWithoutKS.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/keySignatures.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：调号　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Key signatures*
 
 When you’re writing in a single key for an extended period of time, it gets tedious to write out the accidentals over and over again.
 

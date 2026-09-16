@@ -1,5 +1,5 @@
 ---
-title: "Internal Expansions｜内部扩展"
+title: "内部扩展"
 published: 2022-02-20
 description: "在主题框架内部插入扩充或延伸，以扩展乐句节奏的手法。"
 cover: /media/music/graphics/form/k494.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/internalExpansions.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：内部扩展　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Internal Expansions*
 
 For many different reasons, a great deal of music written in the late eighteenth and nineteenth centuries exhibits metric patterning, at many different levels of [hypermeter](http://courses.music.indiana.edu/rhythm/illustrations/hypermeter.html), that is duple in structure. Such was the tendency in the nineteenth century that William Rothstein, in [*Phrase Rhythm in Tonal Music*](https://openlibrary.org/works/OL4649619W/Phrase_rhythm_in_tonal_music), has memorably dubbed this “the Great Nineteenth-Century Rhythm Problem.” It is “a danger,” Rothstein says,
 

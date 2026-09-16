@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Sonata Theory｜奏鸣曲式理论导论"
+title: "奏鸣曲式理论导论"
 published: 2022-02-21
 description: "赫普科夫斯基奏鸣曲式理论的基本概念与术语体系。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/SonataTheory-intro.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/SonataTheory-intro.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：奏鸣曲式理论导论　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Introduction to sonata theory*
 
 A classical *sonata* is a multi-movement work for solo instrument, chamber ensemble, or orchestra with at least one movement in *sonata form*. Almost always, the first movement of a sonata is in sonata form. The last movement is typically an upbeat *finale*, which can be in a number of different forms. Inner movements (second movement of a three-movement sonata; second and third movements of a four-movement sonata) are typically slow movements and/or dance movements (minuets or scherzos). Any non-dance movement in a sonata can take sonata form, but rarely *all* of them at once. Commonly, only the first movement takes sonata form, or the first and one other movement. The other movements will take other standard forms, such as minuet/trio, theme-and-variations, rondo, or sonata-rondo. In this unit, we will focus on sonata forms, particularly as they are found in first movements of instrumental sonatas.
 

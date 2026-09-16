@@ -1,5 +1,5 @@
 ---
-title: "Performing a harmonic analysis｜进行和声分析"
+title: "进行和声分析"
 published: 2022-02-04
 description: "和声分析的步骤：划分乐句、标注罗马数字与功能，并解释延伸关系。"
 cover: /media/music/graphics/harmony/XVI-21-prolongation.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/harmonicAnalysis.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：进行和声分析　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Performing a harmonic analysis*
 
 Analyzing harmony in a piece or passage of music involves more than labeling chords. Even the most basic analysis also involves *interpreting* the way that specific chords and progressions function within a broader context. Ultimately, no analysis is complete until individual musical elements are interpreted in light of the work as a whole and the historical setting in which the piece occurs. But this resource simply walks through the steps of performing a basic harmonic analysis, interpreting each chord and chord progression in light of the musical phrase in which it occurs.
 

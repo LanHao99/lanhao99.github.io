@@ -1,5 +1,5 @@
 ---
-title: "Interval (class)｜音程与音程类"
+title: "音程与音程类"
 published: 2022-03-10
 description: "有序音程、无序音程与音程类的定义及其计算方法。"
 cover: /media/music/graphics/postTonal/Ordered-Pitch-Interval.jpg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/interval(Class).html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：音程与音程类　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Interval (class)*
 
 Because intervals are dependent upon the pitches that create them, the consonance and dissonance of intervals in tonal music is determined by tonality itself. Imagine the interval create by G and B-flat, a minor third. In the context of G minor, this is a consonant interval. Respelled as G and A-sharp, it creates a dissonant augmented second. From a tonal perspective, the two intervals are different even though they are the same in isolation.
 

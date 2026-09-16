@@ -1,5 +1,5 @@
 ---
-title: "Harmonic functions｜和声功能"
+title: "和声功能"
 published: 2022-02-01
 description: "主、属、下属三大功能的分组，以及罗马数字与功能低音的对应关系。"
 cover: /media/music/graphics/harmony/circleOfThirds-leadSheet.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/harmonicFunctions.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：和声功能　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Harmonic functions*
 
 If a musical function describes the role that a particular musical element plays in the creation of a larger musical unit, then *a harmonic function describes the role that a particular chord plays in the creating of a larger harmonic progression*. Each chord tends to occur in some musical situations more than others, to progress to some chords more than others. These tendencies work together to create meaningful harmonic progressions, which can in turn form the harmonic foundation for musical *phrases*, *themes*, and larger formal units.
 

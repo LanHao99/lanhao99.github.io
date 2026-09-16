@@ -1,5 +1,5 @@
 ---
-title: "Style and tendency｜风格与倾向性"
+title: "风格与倾向性"
 published: 2022-01-23
 description: "调性音乐中音级与音程的倾向性，及其对写作风格的约束。"
 cover: /media/music/covers/gramophone.jpg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/tendency.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：风格与倾向性　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Style and tendency*
 
 In explaining musical styles, [Leonard Meyer](https://openlibrary.org/works/OL3267613W/Style_and_music) divides musical characteristics into three categories: *laws*, *rules*, and *strategies*. Laws are characteristics of music that are based on human biology and psychology, and as a result laws are more-or-less universal. Rules are culturally conditioned. They are hallmarks of a particular style that are more-or-less universal within the style, but differ from style to style and culture to culture. Finally, strategies are specific ways in which composers work within a style — the things that make one composer’s work sound different from another’s, even if they compose in the same style.
 

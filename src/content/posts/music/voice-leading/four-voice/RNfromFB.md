@@ -1,5 +1,5 @@
 ---
-title: "Generating Roman numerals from a figured bass line｜由数字低音推导罗马数字"
+title: "由数字低音推导罗马数字"
 published: 2022-01-21
 description: "从数字低音与低音位置反推罗马数字与和弦转位。"
 cover: /media/music/graphics/Inversions/5-3chords.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/RNfromFB.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：由数字低音推导罗马数字　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Generating Roman numerals from a figured bass line*
 
 Both bass lines and root progressions are important for the study and mastery of tonal harmony. Most of our work will focus on the bass lines, and what follows will help you analyze the root progressions present in any figured bass line. In other words, this will help you perform a Roman numeral analysis of a figured bass line.
 

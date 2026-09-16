@@ -1,5 +1,5 @@
 ---
-title: "Symmetry and Centricity｜对称与中心性"
+title: "对称与中心性"
 published: 2022-03-13
 description: "音高集合的对称类型与中心性，及其在作品中的听觉效果。"
 cover: /media/music/graphics/postTonal/upper.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/symmetryAndCentricity.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：对称与中心性　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Symmetry and Centricity*
 
 Centricity in post-tonal music can be established in a variety of ways, often simply by emphasis. When a particular pitch-class is regularly the lowest, highest, loudest, or longest in a passage, that pitch-class becomes something like a tonic.
 

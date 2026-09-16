@@ -1,5 +1,5 @@
 ---
-title: "Composing in basso-continuo style｜严格通奏低音风格写作"
+title: "严格通奏低音风格写作"
 published: 2022-01-22
 description: "以严格风格实现数字低音的步骤与声部进行要求。"
 cover: /media/music/graphics/BCModel.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/bassoContinuo.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：严格通奏低音风格写作　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Composing in basso-continuo style*
 
 *Basso continuo* (It. for “continuous bass” or “thoroughbass”) is essentially a chordal version of first-species counterpoint. However, instead of composing a single line above a cantus firmus, one composes a succession of chords (performed in the right hand) above a bass line (performed in the left hand). *Basso continuo* writing, also referred to as *realizing a figured bass*, gives no consideration to melody, only to the use of proper chords and the smoothest voice-leading possible. Thus, *basso continuo* style is a simple place to begin engaging the “fundamental musical problems” that arise when more than two lines are combined.
 

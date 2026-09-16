@@ -1,5 +1,5 @@
 ---
-title: "Terminology and basic concepts｜术语与基本概念"
+title: "术语与基本概念"
 published: 2022-04-09
 description: "流行摇滚曲式分析所需的术语与基本概念界定。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/popRockForm-terms
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/popRockForm-terms)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：术语与基本概念　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Form in pop/rock music – Terminology and basic concepts*
 
 This document is a glossary of terms and concepts that we will use in our analysis of pop/rock music. Terms, concepts, definitions, and notational guidelines in this document are taken either from common convention; the published or unpublished work of Jason Summach, John Covach, Walter Everett, Mark Spicer, or Daniel Harrison; or some combination thereof.
 

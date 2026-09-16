@@ -1,5 +1,5 @@
 ---
-title: "Inversion｜倒影"
+title: "倒影"
 published: 2022-03-16
 description: "音高集合倒影的运算方法，以及倒影与移位的关系。"
 cover: /media/music/graphics/postTonal/inversion.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/inversion.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：倒影　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Inversion*
 
 Inversion, like transposition, is often associated with motion that connects similar objects. You need to be able to (1) invert a collection of pitches and (2) determine the inversional relationship between two collections of pitches.
 

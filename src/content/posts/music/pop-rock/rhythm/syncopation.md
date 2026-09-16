@@ -1,5 +1,5 @@
 ---
-title: "Syncopation in pop/rock music｜流行摇滚中的切分"
+title: "流行摇滚中的切分"
 published: 2022-03-30
 description: "流行与摇滚音乐中切分的类型、记法与听觉辨识。"
 cover: /media/music/graphics/syncopation/quarterToEighth.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/syncopation.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：流行摇滚中的切分　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Syncopation in pop/rock music*
 
 *Syncopation* occurs when a rhythmic pattern that typically occurs on strong beats or strong parts of the beat occurs instead on weak beats or weak parts of the beat. Most pop/rock songs have a mixture of syncopated and “straight” rhythms. The syncopated rhythms are usually easy to sing, since they often match speech better than straight rhythms. However, they are more difficult than straight rhythms to sight-sing, dictate, or transcribe.
 

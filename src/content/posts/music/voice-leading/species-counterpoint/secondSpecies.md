@@ -1,5 +1,5 @@
 ---
-title: "Composing a second-species counterpoint｜第二类对位写作"
+title: "第二类对位写作"
 published: 2022-01-16
 description: "二对一音符的严格二声部写作规则与检查清单。"
 cover: /media/music/covers/gramophone.jpg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/secondSpecies.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：第二类对位写作　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Composing a second-species counterpoint*
 
 In second-species counterpoint, the counterpoint line moves in half notes against a cantus firmus in whole notes. This 2:1 rhythmic ratio leads to two new “fundamental musical problems”—one metric and one harmonic: the differentiation between *strong beats* and *weak beats*, and the introduction of the *passing tone* dissonance.
 

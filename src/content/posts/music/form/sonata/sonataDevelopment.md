@@ -1,5 +1,5 @@
 ---
-title: "Sonata form: the development｜奏鸣曲式：展开部"
+title: "奏鸣曲式：展开部"
 published: 2022-02-26
 description: "展开部的调性策略、材料处理与向再现部过渡的方式。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/sonataDevelopment.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/sonataDevelopment.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：奏鸣曲式：展开部　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Sonata Form – the development*
 
 The development section, the second large-scale section of a sonata form, succeeds the exposition’s second part. It is by far the least conventional section of the sonata. Its relatively unstable tonal and phrase-structural characteristics motivate the return to stability in the recapitulation.
 

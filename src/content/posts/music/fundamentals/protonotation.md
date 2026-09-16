@@ -1,5 +1,5 @@
 ---
-title: "Protonotation｜原生记谱法"
+title: "原生记谱法"
 published: 2022-01-04
 description: "脱离五线谱的节奏记谱训练法，用简单符号记录节拍、分组与音高轮廓。"
 cover: /media/music/graphics/protonotation/demoMel.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/protonotation.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：原生记谱法　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Protonotation*
 
 *Protonotation* is a system of musical notation stripped of complicating elements, and focusing only on basic elements of meter, rhythm, and scale degree. (This system is drawn from Gary Karpinski’s *Manual for Ear Training and Sight Singing*.) Following is an example melody in both standard notation and protonotation (click images to view full size).
 

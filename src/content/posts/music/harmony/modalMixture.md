@@ -1,5 +1,5 @@
 ---
-title: "Modal mixture｜调式交替"
+title: "调式交替"
 published: 2022-02-08
 description: "大调与小调之间借用和弦的用法，即调式交替和声。"
 cover: /media/music/covers/gramophone.jpg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/modalMixture.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：调式交替　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Modal mixture*
 
 *Modal mixture* (also called *modal borrowing*) refers to the use of chords belonging to a parallel key—for example, a passage in F major incorporating one or more chords from F minor. Note that, like with the use of applied chords, this does not necessarily constitute modulation. Only a cadence can confirm a new key. Without a cadence in a new key, the non-diatonic chords are simply “borrowed.”
 

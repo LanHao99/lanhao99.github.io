@@ -1,5 +1,5 @@
 ---
-title: "Introduction to thoroughbass｜数字低音导论"
+title: "数字低音导论"
 published: 2022-01-19
 description: "数字低音记号的写法与含义，以及和声进行的图解表示。"
 cover: /media/music/graphics/Bach1033.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/thoroughbassFigures.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：数字低音导论　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Introduction to thoroughbass*
 
 A *thoroughbass* (It. *Basso continuo*, Ger. *Generalbaß*, also called a *figured bass*) is a harmonic shorthand of a musical passage or work. It is composed of a bass line, and chord symbols—called *figures*. It is called a “thorough” bass or “continuous” bass line because it includes the lowest sounding note at any given moment, *regardless of the instrument or voice sounding the note*. It usually corresponds to a single instrument or vocal part, but not always.
 

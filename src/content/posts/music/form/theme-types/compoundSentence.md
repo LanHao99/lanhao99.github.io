@@ -1,5 +1,5 @@
 ---
-title: "Compound sentences｜复合乐句式"
+title: "复合乐句式"
 published: 2022-02-14
 description: "由两个乐句式主题叠加而成的复合乐句式结构。"
 cover: /media/music/graphics/ClassicalThemes/16sentence.svg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/compoundSentence.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/compoundSentence.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：复合乐句式　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Compound Sentence*
 
 The compound (or 16-bar) sentence expands both the presentation and continuation phrases of a regular [sentence](/posts/music/form/theme-types/sentence/) to a length of eight bars each.
 

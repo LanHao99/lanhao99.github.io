@@ -1,5 +1,5 @@
 ---
-title: "Harmonic syntax - prolongation｜和声句法：延伸"
+title: "和声句法：延伸"
 published: 2022-02-03
 description: "通过功能延伸扩展理想化乐句，使和声进行在更长的时间跨度上展开。"
 cover: /media/music/graphics/harmony/subsidiaryProgression.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/harmonicSyntax2.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：和声句法：延伸　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Harmonic syntax - prolongation*
 
 Following are the primary techniques used to prolong functional zones in an idealized classical phrase. Examples of specific progressions and notational conventions are provided.
 

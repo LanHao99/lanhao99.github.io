@@ -1,5 +1,5 @@
 ---
-title: "Complements｜补集"
+title: "补集"
 published: 2022-03-19
 description: "集合的补集关系，以及补集与音程向量之间的联系。"
 cover: /media/music/graphics/postTonal/complements.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/complements.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：补集　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Complements*
 
 The *literal complement* of a pitch-class set is every pitch not included in that set. For example, the complement of the seven-note C major scale is the five-note pentatonic scale: F-sharp, G-sharp, A-sharp, C-sharp, and D-sharp.
 

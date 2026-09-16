@@ -1,5 +1,5 @@
 ---
-title: "Melodic keyboard-style voice-leading schemata｜旋律化键盘织体声部进行程式"
+title: "旋律化键盘织体声部进行程式"
 published: 2022-01-27
 description: "键盘织体常用的声部进行程式及其变化形式。"
 cover: /media/music/graphics/harmony/VE64.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/KBVLschemata.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/KBVLschemata.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：旋律化键盘织体声部进行程式　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Keyboard-style voice-leading schemata*
 
 Following are a number of *schemata* for keyboard-style voice-leading. Some of these are patterns that are common enough to warrant special attention (and memorization). Others require non-default voice-leading or doublings. In any case, these are worth memorizing to assist both in composition/arranging and in recognition of standard patterns. (Some will also come in handy for chorale-style voice-leading.)
 

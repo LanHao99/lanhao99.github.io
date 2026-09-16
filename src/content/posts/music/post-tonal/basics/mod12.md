@@ -1,5 +1,5 @@
 ---
-title: "Modular 12 arithmetic｜模 12 运算"
+title: "模 12 运算"
 published: 2022-03-11
 description: "以模 12 算术表示音级与音程，为集合理论提供计算基础。"
 cover: /media/music/graphics/postTonal/Pitch-class-Space.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/mod12.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/mod12.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：模 12 运算　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Modulo Arithmetic*
 
 What time is four hours later than 10 o’clock?
 

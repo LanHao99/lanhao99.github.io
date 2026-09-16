@@ -1,5 +1,5 @@
 ---
-title: "Analytical notation｜分析记谱法"
+title: "分析记谱法"
 published: 2022-04-12
 description: "流行摇滚曲式分析的记谱符号与标注规范。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/popRockForm-notation
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/popRockForm-notation)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：分析记谱法　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Form in pop/rock music – Analytical notation*
 
 Following are notational conventions for analyses of musical form.
 

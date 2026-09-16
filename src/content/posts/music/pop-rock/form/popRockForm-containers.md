@@ -1,5 +1,5 @@
 ---
-title: "Formal containers and module structures｜形式容器与模块结构"
+title: "形式容器与模块结构"
 published: 2022-04-10
 description: "以容器概念组织乐段、副歌等模块的层级结构。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/popRockForm-containers
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/popRockForm-containers)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：形式容器与模块结构　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Form in pop/rock music – Formal containers and module structures*
 
 ## Formal Containers｜形式容器
 

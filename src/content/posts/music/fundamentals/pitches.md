@@ -1,5 +1,5 @@
 ---
-title: "Pitches｜音高"
+title: "音高"
 published: 2022-01-07
 description: "音名体系、八度分组、键盘位置，以及不同谱号中音高的辨认。"
 cover: /media/music/graphics/keyboardlayout-small.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/pitches.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/pitches.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：音高　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Pitches and octave designations*
 
 ## The Keyboard｜键盘
 

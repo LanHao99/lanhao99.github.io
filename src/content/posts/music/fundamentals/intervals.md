@@ -1,5 +1,5 @@
 ---
-title: "Intervals｜音程"
+title: "音程"
 published: 2022-01-10
 description: "音程的命名、性质、转位与复音程的算法。"
 cover: /media/music/graphics/intervals/C4E4.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/intervals.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/intervals.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：音程　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Intervals and dyads*
 
 An *interval* is the distance between two pitches, usually measured as a number of steps on a scale.
 

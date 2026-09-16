@@ -1,5 +1,5 @@
 ---
-title: "Plagal progressions｜变格进行"
+title: "变格进行"
 published: 2022-04-07
 description: "以 IV–I 为代表的变格进行在流行摇滚中的应用。"
 cover: /media/music/covers/gramophone.jpg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/popRockHarmony-plagal.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：变格进行　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Plagal progressions*
 
 The IV chord, while certainly an extremely frequent predominant/subdominant chord in common-practice repertoire, has an even more prominent place in pop/rock music. Perhaps borne out of the 5-6 neighboring motion found in shuffle-blues guitar accompaniment patterns, an alternation between I and IV is a common occurrence in numerous genres.
 

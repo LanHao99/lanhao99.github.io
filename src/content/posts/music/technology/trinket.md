@@ -1,5 +1,5 @@
 ---
-title: "Using Trinket (interactive music notation)｜使用 Trinket 记写乐谱"
+title: "使用 Trinket 记写乐谱"
 published: 2022-04-14
 description: "以 Trinket 在线环境进行交互式音乐记谱与练习的方法。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/trinket.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/trinket.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：使用 Trinket 记写乐谱　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Using Trinket*
 
 <iframe src="https://trinket.io/embed/music/a089e987ca" width="100%" height="300" frameborder="0" allowfullscreen></iframe>
 

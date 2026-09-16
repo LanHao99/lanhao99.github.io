@@ -1,5 +1,5 @@
 ---
-title: "Sonata form: exposition types｜奏鸣曲式：呈示部类型"
+title: "奏鸣曲式：呈示部类型"
 published: 2022-02-22
 description: "呈示部的类型划分，以及主部、连接、副部、结束部的分工。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/SonataTheory-exposition.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/SonataTheory-exposition.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：奏鸣曲式：呈示部类型　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Sonata form – exposition types*
 
 The exposition module of a sonata movement comes at or near the beginning of a sonata-form movement. Only an *introduction* (technically, a large [*prefix*](/posts/music/form/phrase-rhythm/externalExpansions/)) might precede it. It exhibits exposition function, and thus has three jobs: *establish the home key*, *move to and establish a secondary key with a cadence*, and *lay out the thematic cycle* that will serve as the foundation for the development and recapitulation.
 

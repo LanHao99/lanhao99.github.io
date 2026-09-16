@@ -1,5 +1,5 @@
 ---
-title: "The blues progression｜布鲁斯进行"
+title: "布鲁斯进行"
 published: 2022-04-04
 description: "十二小节布鲁斯的和声骨架与常见变体。"
 cover: /media/music/covers/gramophone.jpg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/popRockHarmony-blues.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：布鲁斯进行　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*The blues progression*
 
 A *12-bar blues progression* is composed of three (typically) four-bar phrases. The first phrase is entirely tonic harmony (I). The second phrase contains two bars of subdominant (IV) and two bars of tonic (I). The final phrase begins with one bar of dominant (V) followed by one bar of subdominant (IV) and two bars of tonic (I). The third phrase may or may not end with a *turnaround*.
 

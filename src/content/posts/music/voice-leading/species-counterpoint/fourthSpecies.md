@@ -1,5 +1,5 @@
 ---
-title: "Composing a fourth-species counterpoint｜第四类对位写作"
+title: "第四类对位写作"
 published: 2022-01-18
 description: "切分式二声部写作，即延留音对位法的规则与处理。"
 cover: /media/music/covers/gramophone.jpg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/fourthSpecies.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：第四类对位写作　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Composing a fourth-species counterpoint*
 
 In fourth-species counterpoint, the counterpoint line and cantus firmus both move once per bar, but they are rhythmically offset from each other by a half note. (Think syncopation on the bar level.) The counterpoint line will be notated in half notes, with each weak-beat half note tied across the bar line to the following strong beat. This arrangement means that in pure fourth-species counterpoint, the two lines always move in oblique motion. It also introduces a new kind of dissonance: the *suspension*.
 

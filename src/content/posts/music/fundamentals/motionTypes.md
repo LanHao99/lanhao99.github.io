@@ -1,5 +1,5 @@
 ---
-title: "Types of motion｜声部运动类型"
+title: "声部运动类型"
 published: 2022-01-12
 description: "平行、同向、反向、斜向四种声部进行方式及其听觉效果。"
 cover: /media/music/graphics/intervals/parallel.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/motionTypes.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/motionTypes.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：声部运动类型　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Types of contrapuntal motion*
 
 There are four types of contrapuntal motion between two musical lines. Differentiating these four types of motion is essential to generating good voice-leading, both strict and free.
 

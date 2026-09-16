@@ -1,5 +1,5 @@
 ---
-title: "External Expansions｜外部扩展"
+title: "外部扩展"
 published: 2022-02-19
 description: "在主题框架之外附加引子或尾声，以扩展乐句节奏的手法。"
 cover: /media/music/graphics/form/sym101.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/externalExpansions.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：外部扩展　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*External Expansions*
 
 A theme is often preceded or followed by material outside of its typical boundaries, but which is clearly dependent on the theme. This material is *external* to the theme itself— “before-the-beginning” or “after-the-end,” as William Caplin as termed it.
 

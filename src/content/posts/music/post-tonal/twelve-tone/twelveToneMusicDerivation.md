@@ -1,5 +1,5 @@
 ---
-title: "Derivation｜派生"
+title: "派生"
 published: 2022-03-24
 description: "由基本集合派生出整个序列的方法与实例。"
 cover: /media/music/graphics/postTonal/derivedRow.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/twelveToneMusicDerivation.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/twelveToneMusicDerivation.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：派生　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Twelve-Tone Music — Derived Rows*
 
 *Derived rows* are rows whose non-overlapping segments (*discrete* segments) belong to the same set class. Because they must not overlap, discrete subsets divide the row into either six 2-note segments, four 3-note segments, three 4-note segments, or two 6-note segments. (In general, we are mostly concerned with rows that are trichordally- or tetrachordally-derived.)
 

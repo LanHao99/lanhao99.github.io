@@ -1,5 +1,5 @@
 ---
-title: "Scales and scale degrees｜音阶与音级"
+title: "音阶与音级"
 published: 2022-01-08
 description: "大调、自然小调、和声小调、旋律小调的音阶构造与音级标记。"
 cover: /media/music/graphics/chromaticscale.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/scales.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：音阶与音级　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Scales and scale degrees*
 
 A scale is a succession of pitches ascending or descending in steps. There are two types of steps: *half steps* and *whole steps*. A half step (H) consists of two adjacent pitches on the keyboard. A whole step (W) consists of two half steps. Usually, the pitches in a scale are each notated with different letter names, though this isn’t always possible or desirable.
 

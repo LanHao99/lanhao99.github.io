@@ -1,5 +1,5 @@
 ---
-title: "Classical cadence types｜古典终止类型"
+title: "古典终止类型"
 published: 2022-02-05
 description: "古典风格中的终止类型，包括完满终止、不完满终止与半终止。"
 cover: /media/music/graphics/cadences/Compound43.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/cadenceTypes.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：古典终止类型　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Classical cadence types*
 
 A *cadence* is a point of arrival that punctuates the end of a musical unit, such as a phrase, theme, large formal section, or movement. A cadence is at once a harmonic, melodic, rhythmic, and formal event, but cadences tend to be grouped according to different ways in which harmony and melody articulate that point of arrival.
 

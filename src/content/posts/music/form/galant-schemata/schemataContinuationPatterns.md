@@ -1,5 +1,5 @@
 ---
-title: "Galant Schemata – continuation patterns｜加兰特程式：延续型"
+title: "加兰特程式：延续型"
 published: 2022-03-06
 description: "加兰特风格中用于乐句延续的程式，如 Fonte、Monte 等。"
 cover: /media/music/graphics/form/fonte.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/schemataContinuationPatterns)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：加兰特程式：延续型　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Galant Schemata – continuation patterns*
 
 The three schema below were described first by the eighteenth-century theorist Joseph Riepel. They are [“continuation patterns”](http://www.mtosmt.org/issues/mto.05.11.2/mto.05.11.2.eckert.html), often found after the first double bar in a minuet. The “Fonte” and “Monte” are both sequential, the “Ponte” is a way of extending a harmony.
 

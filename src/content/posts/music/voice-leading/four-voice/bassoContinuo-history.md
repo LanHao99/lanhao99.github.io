@@ -1,5 +1,5 @@
 ---
-title: "A brief history of basso continuo｜通奏低音简史"
+title: "通奏低音简史"
 published: 2022-01-20
 description: "通奏低音在巴洛克时期的兴起、实践方式与历史地位。"
 cover: /media/music/graphics/Bach1033.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/bassoContinuo-history.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/bassoContinuo-history.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：通奏低音简史　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*A brief history of basso continuo keyboard-style voice-leading*
 
 *Basso continuo* emerged in the seventeenth century as a shorthand notation for keyboardists (typically church organists) who were accompanying a soloist or small ensemble performing a work originally composed for a larger group. For example, if two or three singers were tasked with performing an eight-voice choral work, they could select the most prominent parts to sing, while an organist could cover the rest. Performing five or six lines of contrapuntal choral music could be a significant challenge, so organists needed a way to condense the texture while still preserving the core musical structure to support the vocalists.
 

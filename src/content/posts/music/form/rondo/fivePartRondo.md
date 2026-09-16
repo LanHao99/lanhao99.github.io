@@ -1,5 +1,5 @@
 ---
-title: "Five-Part Rondo｜五部回旋曲式"
+title: "五部回旋曲式"
 published: 2022-03-02
 description: "ABACA 五部回旋曲式的结构、调性布局与典型用法。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/fivePartRondo.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/fivePartRondo.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：五部回旋曲式　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Five-Part Rondo Form*
 
 A five-part rondo contains three refrains separated by two episodes: ABACA. (We will occasionally use these short-hand letter designations (A, B, and so on) to label rondos, but get in the habit of labeling the sections as “Refrain 1,” “Refrain 2,” “Episode 1,” etc., to avoid ambiguity with lower-level, embedded forms.)
 

@@ -1,5 +1,5 @@
 ---
-title: "Thematic Modules｜主题模块"
+title: "主题模块"
 published: 2022-02-24
 description: "奏鸣曲式中以字母标记的主题模块及其组合方式。"
 cover: /media/music/graphics/form/TR.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/sonataThematicModules.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/sonataThematicModules.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：主题模块　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Sonata form – thematic modules*
 
 The four thematic modules that comprise a typical two-part sonata exposition (P, TR, S, and C) create a thematic rotation that is found again in the recapitulation and often referenced in the development.
 

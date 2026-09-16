@@ -1,5 +1,5 @@
 ---
-title: "Modulation｜转调"
+title: "转调"
 published: 2022-02-09
 description: "通过中介和弦、共同和弦与半音化手段完成转调的方法。"
 cover: /media/music/graphics/harmony/pivot.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/Modulation.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：转调　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Modulation*
 
 *Tonicization* occurs when a chord or short succession of chords are borrowed from another key in order to emphasize—or *tonicize*—a chord in the home key. (See [analyzing applied chords](/posts/music/harmony/appliedChords/).) *Modulation* occurs when a longer succession of chords emphasizes a new tonic, leading to the perception of a new key. The principal difference between tonicization and modulation is the presence or absence of a cadence: tonicization does *not* incorporate a cadence in the tonicized key; modulation *does* incorporate at least one cadence (PAC, IAC, or HC) in a new key.
 

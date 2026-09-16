@@ -1,5 +1,5 @@
 ---
-title: "Hybrid themes｜混合主题"
+title: "混合主题"
 published: 2022-02-12
 description: "由乐句式的开头与乐段式的结尾组合而成的混合主题类型。"
 cover: /media/music/graphics/ClassicalThemes/hybrid1.svg
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/hybridThemes.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：混合主题　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Hybrid themes*
 
 Hybrid themes mixes the [functional features](/posts/music/form/theme-types/themeFunctions/) of [sentences](/posts/music/form/theme-types/sentence/) and [periods](/posts/music/form/theme-types/period/). William Caplin has identified four primary types:
 

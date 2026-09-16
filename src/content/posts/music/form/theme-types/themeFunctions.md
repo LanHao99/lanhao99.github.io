@@ -1,5 +1,5 @@
 ---
-title: "Thematic function reference｜主题功能参考表"
+title: "主题功能参考表"
 published: 2022-02-18
 description: "汇总主题内部各功能段落及其标志性特征的速查表。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/themeFunctions.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/themeFunctions.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：主题功能参考表　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Thematic Function*
 
 This page is a quick-reference. For examples of these functions in musical contexts, see the resource on [Classical theme types](/posts/music/form/theme-types/classicalThemes/).
 

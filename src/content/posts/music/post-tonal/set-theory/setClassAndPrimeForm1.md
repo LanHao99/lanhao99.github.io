@@ -1,5 +1,5 @@
 ---
-title: "Set Class and Prime Form (1)｜集合类与本原形式（一）"
+title: "集合类与本原形式（一）"
 published: 2022-03-17
 description: "集合类与本原形式的基本概念及求取步骤。"
 cover: /media/music/graphics/postTonal/subjecdtAndReflection.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/setClassAndPrimeForm1.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：集合类与本原形式（一）　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Set Class and Prime Form (1)*
 
 Lots of concepts in pitch-class set theory are best viewed along a sliding scale of “concreteness” or “abstractness.” A concept like *pitch*, for example, is very concrete, while *pitch class* is somewhat more abstract. We can perform a pitch, but we can’t really perform a pitch class. We’ve seen similar examples in the intervallic realm. Ordered pitch intervals are associated with a very specific sound (e.g., +15); unordered pitch-class intervals (e.g., interval class 1) are less vivid or real. A basic concept in pitch-class set theory is that these levels of concreteness and abstractness encompass not only pitch and interval, but groups of pitch classes as well. These groups of pitch classes are called *pitch-class sets*.
 

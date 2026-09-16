@@ -1,5 +1,5 @@
 ---
-title: "Sonata form: the recapitulation｜奏鸣曲式：再现部"
+title: "奏鸣曲式：再现部"
 published: 2022-02-25
 description: "再现部的类型与调性调整方式，以及其对呈示部的回应。"
 cover: /media/music/covers/gramophone.jpg
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/sonataRecap.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/sonataRecap.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：奏鸣曲式：再现部　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Sonata form – the recapitulation*
 
 The *recapitulation* is the goal of the sonata, coming after the *exposition* and the *development* (anything that precedes the exposition is *introduction* and anything that follows the recapitulation is *coda*). It answers the expectations set forth by the exposition, and it brings the *essential sonata closure*. Thus, the relationship between the exposition and the recapitulation is the a central focus of a sonata analysis.
 

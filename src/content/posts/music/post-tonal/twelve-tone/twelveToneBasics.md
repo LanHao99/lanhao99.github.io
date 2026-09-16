@@ -1,5 +1,5 @@
 ---
-title: "Basics｜十二音基础"
+title: "十二音基础"
 published: 2022-03-21
 description: "十二音序列的基本概念，含原型、倒影及其家族关系。"
 cover: /media/music/graphics/postTonal/basicRow.png
@@ -14,10 +14,7 @@ sourceLink: https://openmusictheory.github.io/twelveToneBasics.html
 comment: true
 draft: false
 ---
-
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/twelveToneBasics.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：十二音基础　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Twelve-Tone Theory — Basics*
 
 Twelve-tone music is most often associated with a compositional technique, or style, called *serialism*. The terms are not equivalent, however. *Serialism* is a broad designator referring to the *ordering* of things, whether they are pitches, durations, dynamics, and so on. Twelve-tone composition refers more specifically to music based on orderings of the *twelve pitch classes*.
 

@@ -1,5 +1,5 @@
 ---
-title: "Collections and Scales｜音列与音阶"
+title: "音列与音阶"
 published: 2022-03-12
 description: "后调性语境中的各类音阶与音列，含教会调式、五声、全音与八声音阶。"
 cover: /media/music/graphics/postTonal/modes/ionian.png
@@ -15,9 +15,7 @@ comment: true
 draft: false
 ---
 
-> **来源**：本文选自 [Open Music Theory](https://openmusictheory.github.io/scales2.html)，由 Hybrid Pedagogy Publishing 出版，采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
->
-> **中文名**：音列与音阶　|　**归档说明**：中英对照，每段英文原文后附中文译文，英文原文未作删减；图片与音频已本地化，站内链接已改为本站链接。
+*Collections and Scales*
 
 Folk, pop, classical, and modern composers often organize pitch materials using scales other than major and minor. Some of these scales, like the various diatonic *modes* and the pentatonic collection, are relatively familiar to most listeners. Others — such as octatonic, whole-tone, and acoustic collections/scales — are more novel, and usually (but not always) found in twentieth- and twenty-first-century compositions.
 
